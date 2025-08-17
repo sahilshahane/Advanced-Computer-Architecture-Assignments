@@ -1,0 +1,65 @@
+Double size : 8 Bytes
+
+Cache Level	Size per Core / Shared	Layout Details
+L1	~80 KB per core	~48 KB for data, 32 KB for instructions (https://www.eatyourbytes.com/cpu-detail/intel-i5-11400h/?utm_source=chatgpt.com)
+L2	~1280 KB per core	Dedicated per core (https://www.eatyourbytes.com/cpu-detail/intel-i5-11400h/?utm_source=chatgpt.com)
+L3	12 MB shared	Shared across all cores (https://www.eatyourbytes.com/cpu-detail/intel-i5-11400h/?utm_source=chatgpt.com)
+
+L1 - can store ~6144 elements 
+L2 - can store ~163840 elements
+L3 - can store ~1572864 elements
+
+Great timing—on your i5-11400H (Tiger Lake-H), the useful breakpoints come from its cache sizes:
+
+L1D ≈ 48 KB per core, L1I 32 KB per core
+
+L2 ≈ 1.25 MB per core
+
+L3 (Intel Smart Cache) = 12 MB shared
+Sources: Intel ARK (12 MB L3) and the Tiger Lake datasheet/L1–L2 breakdown. 
+Intel
+Intel CDR
+Wikipedia
+CPU World
+
+A square N×N double GEMM touches ~3·N²·8 = 24·N² bytes (A, B, C). That lets us pick sizes that (a) fit comfortably in a cache level, (b) straddle its boundary, and (c) go well beyond it to show the “memory wall”.
+
+Recommended test sizes (square matrices)
+
+Use a spread that hits each regime and includes some “awkward” (non-power-of-two) sizes:
+
+Tiny (warm-L1/L2, compute-bound): N = 64, 96, 128, 160, 192
+(All three matrices ~0.094–0.71 MiB total; helpful to see pure SIMD speedups.)
+
+L2/L3 transition (still cache-friendly): N = 224, 256, 320, 384, 448, 512
+(Up to ~6 MiB footprint; near/within per-core L2 working sets depending on your blocking.)
+
+Around L3 capacity (~12 MB): N ≈ 704–736 cross the 12 MB line
+(Since 24·N² ≈ 12 MiB ⇒ N ≈ 724.) Test N = 672, 704, 736, 768 to capture the knee. 
+Intel
+
+Clearly memory-bound: N = 896, 1024, 1280, 1536, 1792, 2048
+(24–96 MiB footprints; good to show bandwidth limits and the value of blocking.)
+
+Why these are “conclusive”
+
+They span cache levels of your CPU (L1/L2/L3 → DRAM), so curves will show clear inflection points near the L3 boundary (~N≈724). 
+Intel
+Intel CDR
+
+Including non-powers-of-two (e.g., 96, 160, 320, 704, 736) avoids flattering alignment/tiling artifacts.
+
+You can compute GFLOP/s (2·N³ / time_s) to compare implementations across sizes objectively.
+
+Tips to make results trustworthy
+
+Warm up once; repeat 5–10×; report median.
+
+Fix CPU state: same compiler flags (e.g., -O3 -march=native), single-thread if you’re isolating SIMD, and pin frequency if possible.
+
+Block for caches when you test your optimized path: choose a tile b so 3·b²·8 is ≤ ~80% of target cache (e.g., L1D → b≈36–40, L2 → b≈100–160). This makes the L1/L2 regimes show clear wins.
+
+If you want, I can sketch a tiny script to print the footprint for each N you plan to test, and a version of your runner that reports both time and GFLOP/s.
+
+
+Array sizes : 64, 96, 128, 160, 192, 224, 256, 320, 384, 448, 512, 672, 768, 896, 1024, 1280, 1536, 1792, 2048, 
