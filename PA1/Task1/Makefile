@@ -1,5 +1,6 @@
 BIN=mat_mul
 CC=g++
+
 CXXFLAGS =-O0 -Wno-write-strings -msse2 -mavx 
 
 naive: mat_mul
@@ -19,6 +20,7 @@ combination: mat_mul
 
 all: mat_mul
 	g++ mat_mul.c $(CXXFLAGS) -D OPTIMIZE_TILING -D OPTIMIZE_SIMD -D OPTIMIZE_LOOP_OPT -D OPTIMIZE_COMBINED -o $(BIN)/$@
+
 
 clean:
 	@rm -rf $(BIN)

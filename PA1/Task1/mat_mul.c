@@ -14,16 +14,15 @@
 #include <time.h>           // for time()
 #include <chrono>	        // for timing
 #include <xmmintrin.h> 		// for SSE
-#include <immintrin.h>		// for AVX
-
+#include <immintrin.h>		// for AV
 #include "helper.h"			// for helper functions
 #include <cmath>
-
 
 // defines
 // NOTE: you can change this value as per your requirement
 #define TILE_SIZE	100		// size of the tile for blocking
-
+#define UNROLL_FACTOR 2                  
+#define OPTIMIZE_LOOP_OPT
 /**
  * @brief 		Performs matrix multiplication of two matrices.
  * @param 		A 			pointer to the first matrix
@@ -31,23 +30,27 @@
  * @param 		C 			pointer to the resultant matrix
  * @param 		size 		dimension of the matrices
  */
+
+void print_matrix(double *C,int size){
+	for (int i = 0; i < size; i++) {
+		for (int j = 0; j < size; j++) {
+			printf("%f ",C[i*size + j]);	
+		}
+		printf("\n");	
+	}
+}
+
 void naive_mat_mul(double *A, double *B, double *C, int size) {
 
 	for (int i = 0; i < size; i++) {
 		for (int j = 0; j < size; j++) {
 			for (int k = 0; k < size; k++) {
 				C[i * size + j] += A[i * size + k] * B[k * size + j];
-
-				// printf("%lf\n", (A[i * size + k] * B[k * size + j]));
 			}
-
-			// printf("%lf\n", C[i * size + j]);
 		}
 	}
-
-	printf("\n");
+	//print_matrix(C,size);
 }
-
 
 /**
  * @brief 		Task 1A: Performs matrix multiplication of two matrices using loop optimization.
@@ -57,10 +60,29 @@ void naive_mat_mul(double *A, double *B, double *C, int size) {
  * @param 		size 		dimension of the matrices
  */
 void loop_opt_mat_mul(double *A, double *B, double *C, int size){
-//----------------------------------------------------- Write your code here ----------------------------------------------------------------
-
-//-------------------------------------------------------------------------------------------------------------------------------------------
-
+	int looping_factor = (size/UNROLL_FACTOR)*UNROLL_FACTOR;
+	//int remaining_loops = size - looping_factor;
+	
+	for (int k = 0; k < size; k++) {
+		for (int i = 0; i < size; i++) {
+			double a_temp = A[i*size + k];
+			for (int j = 0; j < looping_factor; j += UNROLL_FACTOR) {
+				C[i * size + (j + 0)] += a_temp * B[ k* size + (j + 0)];
+				C[i * size + (j + 1)] += a_temp * B[ k* size + (j + 1)];
+		//		C[i * size + (j + 2)] += a_temp * B[ k* size + (j + 2)];
+		//		C[i * size + (j + 3)] += a_temp * B[ k* size + (j + 3)];
+		//		C[i * size + (j + 4)] += a_temp * B[ k* size + (j + 4)];
+		//		C[i * size + (j + 5)] += a_temp * B[ k* size + (j + 5)];
+		//		C[i * size + (j + 6)] += a_temp * B[ k* size + (j + 6)];
+		///		C[i * size + (j + 7)] += a_temp * B[ k* size + (j + 7)];
+			}
+			for (int j = looping_factor; j < size; j++) {
+				C[i * size + (j)] += a_temp * B[ k* size + (j)];
+			}
+			
+		}
+	}
+	//print_matrix(C,size);
 }
 
 
@@ -238,8 +260,6 @@ void simd_mat_mul_512(double *A, double *B, double *C, int size) {
 }
 
 #endif
-
-
 /**
  * @brief 		Task 1D: Performs matrix multiplication of two matrices using combination of tiling/SIMD/loop optimization.
  * @param 		A 			pointer to the first matrix
@@ -328,7 +348,6 @@ int main(int argc, char **argv) {
 		// print_array(B, size, "B :\n");
 		// print_array(C, size, "C :\n");
 
-
 	#ifdef OPTIMIZE_LOOP_OPT
 		// Task 1a: perform matrix multiplication with loop optimization
 
@@ -359,19 +378,13 @@ int main(int argc, char **argv) {
 
 	#ifdef OPTIMIZE_SIMD
 		// Task 1c: perform matrix multiplication with SIMD instructions 
-	
-		double *C_simd = (double *)calloc(size * size, sizeof(double));
-
 		// initialize result matrix to 0
-		initialize_result_matrix(C_simd, size, size);
+		initialize_result_matrix(C, size, size);
 
 		start = std::chrono::high_resolution_clock::now();
-		simd_mat_mul(A, B, C_simd, size);
+		simd_mat_mul(A, B, C, size);
 		end = std::chrono::high_resolution_clock::now();
 		auto time_simd_mat_mul = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
-		// print_array(C_simd, size, "Result arr :\n");
-
-		// printf("Is Result Valid : %s\n", is_array_same(C, C_simd, size) ? "True" : "False");
 
 		printf("SIMD matrix multiplication took %ld ms to execute \n", time_simd_mat_mul);
 		printf("Normalized performance: %f \n\n", (double)time_naive_mat_mul / time_simd_mat_mul);
@@ -444,8 +457,6 @@ int main(int argc, char **argv) {
 
 	// ~`~~~~~~~~~~~~~~~~~~~~~~~
 
-
-
 		// free allocated memory
 		free(A);
 		free(B);
@@ -454,5 +465,3 @@ int main(int argc, char **argv) {
 		return 0;
 	}
 }
-
-
