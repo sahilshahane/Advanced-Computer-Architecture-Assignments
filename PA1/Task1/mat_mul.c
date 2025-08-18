@@ -99,7 +99,22 @@ void loop_opt_mat_mul(double *A, double *B, double *C, int size){
 */
 void tile_mat_mul(double *A, double *B, double *C, int size, int tile_size) {
 //----------------------------------------------------- Write your code here ----------------------------------------------------------------
-    
+    for (int i = 0; i < size; i+=tile_size) {
+		for (int j = 0; j < size; j+=tile_size) {
+			for (int k = 0; k < size; k+=tile_size) {
+				// now we will peform multiplication of tiles
+				for(int tilei=i;tilei<i+tile_size;tilei++){
+					for(int tilej=j;tilej<j+tile_size;tilej++){
+						double sum=C[tilei * size + tilej];
+						for(int tilek=k;tilek<k+tile_size;tilek++){
+							sum += A[tilei * size + tilek] * B[tilek * size + tilej];
+						}
+						C[tilei * size + tilej]=sum;
+					}
+				}
+			}
+		}
+	}
 
 //-------------------------------------------------------------------------------------------------------------------------------------------
     
