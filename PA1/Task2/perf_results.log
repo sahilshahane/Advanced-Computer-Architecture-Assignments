@@ -1,0 +1,2422 @@
+Starting Performance Test Automation Script
+===== RUNNING TEST: Size=1000000, Distance=4, Locality=0 =====
+
+Time WITHOUT software prefetching: 841 microseconds.
+Time WITH software prefetching: 855 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 0.984x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 4 1000000 0':
+
+        20,764,100      l2_rqsts.miss                                                           (57.14%)
+        20,345,822      L1-dcache-load-misses                                                   (57.16%)
+    44,584,808,090      instructions                     #    1.68  insn per cycle              (71.44%)
+    26,465,712,207      cycles                                                                  (71.45%)
+           166,641      sw_prefetch_access.any                                                  (71.42%)
+   <not supported>      L1-dcache-store-misses                                                
+        25,742,395      cache-misses                                                            (71.42%)
+           774,951      LLC-load-misses                                                         (71.42%)
+
+       7.453848334 seconds time elapsed
+
+       7.239769000 seconds user
+       0.173062000 seconds sys
+
+
+
+===== RUNNING TEST: Size=1000000, Distance=4, Locality=1 =====
+
+Time WITHOUT software prefetching: 703 microseconds.
+Time WITH software prefetching: 655 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 1.073x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 4 1000000 1':
+
+        19,775,312      l2_rqsts.miss                                                           (57.14%)
+        19,608,560      L1-dcache-load-misses                                                   (57.14%)
+    44,588,899,168      instructions                     #    1.70  insn per cycle              (71.42%)
+    26,184,407,381      cycles                                                                  (71.42%)
+           166,231      sw_prefetch_access.any                                                  (71.44%)
+   <not supported>      L1-dcache-store-misses                                                
+        25,535,980      cache-misses                                                            (71.44%)
+           641,412      LLC-load-misses                                                         (71.42%)
+
+       7.136340876 seconds time elapsed
+
+       6.960528000 seconds user
+       0.162778000 seconds sys
+
+
+
+===== RUNNING TEST: Size=1000000, Distance=4, Locality=2 =====
+
+Time WITHOUT software prefetching: 757 microseconds.
+Time WITH software prefetching: 687 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 1.102x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 4 1000000 2':
+
+        19,091,487      l2_rqsts.miss                                                           (57.14%)
+        19,392,684      L1-dcache-load-misses                                                   (57.13%)
+    44,563,178,356      instructions                     #    1.70  insn per cycle              (71.42%)
+    26,174,428,282      cycles                                                                  (71.43%)
+           165,252      sw_prefetch_access.any                                                  (71.43%)
+   <not supported>      L1-dcache-store-misses                                                
+        25,427,429      cache-misses                                                            (71.44%)
+           631,672      LLC-load-misses                                                         (71.43%)
+
+       7.034522856 seconds time elapsed
+
+       6.878585000 seconds user
+       0.153945000 seconds sys
+
+
+
+===== RUNNING TEST: Size=1000000, Distance=4, Locality=3 =====
+
+Time WITHOUT software prefetching: 888 microseconds.
+Time WITH software prefetching: 812 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 1.094x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 4 1000000 3':
+
+        19,837,557      l2_rqsts.miss                                                           (57.13%)
+        19,821,373      L1-dcache-load-misses                                                   (57.15%)
+    44,555,732,592      instructions                     #    1.70  insn per cycle              (71.43%)
+    26,277,845,058      cycles                                                                  (71.44%)
+           166,380      sw_prefetch_access.any                                                  (71.44%)
+   <not supported>      L1-dcache-store-misses                                                
+        25,575,421      cache-misses                                                            (71.42%)
+           648,691      LLC-load-misses                                                         (71.42%)
+
+       7.206031129 seconds time elapsed
+
+       7.047320000 seconds user
+       0.148816000 seconds sys
+
+
+
+===== RUNNING TEST: Size=1000000, Distance=8, Locality=0 =====
+
+Time WITHOUT software prefetching: 720 microseconds.
+Time WITH software prefetching: 676 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 1.065x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 8 1000000 0':
+
+        20,528,204      l2_rqsts.miss                                                           (57.13%)
+        19,982,777      L1-dcache-load-misses                                                   (57.15%)
+    44,557,258,676      instructions                     #    1.69  insn per cycle              (71.45%)
+    26,381,599,325      cycles                                                                  (71.44%)
+           165,311      sw_prefetch_access.any                                                  (71.43%)
+   <not supported>      L1-dcache-store-misses                                                
+        25,793,705      cache-misses                                                            (71.43%)
+           707,745      LLC-load-misses                                                         (71.42%)
+
+       7.302141117 seconds time elapsed
+
+       7.121280000 seconds user
+       0.170742000 seconds sys
+
+
+
+===== RUNNING TEST: Size=1000000, Distance=8, Locality=1 =====
+
+Time WITHOUT software prefetching: 763 microseconds.
+Time WITH software prefetching: 732 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 1.042x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 8 1000000 1':
+
+        19,773,159      l2_rqsts.miss                                                           (57.13%)
+        20,038,148      L1-dcache-load-misses                                                   (57.14%)
+    44,549,901,152      instructions                     #    1.69  insn per cycle              (71.43%)
+    26,365,017,117      cycles                                                                  (71.43%)
+           164,203      sw_prefetch_access.any                                                  (71.44%)
+   <not supported>      L1-dcache-store-misses                                                
+        25,623,141      cache-misses                                                            (71.44%)
+           712,225      LLC-load-misses                                                         (71.42%)
+
+       7.164819503 seconds time elapsed
+
+       6.998028000 seconds user
+       0.164977000 seconds sys
+
+
+
+===== RUNNING TEST: Size=1000000, Distance=8, Locality=2 =====
+
+Time WITHOUT software prefetching: 774 microseconds.
+Time WITH software prefetching: 724 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 1.069x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 8 1000000 2':
+
+        20,419,874      l2_rqsts.miss                                                           (57.14%)
+        20,420,428      L1-dcache-load-misses                                                   (57.15%)
+    44,575,266,837      instructions                     #    1.69  insn per cycle              (71.43%)
+    26,349,841,282      cycles                                                                  (71.43%)
+           165,895      sw_prefetch_access.any                                                  (71.45%)
+   <not supported>      L1-dcache-store-misses                                                
+        25,790,517      cache-misses                                                            (71.44%)
+           769,557      LLC-load-misses                                                         (71.40%)
+
+       7.265878345 seconds time elapsed
+
+       7.083258000 seconds user
+       0.166629000 seconds sys
+
+
+
+===== RUNNING TEST: Size=1000000, Distance=8, Locality=3 =====
+
+Time WITHOUT software prefetching: 723 microseconds.
+Time WITH software prefetching: 730 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 0.990x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 8 1000000 3':
+
+        19,481,326      l2_rqsts.miss                                                           (57.15%)
+        19,604,567      L1-dcache-load-misses                                                   (57.13%)
+    44,565,847,041      instructions                     #    1.69  insn per cycle              (71.43%)
+    26,309,427,290      cycles                                                                  (71.43%)
+           165,736      sw_prefetch_access.any                                                  (71.43%)
+   <not supported>      L1-dcache-store-misses                                                
+        25,466,495      cache-misses                                                            (71.43%)
+           617,606      LLC-load-misses                                                         (71.44%)
+
+       7.239337906 seconds time elapsed
+
+       7.080607000 seconds user
+       0.148802000 seconds sys
+
+
+
+===== RUNNING TEST: Size=1000000, Distance=12, Locality=0 =====
+
+Time WITHOUT software prefetching: 736 microseconds.
+Time WITH software prefetching: 767 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 0.960x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 12 1000000 0':
+
+        19,501,223      l2_rqsts.miss                                                           (57.11%)
+        19,829,549      L1-dcache-load-misses                                                   (57.13%)
+    44,570,028,558      instructions                     #    1.70  insn per cycle              (71.42%)
+    26,175,902,849      cycles                                                                  (71.45%)
+           166,046      sw_prefetch_access.any                                                  (71.45%)
+   <not supported>      L1-dcache-store-misses                                                
+        25,538,782      cache-misses                                                            (71.43%)
+           687,758      LLC-load-misses                                                         (71.42%)
+
+       7.133154082 seconds time elapsed
+
+       6.961401000 seconds user
+       0.162845000 seconds sys
+
+
+
+===== RUNNING TEST: Size=1000000, Distance=12, Locality=1 =====
+
+Time WITHOUT software prefetching: 673 microseconds.
+Time WITH software prefetching: 730 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 0.922x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 12 1000000 1':
+
+        19,302,060      l2_rqsts.miss                                                           (57.15%)
+        19,538,032      L1-dcache-load-misses                                                   (57.15%)
+    44,564,840,446      instructions                     #    1.70  insn per cycle              (71.44%)
+    26,205,613,507      cycles                                                                  (71.43%)
+           165,369      sw_prefetch_access.any                                                  (71.43%)
+   <not supported>      L1-dcache-store-misses                                                
+        25,600,604      cache-misses                                                            (71.42%)
+           732,796      LLC-load-misses                                                         (71.42%)
+
+       7.415161414 seconds time elapsed
+
+       7.252983000 seconds user
+       0.154828000 seconds sys
+
+
+
+===== RUNNING TEST: Size=1000000, Distance=12, Locality=2 =====
+
+Time WITHOUT software prefetching: 670 microseconds.
+Time WITH software prefetching: 675 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 0.993x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 12 1000000 2':
+
+        18,709,437      l2_rqsts.miss                                                           (57.14%)
+        19,324,785      L1-dcache-load-misses                                                   (57.13%)
+    44,552,343,696      instructions                     #    1.70  insn per cycle              (71.42%)
+    26,191,789,507      cycles                                                                  (71.42%)
+           165,191      sw_prefetch_access.any                                                  (71.44%)
+   <not supported>      L1-dcache-store-misses                                                
+        25,362,924      cache-misses                                                            (71.43%)
+           612,643      LLC-load-misses                                                         (71.43%)
+
+       7.069894092 seconds time elapsed
+
+       6.916094000 seconds user
+       0.151958000 seconds sys
+
+
+
+===== RUNNING TEST: Size=1000000, Distance=12, Locality=3 =====
+
+Time WITHOUT software prefetching: 710 microseconds.
+Time WITH software prefetching: 676 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 1.050x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 12 1000000 3':
+
+        19,734,469      l2_rqsts.miss                                                           (57.13%)
+        19,572,326      L1-dcache-load-misses                                                   (57.14%)
+    44,570,011,097      instructions                     #    1.70  insn per cycle              (71.43%)
+    26,268,040,293      cycles                                                                  (71.43%)
+           166,316      sw_prefetch_access.any                                                  (71.44%)
+   <not supported>      L1-dcache-store-misses                                                
+        25,604,411      cache-misses                                                            (71.44%)
+           639,578      LLC-load-misses                                                         (71.42%)
+
+       7.192382911 seconds time elapsed
+
+       7.042968000 seconds user
+       0.144896000 seconds sys
+
+
+
+===== RUNNING TEST: Size=1000000, Distance=16, Locality=0 =====
+
+Time WITHOUT software prefetching: 686 microseconds.
+Time WITH software prefetching: 684 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 1.003x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 16 1000000 0':
+
+        19,564,921      l2_rqsts.miss                                                           (57.11%)
+        19,525,747      L1-dcache-load-misses                                                   (57.12%)
+    44,574,330,087      instructions                     #    1.70  insn per cycle              (71.40%)
+    26,285,377,973      cycles                                                                  (71.43%)
+           166,867      sw_prefetch_access.any                                                  (71.45%)
+   <not supported>      L1-dcache-store-misses                                                
+        25,717,662      cache-misses                                                            (71.46%)
+           751,224      LLC-load-misses                                                         (71.43%)
+
+       7.188442831 seconds time elapsed
+
+       7.016128000 seconds user
+       0.166931000 seconds sys
+
+
+
+===== RUNNING TEST: Size=1000000, Distance=16, Locality=1 =====
+
+Time WITHOUT software prefetching: 1107 microseconds.
+Time WITH software prefetching: 741 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 1.494x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 16 1000000 1':
+
+        19,754,798      l2_rqsts.miss                                                           (57.14%)
+        19,753,869      L1-dcache-load-misses                                                   (57.15%)
+    44,562,765,765      instructions                     #    1.70  insn per cycle              (71.43%)
+    26,257,866,815      cycles                                                                  (71.42%)
+           164,669      sw_prefetch_access.any                                                  (71.42%)
+   <not supported>      L1-dcache-store-misses                                                
+        25,762,003      cache-misses                                                            (71.44%)
+           790,157      LLC-load-misses                                                         (71.43%)
+
+       7.329180994 seconds time elapsed
+
+       7.161621000 seconds user
+       0.162900000 seconds sys
+
+
+
+===== RUNNING TEST: Size=1000000, Distance=16, Locality=2 =====
+
+Time WITHOUT software prefetching: 702 microseconds.
+Time WITH software prefetching: 692 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 1.014x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 16 1000000 2':
+
+        21,452,792      l2_rqsts.miss                                                           (57.17%)
+        22,445,160      L1-dcache-load-misses                                                   (57.16%)
+    44,577,865,966      instructions                     #    1.67  insn per cycle              (71.44%)
+    26,694,993,007      cycles                                                                  (71.41%)
+           166,418      sw_prefetch_access.any                                                  (71.41%)
+   <not supported>      L1-dcache-store-misses                                                
+        25,999,172      cache-misses                                                            (71.42%)
+           787,829      LLC-load-misses                                                         (71.42%)
+
+       7.493347904 seconds time elapsed
+
+       7.330497000 seconds user
+       0.150804000 seconds sys
+
+
+
+===== RUNNING TEST: Size=1000000, Distance=16, Locality=3 =====
+
+Time WITHOUT software prefetching: 701 microseconds.
+Time WITH software prefetching: 686 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 1.022x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 16 1000000 3':
+
+        19,220,854      l2_rqsts.miss                                                           (57.14%)
+        19,417,924      L1-dcache-load-misses                                                   (57.14%)
+    44,563,615,981      instructions                     #    1.70  insn per cycle              (71.43%)
+    26,204,221,947      cycles                                                                  (71.43%)
+           167,267      sw_prefetch_access.any                                                  (71.42%)
+   <not supported>      L1-dcache-store-misses                                                
+        25,611,919      cache-misses                                                            (71.43%)
+           667,691      LLC-load-misses                                                         (71.44%)
+
+       7.168640238 seconds time elapsed
+
+       7.018478000 seconds user
+       0.146926000 seconds sys
+
+
+
+===== RUNNING TEST: Size=1000000, Distance=20, Locality=0 =====
+
+Time WITHOUT software prefetching: 684 microseconds.
+Time WITH software prefetching: 698 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 0.980x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 20 1000000 0':
+
+        19,018,565      l2_rqsts.miss                                                           (57.12%)
+        19,571,916      L1-dcache-load-misses                                                   (57.13%)
+    44,550,632,703      instructions                     #    1.70  insn per cycle              (71.42%)
+    26,203,816,209      cycles                                                                  (71.44%)
+           163,795      sw_prefetch_access.any                                                  (71.45%)
+   <not supported>      L1-dcache-store-misses                                                
+        25,289,876      cache-misses                                                            (71.43%)
+           582,863      LLC-load-misses                                                         (71.42%)
+
+       7.032391650 seconds time elapsed
+
+       6.879622000 seconds user
+       0.150947000 seconds sys
+
+
+
+===== RUNNING TEST: Size=1000000, Distance=20, Locality=1 =====
+
+Time WITHOUT software prefetching: 737 microseconds.
+Time WITH software prefetching: 661 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 1.115x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 20 1000000 1':
+
+        18,675,984      l2_rqsts.miss                                                           (57.13%)
+        19,205,941      L1-dcache-load-misses                                                   (57.12%)
+    44,586,579,774      instructions                     #    1.70  insn per cycle              (71.42%)
+    26,161,326,955      cycles                                                                  (71.42%)
+           166,562      sw_prefetch_access.any                                                  (71.45%)
+   <not supported>      L1-dcache-store-misses                                                
+        25,353,382      cache-misses                                                            (71.45%)
+           633,925      LLC-load-misses                                                         (71.43%)
+
+       7.055945834 seconds time elapsed
+
+       6.894644000 seconds user
+       0.158968000 seconds sys
+
+
+
+===== RUNNING TEST: Size=1000000, Distance=20, Locality=2 =====
+
+Time WITHOUT software prefetching: 723 microseconds.
+Time WITH software prefetching: 695 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 1.040x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 20 1000000 2':
+
+        18,729,621      l2_rqsts.miss                                                           (57.13%)
+        19,555,763      L1-dcache-load-misses                                                   (57.14%)
+    44,552,676,844      instructions                     #    1.71  insn per cycle              (71.43%)
+    26,129,969,819      cycles                                                                  (71.42%)
+           166,896      sw_prefetch_access.any                                                  (71.42%)
+   <not supported>      L1-dcache-store-misses                                                
+        25,387,846      cache-misses                                                            (71.45%)
+           622,854      LLC-load-misses                                                         (71.44%)
+
+       6.992373813 seconds time elapsed
+
+       6.833298000 seconds user
+       0.157983000 seconds sys
+
+
+
+===== RUNNING TEST: Size=1000000, Distance=20, Locality=3 =====
+
+Time WITHOUT software prefetching: 694 microseconds.
+Time WITH software prefetching: 681 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 1.019x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 20 1000000 3':
+
+        19,846,687      l2_rqsts.miss                                                           (57.12%)
+        19,486,540      L1-dcache-load-misses                                                   (57.12%)
+    44,557,345,654      instructions                     #    1.72  insn per cycle              (71.44%)
+    25,921,576,166      cycles                                                                  (71.44%)
+           165,890      sw_prefetch_access.any                                                  (71.44%)
+   <not supported>      L1-dcache-store-misses                                                
+        25,658,295      cache-misses                                                            (71.45%)
+           670,597      LLC-load-misses                                                         (71.44%)
+
+       7.080330486 seconds time elapsed
+
+       6.934709000 seconds user
+       0.144035000 seconds sys
+
+
+
+===== RUNNING TEST: Size=1000000, Distance=24, Locality=0 =====
+
+Time WITHOUT software prefetching: 681 microseconds.
+Time WITH software prefetching: 660 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 1.032x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 24 1000000 0':
+
+        19,367,377      l2_rqsts.miss                                                           (57.13%)
+        19,606,899      L1-dcache-load-misses                                                   (57.15%)
+    44,556,021,545      instructions                     #    1.70  insn per cycle              (71.43%)
+    26,277,011,583      cycles                                                                  (71.43%)
+           165,567      sw_prefetch_access.any                                                  (71.44%)
+   <not supported>      L1-dcache-store-misses                                                
+        25,404,052      cache-misses                                                            (71.44%)
+           603,636      LLC-load-misses                                                         (71.41%)
+
+       7.148693244 seconds time elapsed
+
+       6.988764000 seconds user
+       0.157972000 seconds sys
+
+
+
+===== RUNNING TEST: Size=1000000, Distance=24, Locality=1 =====
+
+Time WITHOUT software prefetching: 704 microseconds.
+Time WITH software prefetching: 663 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 1.062x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 24 1000000 1':
+
+        18,720,047      l2_rqsts.miss                                                           (57.12%)
+        19,234,647      L1-dcache-load-misses                                                   (57.14%)
+    44,572,276,296      instructions                     #    1.71  insn per cycle              (71.43%)
+    26,070,607,749      cycles                                                                  (71.44%)
+           164,767      sw_prefetch_access.any                                                  (71.44%)
+   <not supported>      L1-dcache-store-misses                                                
+        25,367,577      cache-misses                                                            (71.44%)
+           645,383      LLC-load-misses                                                         (71.42%)
+
+       7.199375887 seconds time elapsed
+
+       7.037226000 seconds user
+       0.160982000 seconds sys
+
+
+
+===== RUNNING TEST: Size=1000000, Distance=24, Locality=2 =====
+
+Time WITHOUT software prefetching: 664 microseconds.
+Time WITH software prefetching: 666 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 0.997x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 24 1000000 2':
+
+        19,519,668      l2_rqsts.miss                                                           (57.12%)
+        19,908,264      L1-dcache-load-misses                                                   (57.13%)
+    44,569,585,134      instructions                     #    1.69  insn per cycle              (71.42%)
+    26,315,324,072      cycles                                                                  (71.44%)
+           165,943      sw_prefetch_access.any                                                  (71.45%)
+   <not supported>      L1-dcache-store-misses                                                
+        25,549,389      cache-misses                                                            (71.44%)
+           696,337      LLC-load-misses                                                         (71.42%)
+
+       7.144561192 seconds time elapsed
+
+       7.007223000 seconds user
+       0.135965000 seconds sys
+
+
+
+===== RUNNING TEST: Size=1000000, Distance=24, Locality=3 =====
+
+Time WITHOUT software prefetching: 777 microseconds.
+Time WITH software prefetching: 663 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 1.172x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 24 1000000 3':
+
+        19,060,664      l2_rqsts.miss                                                           (57.13%)
+        19,194,143      L1-dcache-load-misses                                                   (57.15%)
+    44,562,740,737      instructions                     #    1.71  insn per cycle              (71.44%)
+    26,123,464,706      cycles                                                                  (71.44%)
+           166,033      sw_prefetch_access.any                                                  (71.44%)
+   <not supported>      L1-dcache-store-misses                                                
+        25,489,217      cache-misses                                                            (71.43%)
+           646,755      LLC-load-misses                                                         (71.41%)
+
+       7.037521952 seconds time elapsed
+
+       6.874504000 seconds user
+       0.160941000 seconds sys
+
+
+
+===== RUNNING TEST: Size=1000000, Distance=28, Locality=0 =====
+
+Time WITHOUT software prefetching: 770 microseconds.
+Time WITH software prefetching: 698 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 1.103x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 28 1000000 0':
+
+        18,748,922      l2_rqsts.miss                                                           (57.14%)
+        19,264,305      L1-dcache-load-misses                                                   (57.14%)
+    44,555,258,025      instructions                     #    1.71  insn per cycle              (71.43%)
+    26,076,027,605      cycles                                                                  (71.43%)
+           167,184      sw_prefetch_access.any                                                  (71.44%)
+   <not supported>      L1-dcache-store-misses                                                
+        25,496,195      cache-misses                                                            (71.43%)
+           652,467      LLC-load-misses                                                         (71.42%)
+
+       7.191811288 seconds time elapsed
+
+       7.034729000 seconds user
+       0.150886000 seconds sys
+
+
+
+===== RUNNING TEST: Size=1000000, Distance=28, Locality=1 =====
+
+Time WITHOUT software prefetching: 777 microseconds.
+Time WITH software prefetching: 742 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 1.047x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 28 1000000 1':
+
+        21,024,159      l2_rqsts.miss                                                           (57.14%)
+        20,787,824      L1-dcache-load-misses                                                   (57.15%)
+    44,584,662,685      instructions                     #    1.69  insn per cycle              (71.44%)
+    26,324,134,415      cycles                                                                  (71.43%)
+           165,718      sw_prefetch_access.any                                                  (71.44%)
+   <not supported>      L1-dcache-store-misses                                                
+        26,057,555      cache-misses                                                            (71.43%)
+           797,826      LLC-load-misses                                                         (71.41%)
+
+       7.296971943 seconds time elapsed
+
+       7.126366000 seconds user
+       0.154704000 seconds sys
+
+
+
+===== RUNNING TEST: Size=1000000, Distance=28, Locality=2 =====
+
+Time WITHOUT software prefetching: 717 microseconds.
+Time WITH software prefetching: 664 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 1.080x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 28 1000000 2':
+
+        20,007,822      l2_rqsts.miss                                                           (57.13%)
+        20,176,578      L1-dcache-load-misses                                                   (57.13%)
+    44,590,346,787      instructions                     #    1.70  insn per cycle              (71.42%)
+    26,257,928,433      cycles                                                                  (71.44%)
+           164,612      sw_prefetch_access.any                                                  (71.45%)
+   <not supported>      L1-dcache-store-misses                                                
+        25,750,969      cache-misses                                                            (71.43%)
+           739,806      LLC-load-misses                                                         (71.42%)
+
+       7.215621604 seconds time elapsed
+
+       7.042055000 seconds user
+       0.162747000 seconds sys
+
+
+
+===== RUNNING TEST: Size=1000000, Distance=28, Locality=3 =====
+
+Time WITHOUT software prefetching: 692 microseconds.
+Time WITH software prefetching: 1055 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 0.656x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 28 1000000 3':
+
+        20,381,121      l2_rqsts.miss                                                           (57.14%)
+        20,518,204      L1-dcache-load-misses                                                   (57.15%)
+    44,561,189,336      instructions                     #    1.69  insn per cycle              (71.43%)
+    26,364,308,657      cycles                                                                  (71.42%)
+           166,309      sw_prefetch_access.any                                                  (71.42%)
+   <not supported>      L1-dcache-store-misses                                                
+        25,654,225      cache-misses                                                            (71.43%)
+           742,701      LLC-load-misses                                                         (71.44%)
+
+       7.420649058 seconds time elapsed
+
+       7.244430000 seconds user
+       0.170868000 seconds sys
+
+
+
+===== RUNNING TEST: Size=6000000, Distance=4, Locality=0 =====
+
+Time WITHOUT software prefetching: 720 microseconds.
+Time WITH software prefetching: 663 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 1.086x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 4 6000000 0':
+
+        20,521,486      l2_rqsts.miss                                                           (57.13%)
+        20,236,583      L1-dcache-load-misses                                                   (57.11%)
+    44,586,224,429      instructions                     #    1.69  insn per cycle              (71.41%)
+    26,328,418,899      cycles                                                                  (71.43%)
+           166,449      sw_prefetch_access.any                                                  (71.44%)
+   <not supported>      L1-dcache-store-misses                                                
+        25,642,140      cache-misses                                                            (71.44%)
+           758,624      LLC-load-misses                                                         (71.44%)
+
+       7.267958706 seconds time elapsed
+
+       7.110628000 seconds user
+       0.143749000 seconds sys
+
+
+
+===== RUNNING TEST: Size=6000000, Distance=4, Locality=1 =====
+
+Time WITHOUT software prefetching: 728 microseconds.
+Time WITH software prefetching: 685 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 1.063x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 4 6000000 1':
+
+        18,622,460      l2_rqsts.miss                                                           (57.14%)
+        19,398,292      L1-dcache-load-misses                                                   (57.15%)
+    44,570,487,137      instructions                     #    1.71  insn per cycle              (71.44%)
+    26,056,910,953      cycles                                                                  (71.43%)
+           166,705      sw_prefetch_access.any                                                  (71.44%)
+   <not supported>      L1-dcache-store-misses                                                
+        25,281,469      cache-misses                                                            (71.43%)
+           520,784      LLC-load-misses                                                         (71.41%)
+
+       7.067161748 seconds time elapsed
+
+       6.903202000 seconds user
+       0.154825000 seconds sys
+
+
+
+===== RUNNING TEST: Size=6000000, Distance=4, Locality=2 =====
+
+Time WITHOUT software prefetching: 668 microseconds.
+Time WITH software prefetching: 678 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 0.985x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 4 6000000 2':
+
+        18,532,822      l2_rqsts.miss                                                           (57.13%)
+        19,134,563      L1-dcache-load-misses                                                   (57.15%)
+    44,568,769,320      instructions                     #    1.71  insn per cycle              (71.45%)
+    26,084,868,813      cycles                                                                  (71.44%)
+           164,299      sw_prefetch_access.any                                                  (71.42%)
+   <not supported>      L1-dcache-store-misses                                                
+        25,234,888      cache-misses                                                            (71.43%)
+           525,648      LLC-load-misses                                                         (71.42%)
+
+       7.177694750 seconds time elapsed
+
+       7.001000000 seconds user
+       0.166785000 seconds sys
+
+
+
+===== RUNNING TEST: Size=6000000, Distance=4, Locality=3 =====
+
+Time WITHOUT software prefetching: 736 microseconds.
+Time WITH software prefetching: 829 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 0.888x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 4 6000000 3':
+
+        18,590,767      l2_rqsts.miss                                                           (57.13%)
+        19,066,743      L1-dcache-load-misses                                                   (57.14%)
+    44,560,057,863      instructions                     #    1.71  insn per cycle              (71.42%)
+    26,051,586,774      cycles                                                                  (71.43%)
+           164,217      sw_prefetch_access.any                                                  (71.43%)
+   <not supported>      L1-dcache-store-misses                                                
+        25,267,167      cache-misses                                                            (71.44%)
+           598,336      LLC-load-misses                                                         (71.43%)
+
+       6.984887176 seconds time elapsed
+
+       6.825111000 seconds user
+       0.150803000 seconds sys
+
+
+
+===== RUNNING TEST: Size=6000000, Distance=8, Locality=0 =====
+
+Time WITHOUT software prefetching: 693 microseconds.
+Time WITH software prefetching: 736 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 0.942x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 8 6000000 0':
+
+        18,482,936      l2_rqsts.miss                                                           (57.13%)
+        19,425,128      L1-dcache-load-misses                                                   (57.14%)
+    44,548,324,586      instructions                     #    1.70  insn per cycle              (71.43%)
+    26,216,697,112      cycles                                                                  (71.44%)
+           165,333      sw_prefetch_access.any                                                  (71.43%)
+   <not supported>      L1-dcache-store-misses                                                
+        25,314,430      cache-misses                                                            (71.43%)
+           605,131      LLC-load-misses                                                         (71.43%)
+
+       7.068574666 seconds time elapsed
+
+       6.919383000 seconds user
+       0.142863000 seconds sys
+
+
+
+===== RUNNING TEST: Size=6000000, Distance=8, Locality=1 =====
+
+Time WITHOUT software prefetching: 688 microseconds.
+Time WITH software prefetching: 731 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 0.941x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 8 6000000 1':
+
+        18,759,154      l2_rqsts.miss                                                           (57.13%)
+        19,318,311      L1-dcache-load-misses                                                   (57.13%)
+    44,564,778,264      instructions                     #    1.70  insn per cycle              (71.41%)
+    26,198,273,261      cycles                                                                  (71.44%)
+           166,463      sw_prefetch_access.any                                                  (71.44%)
+   <not supported>      L1-dcache-store-misses                                                
+        25,423,722      cache-misses                                                            (71.43%)
+           611,825      LLC-load-misses                                                         (71.43%)
+
+       6.955438933 seconds time elapsed
+
+       6.793464000 seconds user
+       0.156895000 seconds sys
+
+
+
+===== RUNNING TEST: Size=6000000, Distance=8, Locality=2 =====
+
+Time WITHOUT software prefetching: 698 microseconds.
+Time WITH software prefetching: 761 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 0.917x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 8 6000000 2':
+
+        18,632,035      l2_rqsts.miss                                                           (57.13%)
+        19,217,536      L1-dcache-load-misses                                                   (57.15%)
+    44,550,933,249      instructions                     #    1.70  insn per cycle              (71.44%)
+    26,138,738,318      cycles                                                                  (71.44%)
+           167,134      sw_prefetch_access.any                                                  (71.44%)
+   <not supported>      L1-dcache-store-misses                                                
+        25,371,861      cache-misses                                                            (71.43%)
+           592,088      LLC-load-misses                                                         (71.42%)
+
+       6.954144133 seconds time elapsed
+
+       6.805327000 seconds user
+       0.144900000 seconds sys
+
+
+
+===== RUNNING TEST: Size=6000000, Distance=8, Locality=3 =====
+
+Time WITHOUT software prefetching: 696 microseconds.
+Time WITH software prefetching: 744 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 0.935x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 8 6000000 3':
+
+        18,669,539      l2_rqsts.miss                                                           (57.14%)
+        19,443,508      L1-dcache-load-misses                                                   (57.14%)
+    44,561,382,075      instructions                     #    1.70  insn per cycle              (71.43%)
+    26,197,781,291      cycles                                                                  (71.44%)
+           165,659      sw_prefetch_access.any                                                  (71.44%)
+   <not supported>      L1-dcache-store-misses                                                
+        25,365,992      cache-misses                                                            (71.43%)
+           578,175      LLC-load-misses                                                         (71.41%)
+
+       7.213457679 seconds time elapsed
+
+       7.055699000 seconds user
+       0.155949000 seconds sys
+
+
+
+===== RUNNING TEST: Size=6000000, Distance=12, Locality=0 =====
+
+Time WITHOUT software prefetching: 704 microseconds.
+Time WITH software prefetching: 700 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 1.006x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 12 6000000 0':
+
+        18,657,889      l2_rqsts.miss                                                           (57.14%)
+        19,221,779      L1-dcache-load-misses                                                   (57.12%)
+    44,553,402,557      instructions                     #    1.70  insn per cycle              (71.41%)
+    26,169,753,549      cycles                                                                  (71.44%)
+           164,886      sw_prefetch_access.any                                                  (71.45%)
+   <not supported>      L1-dcache-store-misses                                                
+        25,372,588      cache-misses                                                            (71.43%)
+           579,940      LLC-load-misses                                                         (71.43%)
+
+       7.040980792 seconds time elapsed
+
+       6.893433000 seconds user
+       0.139887000 seconds sys
+
+
+
+===== RUNNING TEST: Size=6000000, Distance=12, Locality=1 =====
+
+Time WITHOUT software prefetching: 678 microseconds.
+Time WITH software prefetching: 708 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 0.958x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 12 6000000 1':
+
+        18,353,377      l2_rqsts.miss                                                           (57.15%)
+        19,015,712      L1-dcache-load-misses                                                   (57.15%)
+    44,556,300,909      instructions                     #    1.70  insn per cycle              (71.43%)
+    26,184,649,494      cycles                                                                  (71.43%)
+           164,917      sw_prefetch_access.any                                                  (71.43%)
+   <not supported>      L1-dcache-store-misses                                                
+        25,268,495      cache-misses                                                            (71.43%)
+           534,324      LLC-load-misses                                                         (71.43%)
+
+       6.924149253 seconds time elapsed
+
+       6.770318000 seconds user
+       0.150940000 seconds sys
+
+
+
+===== RUNNING TEST: Size=6000000, Distance=12, Locality=2 =====
+
+Time WITHOUT software prefetching: 691 microseconds.
+Time WITH software prefetching: 702 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 0.984x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 12 6000000 2':
+
+        18,317,389      l2_rqsts.miss                                                           (57.12%)
+        18,885,282      L1-dcache-load-misses                                                   (57.12%)
+    44,569,990,093      instructions                     #    1.71  insn per cycle              (71.41%)
+    26,096,808,993      cycles                                                                  (71.43%)
+           165,518      sw_prefetch_access.any                                                  (71.44%)
+   <not supported>      L1-dcache-store-misses                                                
+        25,288,534      cache-misses                                                            (71.45%)
+           603,765      LLC-load-misses                                                         (71.44%)
+
+       6.906663542 seconds time elapsed
+
+       6.755901000 seconds user
+       0.143848000 seconds sys
+
+
+
+===== RUNNING TEST: Size=6000000, Distance=12, Locality=3 =====
+
+Time WITHOUT software prefetching: 657 microseconds.
+Time WITH software prefetching: 752 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 0.874x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 12 6000000 3':
+
+        18,723,106      l2_rqsts.miss                                                           (57.14%)
+        19,361,584      L1-dcache-load-misses                                                   (57.15%)
+    44,561,927,232      instructions                     #    1.71  insn per cycle              (71.43%)
+    26,107,385,959      cycles                                                                  (71.43%)
+           166,572      sw_prefetch_access.any                                                  (71.44%)
+   <not supported>      L1-dcache-store-misses                                                
+        25,383,386      cache-misses                                                            (71.43%)
+           619,093      LLC-load-misses                                                         (71.41%)
+
+       7.183952366 seconds time elapsed
+
+       7.038248000 seconds user
+       0.142944000 seconds sys
+
+
+
+===== RUNNING TEST: Size=6000000, Distance=16, Locality=0 =====
+
+Time WITHOUT software prefetching: 699 microseconds.
+Time WITH software prefetching: 1113 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 0.628x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 16 6000000 0':
+
+        18,546,288      l2_rqsts.miss                                                           (57.12%)
+        19,480,494      L1-dcache-load-misses                                                   (57.13%)
+    44,559,555,417      instructions                     #    1.71  insn per cycle              (71.42%)
+    26,075,054,525      cycles                                                                  (71.45%)
+           165,551      sw_prefetch_access.any                                                  (71.45%)
+   <not supported>      L1-dcache-store-misses                                                
+        25,302,781      cache-misses                                                            (71.43%)
+           599,538      LLC-load-misses                                                         (71.42%)
+
+       7.065383104 seconds time elapsed
+
+       6.882727000 seconds user
+       0.171743000 seconds sys
+
+
+
+===== RUNNING TEST: Size=6000000, Distance=16, Locality=1 =====
+
+Time WITHOUT software prefetching: 690 microseconds.
+Time WITH software prefetching: 732 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 0.943x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 16 6000000 1':
+
+        18,561,042      l2_rqsts.miss                                                           (57.14%)
+        19,024,915      L1-dcache-load-misses                                                   (57.14%)
+    44,547,196,593      instructions                     #    1.71  insn per cycle              (71.45%)
+    26,094,790,604      cycles                                                                  (71.42%)
+           167,679      sw_prefetch_access.any                                                  (71.43%)
+   <not supported>      L1-dcache-store-misses                                                
+        25,270,415      cache-misses                                                            (71.45%)
+           611,725      LLC-load-misses                                                         (71.43%)
+
+       7.002597998 seconds time elapsed
+
+       6.842908000 seconds user
+       0.153885000 seconds sys
+
+
+
+===== RUNNING TEST: Size=6000000, Distance=16, Locality=2 =====
+
+Time WITHOUT software prefetching: 664 microseconds.
+Time WITH software prefetching: 702 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 0.946x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 16 6000000 2':
+
+        18,579,543      l2_rqsts.miss                                                           (57.14%)
+        19,024,463      L1-dcache-load-misses                                                   (57.16%)
+    44,553,884,600      instructions                     #    1.71  insn per cycle              (71.43%)
+    26,081,228,264      cycles                                                                  (71.43%)
+           167,132      sw_prefetch_access.any                                                  (71.43%)
+   <not supported>      L1-dcache-store-misses                                                
+        25,313,341      cache-misses                                                            (71.43%)
+           602,454      LLC-load-misses                                                         (71.41%)
+
+       7.009273003 seconds time elapsed
+
+       6.857825000 seconds user
+       0.147931000 seconds sys
+
+
+
+===== RUNNING TEST: Size=6000000, Distance=16, Locality=3 =====
+
+Time WITHOUT software prefetching: 707 microseconds.
+Time WITH software prefetching: 713 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 0.992x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 16 6000000 3':
+
+        18,528,105      l2_rqsts.miss                                                           (57.13%)
+        18,959,613      L1-dcache-load-misses                                                   (57.12%)
+    44,563,451,789      instructions                     #    1.71  insn per cycle              (71.42%)
+    26,072,887,467      cycles                                                                  (71.43%)
+           164,624      sw_prefetch_access.any                                                  (71.45%)
+   <not supported>      L1-dcache-store-misses                                                
+        25,381,101      cache-misses                                                            (71.44%)
+           615,938      LLC-load-misses                                                         (71.43%)
+
+       7.166227191 seconds time elapsed
+
+       6.999260000 seconds user
+       0.158801000 seconds sys
+
+
+
+===== RUNNING TEST: Size=6000000, Distance=20, Locality=0 =====
+
+Time WITHOUT software prefetching: 850 microseconds.
+Time WITH software prefetching: 670 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 1.269x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 20 6000000 0':
+
+        18,615,551      l2_rqsts.miss                                                           (57.13%)
+        19,184,150      L1-dcache-load-misses                                                   (57.13%)
+    44,569,164,316      instructions                     #    1.70  insn per cycle              (71.43%)
+    26,158,135,561      cycles                                                                  (71.44%)
+           164,042      sw_prefetch_access.any                                                  (71.44%)
+   <not supported>      L1-dcache-store-misses                                                
+        25,271,088      cache-misses                                                            (71.43%)
+           599,044      LLC-load-misses                                                         (71.43%)
+
+       7.025014070 seconds time elapsed
+
+       6.870497000 seconds user
+       0.146839000 seconds sys
+
+
+
+===== RUNNING TEST: Size=6000000, Distance=20, Locality=1 =====
+
+Time WITHOUT software prefetching: 689 microseconds.
+Time WITH software prefetching: 788 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 0.874x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 20 6000000 1':
+
+        18,665,823      l2_rqsts.miss                                                           (57.15%)
+        18,963,166      L1-dcache-load-misses                                                   (57.15%)
+    44,552,224,935      instructions                     #    1.71  insn per cycle              (71.42%)
+    26,101,494,942      cycles                                                                  (71.42%)
+           166,048      sw_prefetch_access.any                                                  (71.44%)
+   <not supported>      L1-dcache-store-misses                                                
+        25,434,936      cache-misses                                                            (71.43%)
+           617,166      LLC-load-misses                                                         (71.42%)
+
+       7.022313430 seconds time elapsed
+
+       6.870925000 seconds user
+       0.144871000 seconds sys
+
+
+
+===== RUNNING TEST: Size=6000000, Distance=20, Locality=2 =====
+
+Time WITHOUT software prefetching: 684 microseconds.
+Time WITH software prefetching: 815 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 0.839x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 20 6000000 2':
+
+        18,684,985      l2_rqsts.miss                                                           (57.14%)
+        19,253,082      L1-dcache-load-misses                                                   (57.15%)
+    44,548,829,172      instructions                     #    1.71  insn per cycle              (71.44%)
+    26,099,426,398      cycles                                                                  (71.44%)
+           165,913      sw_prefetch_access.any                                                  (71.44%)
+   <not supported>      L1-dcache-store-misses                                                
+        25,371,542      cache-misses                                                            (71.43%)
+           604,442      LLC-load-misses                                                         (71.41%)
+
+       6.917561550 seconds time elapsed
+
+       6.761754000 seconds user
+       0.155971000 seconds sys
+
+
+
+===== RUNNING TEST: Size=6000000, Distance=20, Locality=3 =====
+
+Time WITHOUT software prefetching: 693 microseconds.
+Time WITH software prefetching: 673 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 1.030x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 20 6000000 3':
+
+        18,746,140      l2_rqsts.miss                                                           (57.13%)
+        19,073,051      L1-dcache-load-misses                                                   (57.12%)
+    44,561,432,899      instructions                     #    1.71  insn per cycle              (71.41%)
+    26,130,970,712      cycles                                                                  (71.41%)
+           165,856      sw_prefetch_access.any                                                  (71.45%)
+   <not supported>      L1-dcache-store-misses                                                
+        25,327,506      cache-misses                                                            (71.45%)
+           588,756      LLC-load-misses                                                         (71.43%)
+
+       6.928405276 seconds time elapsed
+
+       6.765357000 seconds user
+       0.158914000 seconds sys
+
+
+
+===== RUNNING TEST: Size=6000000, Distance=24, Locality=0 =====
+
+Time WITHOUT software prefetching: 681 microseconds.
+Time WITH software prefetching: 723 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 0.942x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 24 6000000 0':
+
+        18,476,877      l2_rqsts.miss                                                           (57.15%)
+        19,248,860      L1-dcache-load-misses                                                   (57.15%)
+    44,564,331,781      instructions                     #    1.71  insn per cycle              (71.43%)
+    26,104,838,420      cycles                                                                  (71.42%)
+           164,533      sw_prefetch_access.any                                                  (71.42%)
+   <not supported>      L1-dcache-store-misses                                                
+        25,240,627      cache-misses                                                            (71.42%)
+           608,596      LLC-load-misses                                                         (71.43%)
+
+       6.923269924 seconds time elapsed
+
+       6.753402000 seconds user
+       0.165887000 seconds sys
+
+
+
+===== RUNNING TEST: Size=6000000, Distance=24, Locality=1 =====
+
+Time WITHOUT software prefetching: 709 microseconds.
+Time WITH software prefetching: 729 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 0.973x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 24 6000000 1':
+
+        18,793,052      l2_rqsts.miss                                                           (57.14%)
+        19,158,233      L1-dcache-load-misses                                                   (57.14%)
+    44,574,394,952      instructions                     #    1.70  insn per cycle              (71.43%)
+    26,217,639,395      cycles                                                                  (71.43%)
+           165,354      sw_prefetch_access.any                                                  (71.43%)
+   <not supported>      L1-dcache-store-misses                                                
+        25,391,225      cache-misses                                                            (71.43%)
+           584,473      LLC-load-misses                                                         (71.43%)
+
+       6.985839553 seconds time elapsed
+
+       6.822614000 seconds user
+       0.159944000 seconds sys
+
+
+
+===== RUNNING TEST: Size=6000000, Distance=24, Locality=2 =====
+
+Time WITHOUT software prefetching: 692 microseconds.
+Time WITH software prefetching: 830 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 0.834x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 24 6000000 2':
+
+        18,713,236      l2_rqsts.miss                                                           (57.12%)
+        19,528,068      L1-dcache-load-misses                                                   (57.12%)
+    44,572,886,459      instructions                     #    1.71  insn per cycle              (71.42%)
+    26,117,486,955      cycles                                                                  (71.44%)
+           165,430      sw_prefetch_access.any                                                  (71.45%)
+   <not supported>      L1-dcache-store-misses                                                
+        25,344,532      cache-misses                                                            (71.44%)
+           626,441      LLC-load-misses                                                         (71.43%)
+
+       7.221117831 seconds time elapsed
+
+       7.056131000 seconds user
+       0.153763000 seconds sys
+
+
+
+===== RUNNING TEST: Size=6000000, Distance=24, Locality=3 =====
+
+Time WITHOUT software prefetching: 669 microseconds.
+Time WITH software prefetching: 765 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 0.875x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 24 6000000 3':
+
+        18,462,748      l2_rqsts.miss                                                           (57.13%)
+        18,997,818      L1-dcache-load-misses                                                   (57.12%)
+    44,567,977,373      instructions                     #    1.71  insn per cycle              (71.41%)
+    26,088,152,631      cycles                                                                  (71.44%)
+           165,492      sw_prefetch_access.any                                                  (71.45%)
+   <not supported>      L1-dcache-store-misses                                                
+        25,259,722      cache-misses                                                            (71.44%)
+           589,510      LLC-load-misses                                                         (71.43%)
+
+       7.199005019 seconds time elapsed
+
+       7.034629000 seconds user
+       0.160900000 seconds sys
+
+
+
+===== RUNNING TEST: Size=6000000, Distance=28, Locality=0 =====
+
+Time WITHOUT software prefetching: 674 microseconds.
+Time WITH software prefetching: 693 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 0.973x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 28 6000000 0':
+
+        18,826,809      l2_rqsts.miss                                                           (57.13%)
+        19,075,290      L1-dcache-load-misses                                                   (57.13%)
+    44,569,733,253      instructions                     #    1.71  insn per cycle              (71.42%)
+    26,075,729,259      cycles                                                                  (71.43%)
+           165,019      sw_prefetch_access.any                                                  (71.44%)
+   <not supported>      L1-dcache-store-misses                                                
+        25,264,400      cache-misses                                                            (71.44%)
+           583,178      LLC-load-misses                                                         (71.43%)
+
+       7.040128703 seconds time elapsed
+
+       6.884826000 seconds user
+       0.141728000 seconds sys
+
+
+
+===== RUNNING TEST: Size=6000000, Distance=28, Locality=1 =====
+
+Time WITHOUT software prefetching: 749 microseconds.
+Time WITH software prefetching: 825 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 0.908x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 28 6000000 1':
+
+        18,560,268      l2_rqsts.miss                                                           (57.15%)
+        19,351,575      L1-dcache-load-misses                                                   (57.15%)
+    44,549,918,800      instructions                     #    1.70  insn per cycle              (71.44%)
+    26,191,154,609      cycles                                                                  (71.44%)
+           165,514      sw_prefetch_access.any                                                  (71.44%)
+   <not supported>      L1-dcache-store-misses                                                
+        25,298,823      cache-misses                                                            (71.41%)
+           575,124      LLC-load-misses                                                         (71.41%)
+
+       7.115781496 seconds time elapsed
+
+       6.964358000 seconds user
+       0.143862000 seconds sys
+
+
+
+===== RUNNING TEST: Size=6000000, Distance=28, Locality=2 =====
+
+Time WITHOUT software prefetching: 668 microseconds.
+Time WITH software prefetching: 668 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 1.000x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 28 6000000 2':
+
+        18,518,110      l2_rqsts.miss                                                           (57.12%)
+        19,123,725      L1-dcache-load-misses                                                   (57.14%)
+    44,558,094,839      instructions                     #    1.71  insn per cycle              (71.43%)
+    26,087,295,342      cycles                                                                  (71.45%)
+           165,235      sw_prefetch_access.any                                                  (71.44%)
+   <not supported>      L1-dcache-store-misses                                                
+        25,344,057      cache-misses                                                            (71.43%)
+           618,424      LLC-load-misses                                                         (71.42%)
+
+       7.157672056 seconds time elapsed
+
+       7.006752000 seconds user
+       0.148973000 seconds sys
+
+
+
+===== RUNNING TEST: Size=6000000, Distance=28, Locality=3 =====
+
+Time WITHOUT software prefetching: 677 microseconds.
+Time WITH software prefetching: 840 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 0.806x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 28 6000000 3':
+
+        18,546,879      l2_rqsts.miss                                                           (57.14%)
+        19,316,532      L1-dcache-load-misses                                                   (57.13%)
+    44,562,995,888      instructions                     #    1.71  insn per cycle              (71.42%)
+    26,077,328,286      cycles                                                                  (71.44%)
+           166,945      sw_prefetch_access.any                                                  (71.44%)
+   <not supported>      L1-dcache-store-misses                                                
+        25,284,397      cache-misses                                                            (71.42%)
+           632,447      LLC-load-misses                                                         (71.43%)
+
+       7.148017057 seconds time elapsed
+
+       6.969373000 seconds user
+       0.166721000 seconds sys
+
+
+
+===== RUNNING TEST: Size=10000000, Distance=4, Locality=0 =====
+
+Time WITHOUT software prefetching: 687 microseconds.
+Time WITH software prefetching: 773 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 0.889x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 4 10000000 0':
+
+        20,497,933      l2_rqsts.miss                                                           (57.12%)
+        20,763,625      L1-dcache-load-misses                                                   (57.15%)
+    44,570,043,662      instructions                     #    1.69  insn per cycle              (71.42%)
+    26,371,115,592      cycles                                                                  (71.45%)
+           165,323      sw_prefetch_access.any                                                  (71.44%)
+   <not supported>      L1-dcache-store-misses                                                
+        25,764,463      cache-misses                                                            (71.42%)
+           780,564      LLC-load-misses                                                         (71.41%)
+
+       7.417750761 seconds time elapsed
+
+       7.235153000 seconds user
+       0.161534000 seconds sys
+
+
+
+===== RUNNING TEST: Size=10000000, Distance=4, Locality=1 =====
+
+Time WITHOUT software prefetching: 763 microseconds.
+Time WITH software prefetching: 674 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 1.132x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 4 10000000 1':
+
+        21,229,755      l2_rqsts.miss                                                           (57.14%)
+        20,612,357      L1-dcache-load-misses                                                   (57.13%)
+    44,587,554,942      instructions                     #    1.69  insn per cycle              (71.41%)
+    26,398,794,450      cycles                                                                  (71.42%)
+           165,699      sw_prefetch_access.any                                                  (71.43%)
+   <not supported>      L1-dcache-store-misses                                                
+        26,374,279      cache-misses                                                            (71.43%)
+           853,450      LLC-load-misses                                                         (71.44%)
+
+       7.365249952 seconds time elapsed
+
+       7.224596000 seconds user
+       0.134917000 seconds sys
+
+
+
+===== RUNNING TEST: Size=10000000, Distance=4, Locality=2 =====
+
+Time WITHOUT software prefetching: 730 microseconds.
+Time WITH software prefetching: 697 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 1.047x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 4 10000000 2':
+
+        20,423,624      l2_rqsts.miss                                                           (57.14%)
+        20,466,614      L1-dcache-load-misses                                                   (57.14%)
+    44,555,091,711      instructions                     #    1.69  insn per cycle              (71.43%)
+    26,347,926,299      cycles                                                                  (71.44%)
+           167,257      sw_prefetch_access.any                                                  (71.43%)
+   <not supported>      L1-dcache-store-misses                                                
+        25,858,911      cache-misses                                                            (71.42%)
+           787,855      LLC-load-misses                                                         (71.43%)
+
+       7.323223515 seconds time elapsed
+
+       7.149396000 seconds user
+       0.160716000 seconds sys
+
+
+
+===== RUNNING TEST: Size=10000000, Distance=4, Locality=3 =====
+
+Time WITHOUT software prefetching: 706 microseconds.
+Time WITH software prefetching: 753 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 0.938x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 4 10000000 3':
+
+        20,114,779      l2_rqsts.miss                                                           (57.13%)
+        20,231,857      L1-dcache-load-misses                                                   (57.15%)
+    44,557,631,619      instructions                     #    1.70  insn per cycle              (71.43%)
+    26,215,525,979      cycles                                                                  (71.45%)
+           165,624      sw_prefetch_access.any                                                  (71.44%)
+   <not supported>      L1-dcache-store-misses                                                
+        25,678,322      cache-misses                                                            (71.43%)
+           736,856      LLC-load-misses                                                         (71.41%)
+
+       7.235409397 seconds time elapsed
+
+       7.053331000 seconds user
+       0.168696000 seconds sys
+
+
+
+===== RUNNING TEST: Size=10000000, Distance=8, Locality=0 =====
+
+Time WITHOUT software prefetching: 733 microseconds.
+Time WITH software prefetching: 1082 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 0.677x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 8 10000000 0':
+
+        19,924,978      l2_rqsts.miss                                                           (57.14%)
+        19,874,685      L1-dcache-load-misses                                                   (57.15%)
+    44,566,696,579      instructions                     #    1.64  insn per cycle              (71.44%)
+    27,174,098,680      cycles                                                                  (71.43%)
+           166,939      sw_prefetch_access.any                                                  (71.44%)
+   <not supported>      L1-dcache-store-misses                                                
+        25,674,573      cache-misses                                                            (71.43%)
+           706,702      LLC-load-misses                                                         (71.41%)
+
+       7.591584950 seconds time elapsed
+
+       7.421847000 seconds user
+       0.162864000 seconds sys
+
+
+
+===== RUNNING TEST: Size=10000000, Distance=8, Locality=1 =====
+
+Time WITHOUT software prefetching: 709 microseconds.
+Time WITH software prefetching: 692 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 1.025x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 8 10000000 1':
+
+        20,925,898      l2_rqsts.miss                                                           (57.12%)
+        21,363,535      L1-dcache-load-misses                                                   (57.14%)
+    44,565,730,490      instructions                     #    1.68  insn per cycle              (71.43%)
+    26,501,179,762      cycles                                                                  (71.44%)
+           166,206      sw_prefetch_access.any                                                  (71.44%)
+   <not supported>      L1-dcache-store-misses                                                
+        25,941,478      cache-misses                                                            (71.44%)
+           837,174      LLC-load-misses                                                         (71.42%)
+
+       7.446440577 seconds time elapsed
+
+       7.284148000 seconds user
+       0.156895000 seconds sys
+
+
+
+===== RUNNING TEST: Size=10000000, Distance=8, Locality=2 =====
+
+Time WITHOUT software prefetching: 1063 microseconds.
+Time WITH software prefetching: 929 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 1.144x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 8 10000000 2':
+
+        20,479,336      l2_rqsts.miss                                                           (57.14%)
+        20,560,573      L1-dcache-load-misses                                                   (57.14%)
+    44,562,863,168      instructions                     #    1.69  insn per cycle              (71.42%)
+    26,336,358,661      cycles                                                                  (71.44%)
+           166,603      sw_prefetch_access.any                                                  (71.43%)
+   <not supported>      L1-dcache-store-misses                                                
+        26,056,352      cache-misses                                                            (71.42%)
+           903,505      LLC-load-misses                                                         (71.43%)
+
+       7.519418701 seconds time elapsed
+
+       7.353699000 seconds user
+       0.158863000 seconds sys
+
+
+
+===== RUNNING TEST: Size=10000000, Distance=8, Locality=3 =====
+
+Time WITHOUT software prefetching: 682 microseconds.
+Time WITH software prefetching: 716 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 0.953x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 8 10000000 3':
+
+        20,980,509      l2_rqsts.miss                                                           (57.14%)
+        20,578,661      L1-dcache-load-misses                                                   (57.13%)
+    44,549,542,123      instructions                     #    1.69  insn per cycle              (71.41%)
+    26,396,871,419      cycles                                                                  (71.42%)
+           166,881      sw_prefetch_access.any                                                  (71.44%)
+   <not supported>      L1-dcache-store-misses                                                
+        26,124,527      cache-misses                                                            (71.44%)
+           834,120      LLC-load-misses                                                         (71.43%)
+
+       7.442514174 seconds time elapsed
+
+       7.274140000 seconds user
+       0.162958000 seconds sys
+
+
+
+===== RUNNING TEST: Size=10000000, Distance=12, Locality=0 =====
+
+Time WITHOUT software prefetching: 673 microseconds.
+Time WITH software prefetching: 702 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 0.959x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 12 10000000 0':
+
+        20,135,461      l2_rqsts.miss                                                           (57.14%)
+        20,578,184      L1-dcache-load-misses                                                   (57.15%)
+    44,556,379,550      instructions                     #    1.69  insn per cycle              (71.43%)
+    26,302,001,121      cycles                                                                  (71.43%)
+           166,281      sw_prefetch_access.any                                                  (71.43%)
+   <not supported>      L1-dcache-store-misses                                                
+        25,657,798      cache-misses                                                            (71.43%)
+           736,070      LLC-load-misses                                                         (71.42%)
+
+       7.252237510 seconds time elapsed
+
+       7.090660000 seconds user
+       0.153775000 seconds sys
+
+
+
+===== RUNNING TEST: Size=10000000, Distance=12, Locality=1 =====
+
+Time WITHOUT software prefetching: 895 microseconds.
+Time WITH software prefetching: 1031 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 0.868x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 12 10000000 1':
+
+        20,278,887      l2_rqsts.miss                                                           (57.14%)
+        19,868,070      L1-dcache-load-misses                                                   (57.16%)
+    44,567,427,075      instructions                     #    1.69  insn per cycle              (71.46%)
+    26,326,177,874      cycles                                                                  (71.45%)
+           165,462      sw_prefetch_access.any                                                  (71.43%)
+   <not supported>      L1-dcache-store-misses                                                
+        25,788,646      cache-misses                                                            (71.41%)
+           767,343      LLC-load-misses                                                         (71.41%)
+
+       7.380225108 seconds time elapsed
+
+       7.207425000 seconds user
+       0.161762000 seconds sys
+
+
+
+===== RUNNING TEST: Size=10000000, Distance=12, Locality=2 =====
+
+Time WITHOUT software prefetching: 743 microseconds.
+Time WITH software prefetching: 678 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 1.096x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 12 10000000 2':
+
+        19,817,228      l2_rqsts.miss                                                           (57.12%)
+        19,741,514      L1-dcache-load-misses                                                   (57.14%)
+    44,555,975,299      instructions                     #    1.70  insn per cycle              (71.42%)
+    26,225,465,516      cycles                                                                  (71.44%)
+           166,456      sw_prefetch_access.any                                                  (71.44%)
+   <not supported>      L1-dcache-store-misses                                                
+        25,756,841      cache-misses                                                            (71.44%)
+           780,124      LLC-load-misses                                                         (71.42%)
+
+       7.438321472 seconds time elapsed
+
+       7.296133000 seconds user
+       0.137908000 seconds sys
+
+
+
+===== RUNNING TEST: Size=10000000, Distance=12, Locality=3 =====
+
+Time WITHOUT software prefetching: 786 microseconds.
+Time WITH software prefetching: 986 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 0.797x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 12 10000000 3':
+
+        19,605,013      l2_rqsts.miss                                                           (57.13%)
+        19,965,829      L1-dcache-load-misses                                                   (57.14%)
+    44,564,834,863      instructions                     #    1.70  insn per cycle              (71.42%)
+    26,155,384,667      cycles                                                                  (71.43%)
+           165,798      sw_prefetch_access.any                                                  (71.44%)
+   <not supported>      L1-dcache-store-misses                                                
+        25,565,814      cache-misses                                                            (71.44%)
+           740,264      LLC-load-misses                                                         (71.43%)
+
+       7.325755007 seconds time elapsed
+
+       7.146797000 seconds user
+       0.170803000 seconds sys
+
+
+
+===== RUNNING TEST: Size=10000000, Distance=16, Locality=0 =====
+
+Time WITHOUT software prefetching: 785 microseconds.
+Time WITH software prefetching: 701 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 1.120x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 16 10000000 0':
+
+        20,333,053      l2_rqsts.miss                                                           (57.12%)
+        20,215,591      L1-dcache-load-misses                                                   (57.13%)
+    44,547,754,446      instructions                     #    1.69  insn per cycle              (71.43%)
+    26,382,159,245      cycles                                                                  (71.44%)
+           166,886      sw_prefetch_access.any                                                  (71.44%)
+   <not supported>      L1-dcache-store-misses                                                
+        26,008,826      cache-misses                                                            (71.44%)
+           868,257      LLC-load-misses                                                         (71.43%)
+
+       7.310685221 seconds time elapsed
+
+       7.143524000 seconds user
+       0.162875000 seconds sys
+
+
+
+===== RUNNING TEST: Size=10000000, Distance=16, Locality=1 =====
+
+Time WITHOUT software prefetching: 748 microseconds.
+Time WITH software prefetching: 754 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 0.992x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 16 10000000 1':
+
+        20,244,268      l2_rqsts.miss                                                           (57.11%)
+        20,345,782      L1-dcache-load-misses                                                   (57.13%)
+    44,566,962,121      instructions                     #    1.70  insn per cycle              (71.44%)
+    26,262,854,365      cycles                                                                  (71.44%)
+           167,178      sw_prefetch_access.any                                                  (71.44%)
+   <not supported>      L1-dcache-store-misses                                                
+        25,853,246      cache-misses                                                            (71.45%)
+           761,338      LLC-load-misses                                                         (71.42%)
+
+       7.303642083 seconds time elapsed
+
+       7.131945000 seconds user
+       0.147502000 seconds sys
+
+
+
+===== RUNNING TEST: Size=10000000, Distance=16, Locality=2 =====
+
+Time WITHOUT software prefetching: 685 microseconds.
+Time WITH software prefetching: 702 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 0.976x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 16 10000000 2':
+
+        20,330,873      l2_rqsts.miss                                                           (57.12%)
+        20,481,087      L1-dcache-load-misses                                                   (57.14%)
+    44,560,403,270      instructions                     #    1.69  insn per cycle              (71.43%)
+    26,372,474,602      cycles                                                                  (71.44%)
+           165,984      sw_prefetch_access.any                                                  (71.44%)
+   <not supported>      L1-dcache-store-misses                                                
+        25,706,780      cache-misses                                                            (71.44%)
+           727,272      LLC-load-misses                                                         (71.42%)
+
+       7.312360025 seconds time elapsed
+
+       7.106122000 seconds user
+       0.196726000 seconds sys
+
+
+
+===== RUNNING TEST: Size=10000000, Distance=16, Locality=3 =====
+
+Time WITHOUT software prefetching: 711 microseconds.
+Time WITH software prefetching: 774 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 0.919x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 16 10000000 3':
+
+        19,513,264      l2_rqsts.miss                                                           (57.13%)
+        19,883,149      L1-dcache-load-misses                                                   (57.13%)
+    44,548,086,548      instructions                     #    1.70  insn per cycle              (71.42%)
+    26,240,520,656      cycles                                                                  (71.42%)
+           165,475      sw_prefetch_access.any                                                  (71.44%)
+   <not supported>      L1-dcache-store-misses                                                
+        25,682,819      cache-misses                                                            (71.45%)
+           749,665      LLC-load-misses                                                         (71.43%)
+
+       7.397424098 seconds time elapsed
+
+       7.235714000 seconds user
+       0.159971000 seconds sys
+
+
+
+===== RUNNING TEST: Size=10000000, Distance=20, Locality=0 =====
+
+Time WITHOUT software prefetching: 687 microseconds.
+Time WITH software prefetching: 703 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 0.977x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 20 10000000 0':
+
+        19,453,692      l2_rqsts.miss                                                           (57.15%)
+        19,770,884      L1-dcache-load-misses                                                   (57.15%)
+    44,560,721,368      instructions                     #    1.70  insn per cycle              (71.44%)
+    26,174,950,506      cycles                                                                  (71.42%)
+           165,140      sw_prefetch_access.any                                                  (71.42%)
+   <not supported>      L1-dcache-store-misses                                                
+        25,608,452      cache-misses                                                            (71.43%)
+           724,164      LLC-load-misses                                                         (71.43%)
+
+       7.191360280 seconds time elapsed
+
+       7.020089000 seconds user
+       0.168954000 seconds sys
+
+
+
+===== RUNNING TEST: Size=10000000, Distance=20, Locality=1 =====
+
+Time WITHOUT software prefetching: 699 microseconds.
+Time WITH software prefetching: 685 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 1.020x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 20 10000000 1':
+
+        19,346,883      l2_rqsts.miss                                                           (57.13%)
+        19,730,785      L1-dcache-load-misses                                                   (57.15%)
+    44,574,707,051      instructions                     #    1.70  insn per cycle              (71.44%)
+    26,147,775,287      cycles                                                                  (71.44%)
+           166,489      sw_prefetch_access.any                                                  (71.43%)
+   <not supported>      L1-dcache-store-misses                                                
+        25,552,989      cache-misses                                                            (71.43%)
+           682,188      LLC-load-misses                                                         (71.42%)
+
+       7.134965273 seconds time elapsed
+
+       6.967033000 seconds user
+       0.163883000 seconds sys
+
+
+
+===== RUNNING TEST: Size=10000000, Distance=20, Locality=2 =====
+
+Time WITHOUT software prefetching: 677 microseconds.
+Time WITH software prefetching: 681 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 0.994x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 20 10000000 2':
+
+        19,471,823      l2_rqsts.miss                                                           (57.13%)
+        19,868,381      L1-dcache-load-misses                                                   (57.13%)
+    44,558,389,066      instructions                     #    1.70  insn per cycle              (71.42%)
+    26,160,381,398      cycles                                                                  (71.43%)
+           166,571      sw_prefetch_access.any                                                  (71.44%)
+   <not supported>      L1-dcache-store-misses                                                
+        25,613,582      cache-misses                                                            (71.43%)
+           695,200      LLC-load-misses                                                         (71.43%)
+
+       7.145865290 seconds time elapsed
+
+       6.974011000 seconds user
+       0.168927000 seconds sys
+
+
+
+===== RUNNING TEST: Size=10000000, Distance=20, Locality=3 =====
+
+Time WITHOUT software prefetching: 673 microseconds.
+Time WITH software prefetching: 663 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 1.015x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 20 10000000 3':
+
+        19,493,726      l2_rqsts.miss                                                           (57.13%)
+        20,486,840      L1-dcache-load-misses                                                   (57.14%)
+    44,557,260,392      instructions                     #    1.70  insn per cycle              (71.43%)
+    26,197,418,826      cycles                                                                  (71.44%)
+           166,562      sw_prefetch_access.any                                                  (71.44%)
+   <not supported>      L1-dcache-store-misses                                                
+        25,521,245      cache-misses                                                            (71.43%)
+           679,217      LLC-load-misses                                                         (71.42%)
+
+       7.324545029 seconds time elapsed
+
+       7.165320000 seconds user
+       0.157985000 seconds sys
+
+
+
+===== RUNNING TEST: Size=10000000, Distance=24, Locality=0 =====
+
+Time WITHOUT software prefetching: 725 microseconds.
+Time WITH software prefetching: 671 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 1.080x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 24 10000000 0':
+
+        19,223,260      l2_rqsts.miss                                                           (57.14%)
+        19,586,854      L1-dcache-load-misses                                                   (57.15%)
+    44,547,814,065      instructions                     #    1.70  insn per cycle              (71.44%)
+    26,186,874,994      cycles                                                                  (71.43%)
+           164,666      sw_prefetch_access.any                                                  (71.43%)
+   <not supported>      L1-dcache-store-misses                                                
+        25,602,322      cache-misses                                                            (71.42%)
+           737,725      LLC-load-misses                                                         (71.42%)
+
+       7.295030604 seconds time elapsed
+
+       7.140412000 seconds user
+       0.152987000 seconds sys
+
+
+
+===== RUNNING TEST: Size=10000000, Distance=24, Locality=1 =====
+
+Time WITHOUT software prefetching: 681 microseconds.
+Time WITH software prefetching: 659 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 1.033x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 24 10000000 1':
+
+        19,269,686      l2_rqsts.miss                                                           (57.13%)
+        19,797,968      L1-dcache-load-misses                                                   (57.15%)
+    44,568,515,473      instructions                     #    1.70  insn per cycle              (71.44%)
+    26,157,789,815      cycles                                                                  (71.44%)
+           166,127      sw_prefetch_access.any                                                  (71.43%)
+   <not supported>      L1-dcache-store-misses                                                
+        25,645,478      cache-misses                                                            (71.43%)
+           705,003      LLC-load-misses                                                         (71.42%)
+
+       7.296352858 seconds time elapsed
+
+       7.141119000 seconds user
+       0.153981000 seconds sys
+
+
+
+===== RUNNING TEST: Size=10000000, Distance=24, Locality=2 =====
+
+Time WITHOUT software prefetching: 695 microseconds.
+Time WITH software prefetching: 666 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 1.044x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 24 10000000 2':
+
+        19,418,119      l2_rqsts.miss                                                           (57.13%)
+        19,775,344      L1-dcache-load-misses                                                   (57.15%)
+    44,518,453,049      instructions                     #    1.70  insn per cycle              (71.44%)
+    26,203,432,400      cycles                                                                  (71.44%)
+           166,005      sw_prefetch_access.any                                                  (71.43%)
+   <not supported>      L1-dcache-store-misses                                                
+        25,614,394      cache-misses                                                            (71.43%)
+           731,336      LLC-load-misses                                                         (71.42%)
+
+       7.085503619 seconds time elapsed
+
+       6.912674000 seconds user
+       0.170942000 seconds sys
+
+
+
+===== RUNNING TEST: Size=10000000, Distance=24, Locality=3 =====
+
+Time WITHOUT software prefetching: 696 microseconds.
+Time WITH software prefetching: 697 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 0.999x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 24 10000000 3':
+
+        19,409,024      l2_rqsts.miss                                                           (57.11%)
+        19,479,205      L1-dcache-load-misses                                                   (57.14%)
+    44,554,434,068      instructions                     #    1.70  insn per cycle              (71.43%)
+    26,168,928,170      cycles                                                                  (71.45%)
+           166,139      sw_prefetch_access.any                                                  (71.44%)
+   <not supported>      L1-dcache-store-misses                                                
+        25,613,652      cache-misses                                                            (71.44%)
+           728,457      LLC-load-misses                                                         (71.42%)
+
+       7.165715100 seconds time elapsed
+
+       6.998274000 seconds user
+       0.164959000 seconds sys
+
+
+
+===== RUNNING TEST: Size=10000000, Distance=28, Locality=0 =====
+
+Time WITHOUT software prefetching: 760 microseconds.
+Time WITH software prefetching: 772 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 0.984x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 28 10000000 0':
+
+        18,693,155      l2_rqsts.miss                                                           (57.14%)
+        19,106,485      L1-dcache-load-misses                                                   (57.14%)
+    44,553,171,023      instructions                     #    1.71  insn per cycle              (71.42%)
+    26,001,147,788      cycles                                                                  (71.43%)
+           165,604      sw_prefetch_access.any                                                  (71.43%)
+   <not supported>      L1-dcache-store-misses                                                
+        25,563,238      cache-misses                                                            (71.43%)
+           693,207      LLC-load-misses                                                         (71.43%)
+
+       7.049194986 seconds time elapsed
+
+       6.888025000 seconds user
+       0.159977000 seconds sys
+
+
+
+===== RUNNING TEST: Size=10000000, Distance=28, Locality=1 =====
+
+Time WITHOUT software prefetching: 1117 microseconds.
+Time WITH software prefetching: 943 microseconds.
+Time WITH SIMD: 0 microseconds.
+Time WITH software prefetching and SIMD: 0 microseconds.
+
+Speedup (with software prefetching) = 1.185x
+Speedup (with simd) = infx
+Speedup (with software prefetching and simd) = infx
+
+ Performance counter stats for './a.out 28 10000000 1':
+
+        21,472,208      l2_rqsts.miss                                                           (57.13%)
+        20,703,852      L1-dcache-load-misses                                                   (57.12%)
+    44,581,980,164      instructions                     #    1.69  insn per cycle              (71.39%)
+    26,400,192,567      cycles                                                                  (71.42%)
+           167,476      sw_prefetch_access.any                                                  (71.45%)
+   <not supported>      L1-dcache-store-misses                                                
+        26,491,085      cache-misses                                                            (71.46%)
+           955,425      LLC-load-misses                                                         (71.43%)
+
+       7.358235025 seconds time elapsed
+
+       7.176195000 seconds user
+       0.167724000 seconds sys
+
+
+
+===== RUNNING TEST: Size=10000000, Distance=28, Locality=2 =====
+
+^C./a.out: Interrupt
+
+ Performance counter stats for './a.out 28 10000000 2':
+
+        20,347,237      l2_rqsts.miss                                                           (57.15%)
+        20,629,711      L1-dcache-load-misses                                                   (57.14%)
+    44,392,242,271      instructions                     #    1.71  insn per cycle              (71.43%)
+    26,017,293,988      cycles                                                                  (71.45%)
+           166,160      sw_prefetch_access.any                                                  (71.43%)
+   <not supported>      L1-dcache-store-misses                                                
+        25,876,267      cache-misses                                                            (71.40%)
+           752,624      LLC-load-misses                                                         (71.43%)
+
+       7.239663618 seconds time elapsed
+
+       7.072776000 seconds user
+       0.147598000 seconds sys
+
+
+
+===== RUNNING TEST: Size=10000000, Distance=28, Locality=3 =====
+^^C^C./a.out: Interrupt
+
+ Performance counter stats for './a.out 28 10000000 3':
+
+        14,720,505      l2_rqsts.miss                                                           (57.13%)
+        15,044,273      L1-dcache-load-misses                                                   (57.13%)
+    23,651,285,322      instructions                     #    1.70  insn per cycle              (71.42%)
+    13,918,725,884      cycles                                                                  (71.43%)
+           162,825      sw_prefetch_access.any                                                  (71.44%)
+   <not supported>      L1-dcache-store-misses                                                
+        17,818,722      cache-misses                                                            (71.44%)
+           597,021      LLC-load-misses                                                         (71.42%)
+
+       3.823306746 seconds time elapsed
+
+       3.658955000 seconds user
+       0.157739000 seconds sys
+
+
+
