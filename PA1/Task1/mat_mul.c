@@ -21,7 +21,7 @@
 // defines
 // NOTE: you can change this value as per your requirement
 #define TILE_SIZE	100		// size of the tile for blocking
-#define UNROLL_FACTOR 2                  
+#define UNROLL_FACTOR 4                  
 #define OPTIMIZE_LOOP_OPT
 /**
  * @brief 		Performs matrix multiplication of two matrices.
@@ -69,8 +69,8 @@ void loop_opt_mat_mul(double *A, double *B, double *C, int size){
 			for (int j = 0; j < looping_factor; j += UNROLL_FACTOR) {
 				C[i * size + (j + 0)] += a_temp * B[ k* size + (j + 0)];
 				C[i * size + (j + 1)] += a_temp * B[ k* size + (j + 1)];
-		//		C[i * size + (j + 2)] += a_temp * B[ k* size + (j + 2)];
-		//		C[i * size + (j + 3)] += a_temp * B[ k* size + (j + 3)];
+				C[i * size + (j + 2)] += a_temp * B[ k* size + (j + 2)];
+				C[i * size + (j + 3)] += a_temp * B[ k* size + (j + 3)];
 		//		C[i * size + (j + 4)] += a_temp * B[ k* size + (j + 4)];
 		//		C[i * size + (j + 5)] += a_temp * B[ k* size + (j + 5)];
 		//		C[i * size + (j + 6)] += a_temp * B[ k* size + (j + 6)];

@@ -1,0 +1,351 @@
+Starting Performance Test Automation Script
+===== RUNNING TEST: Parameter = 8 =====
+Normal matrix multiplication took 0 ms to execute 
+
+Loop optimized matrix multiplication took 0 ms to execute 
+Normalized performance: -nan 
+
+
+ Performance counter stats for './a.out 8':
+
+           132,759      l2_rqsts.miss                                                           (14.31%)
+            41,659      L1-dcache-load-misses                                                   (92.02%)
+         3,851,155      instructions                     #    1.18  insn per cycle            
+         3,274,969      cycles                                                                
+               457      sw_prefetch_access.any                                                
+   <not supported>      L1-dcache-store-misses                                                
+            47,966      cache-misses                                                            (85.69%)
+             1,729      LLC-load-misses                                                         (7.98%)
+
+       0.001939218 seconds time elapsed
+
+       0.000000000 seconds user
+       0.001985000 seconds sys
+
+
+
+===== RUNNING TEST: Parameter = 16 =====
+Normal matrix multiplication took 0 ms to execute 
+
+Loop optimized matrix multiplication took 0 ms to execute 
+Normalized performance: -nan 
+
+
+ Performance counter stats for './a.out 16':
+
+           150,850      l2_rqsts.miss                                                           (30.01%)
+            61,223      L1-dcache-load-misses                                                   (86.10%)
+         4,153,757      instructions                     #    0.91  insn per cycle            
+         4,540,962      cycles                                                                
+               457      sw_prefetch_access.any                                                
+   <not supported>      L1-dcache-store-misses                                                
+            48,651      cache-misses                                                            (69.99%)
+             1,633      LLC-load-misses                                                         (13.90%)
+
+       0.002522447 seconds time elapsed
+
+       0.001739000 seconds user
+       0.000869000 seconds sys
+
+
+
+===== RUNNING TEST: Parameter = 32 =====
+Normal matrix multiplication took 0 ms to execute 
+
+Loop optimized matrix multiplication took 0 ms to execute 
+Normalized performance: -nan 
+
+
+ Performance counter stats for './a.out 32':
+
+           164,397      l2_rqsts.miss                                                           (40.34%)
+            62,984      L1-dcache-load-misses                                                   (89.41%)
+         6,660,715      instructions                     #    1.28  insn per cycle            
+         5,219,824      cycles                                                                
+               490      sw_prefetch_access.any                                                
+   <not supported>      L1-dcache-store-misses                                                
+            51,445      cache-misses                                                            (59.66%)
+             4,890      LLC-load-misses                                                         (10.59%)
+
+       0.002833509 seconds time elapsed
+
+       0.001901000 seconds user
+       0.000950000 seconds sys
+
+
+
+===== RUNNING TEST: Parameter = 64 =====
+Normal matrix multiplication took 2 ms to execute 
+
+Loop optimized matrix multiplication took 1 ms to execute 
+Normalized performance: 2.000000 
+
+
+ Performance counter stats for './a.out 64':
+
+           141,588      l2_rqsts.miss                                                           (45.14%)
+           182,173      L1-dcache-load-misses                                                   (44.92%)
+        22,473,599      instructions                     #    1.29  insn per cycle              (63.47%)
+        17,362,581      cycles                                                                  (63.18%)
+               593      sw_prefetch_access.any                                                  (76.17%)
+   <not supported>      L1-dcache-store-misses                                                
+            73,935      cache-misses                                                            (91.68%)
+             3,961      LLC-load-misses                                                         (78.91%)
+
+       0.006219039 seconds time elapsed
+
+       0.005161000 seconds user
+       0.001032000 seconds sys
+
+
+
+===== RUNNING TEST: Parameter = 96 =====
+Normal matrix multiplication took 3 ms to execute 
+
+Loop optimized matrix multiplication took 2 ms to execute 
+Normalized performance: 1.500000 
+
+
+ Performance counter stats for './a.out 96':
+
+           115,457      l2_rqsts.miss                                                           (55.35%)
+           346,821      L1-dcache-load-misses                                                   (61.13%)
+        74,221,290      instructions                     #    2.96  insn per cycle              (74.16%)
+        25,113,424      cycles                                                                  (74.25%)
+               794      sw_prefetch_access.any                                                  (74.23%)
+   <not supported>      L1-dcache-store-misses                                                
+            78,041      cache-misses                                                            (70.39%)
+               521      LLC-load-misses                                                         (64.64%)
+
+       0.008296731 seconds time elapsed
+
+       0.007183000 seconds user
+       0.001026000 seconds sys
+
+
+
+===== RUNNING TEST: Parameter = 128 =====
+Normal matrix multiplication took 11 ms to execute 
+
+Loop optimized matrix multiplication took 5 ms to execute 
+Normalized performance: 2.200000 
+
+
+ Performance counter stats for './a.out 128':
+
+           422,296      l2_rqsts.miss                                                           (51.78%)
+         2,520,557      L1-dcache-load-misses                                                   (52.98%)
+       171,341,006      instructions                     #    2.72  insn per cycle              (69.03%)
+        63,005,441      cycles                                                                  (74.41%)
+               822      sw_prefetch_access.any                                                  (78.57%)
+   <not supported>      L1-dcache-store-misses                                                
+            71,644      cache-misses                                                            (73.82%)
+             3,233      LLC-load-misses                                                         (68.45%)
+
+       0.019143765 seconds time elapsed
+
+       0.017160000 seconds user
+       0.002018000 seconds sys
+
+
+
+===== RUNNING TEST: Parameter = 192 =====
+Normal matrix multiplication took 35 ms to execute 
+
+Loop optimized matrix multiplication took 18 ms to execute 
+Normalized performance: 1.944444 
+
+
+ Performance counter stats for './a.out 192':
+
+         3,224,235      l2_rqsts.miss                                                           (56.85%)
+         8,640,900      L1-dcache-load-misses                                                   (56.90%)
+       554,235,587      instructions                     #    2.82  insn per cycle              (71.24%)
+       196,278,773      cycles                                                                  (71.77%)
+             1,222      sw_prefetch_access.any                                                  (72.29%)
+   <not supported>      L1-dcache-store-misses                                                
+            84,418      cache-misses                                                            (71.37%)
+             3,262      LLC-load-misses                                                         (70.81%)
+
+       0.056604274 seconds time elapsed
+
+       0.053104000 seconds user
+       0.002950000 seconds sys
+
+
+
+===== RUNNING TEST: Parameter = 256 =====
+Normal matrix multiplication took 120 ms to execute 
+
+Loop optimized matrix multiplication took 43 ms to execute 
+Normalized performance: 2.790698 
+
+
+ Performance counter stats for './a.out 256':
+
+        43,588,748      l2_rqsts.miss                                                           (57.42%)
+        19,091,757      L1-dcache-load-misses                                                   (57.48%)
+     1,353,759,417      instructions                     #    2.33  insn per cycle              (71.63%)
+       582,097,229      cycles                                                                  (71.35%)
+             1,556      sw_prefetch_access.any                                                  (71.40%)
+   <not supported>      L1-dcache-store-misses                                                
+           430,771      cache-misses                                                            (71.22%)
+            31,605      LLC-load-misses                                                         (71.12%)
+
+       0.169243384 seconds time elapsed
+
+       0.163436000 seconds user
+       0.001957000 seconds sys
+
+
+
+===== RUNNING TEST: Parameter = 384 =====
+Normal matrix multiplication took 373 ms to execute 
+
+Loop optimized matrix multiplication took 146 ms to execute 
+Normalized performance: 2.554795 
+
+
+ Performance counter stats for './a.out 384':
+
+       107,882,857      l2_rqsts.miss                                                           (56.91%)
+        64,795,951      L1-dcache-load-misses                                                   (57.04%)
+     4,534,331,017      instructions                     #    2.43  insn per cycle              (71.47%)
+     1,865,379,362      cycles                                                                  (71.57%)
+             2,112      sw_prefetch_access.any                                                  (71.56%)
+   <not supported>      L1-dcache-store-misses                                                
+         1,830,170      cache-misses                                                            (71.52%)
+           227,911      LLC-load-misses                                                         (71.40%)
+
+       0.527734694 seconds time elapsed
+
+       0.523585000 seconds user
+       0.002986000 seconds sys
+
+
+
+===== RUNNING TEST: Parameter = 512 =====
+Normal matrix multiplication took 1029 ms to execute 
+
+Loop optimized matrix multiplication took 363 ms to execute 
+Normalized performance: 2.834711 
+
+
+ Performance counter stats for './a.out 512':
+
+       293,218,344      l2_rqsts.miss                                                           (57.07%)
+       152,176,705      L1-dcache-load-misses                                                   (57.12%)
+    10,701,640,941      instructions                     #    2.16  insn per cycle              (71.45%)
+     4,963,092,740      cycles                                                                  (71.50%)
+             3,801      sw_prefetch_access.any                                                  (71.52%)
+   <not supported>      L1-dcache-store-misses                                                
+        22,681,604      cache-misses                                                            (71.43%)
+         3,002,065      LLC-load-misses                                                         (71.36%)
+
+       1.406481653 seconds time elapsed
+
+       1.400215000 seconds user
+       0.002994000 seconds sys
+
+
+
+===== RUNNING TEST: Parameter = 768 =====
+Normal matrix multiplication took 4233 ms to execute 
+
+Loop optimized matrix multiplication took 1182 ms to execute 
+Normalized performance: 3.581218 
+
+
+ Performance counter stats for './a.out 768':
+
+       983,536,308      l2_rqsts.miss                                                           (57.16%)
+       518,220,038      L1-dcache-load-misses                                                   (57.15%)
+    36,003,659,610      instructions                     #    1.98  insn per cycle              (71.44%)
+    18,186,780,362      cycles                                                                  (71.40%)
+             8,585      sw_prefetch_access.any                                                  (71.43%)
+   <not supported>      L1-dcache-store-misses                                                
+       207,922,992      cache-misses                                                            (71.44%)
+        32,464,556      LLC-load-misses                                                         (71.42%)
+
+       5.444421167 seconds time elapsed
+
+       5.391268000 seconds user
+       0.019879000 seconds sys
+
+
+
+===== RUNNING TEST: Parameter = 1024 =====
+Normal matrix multiplication took 23794 ms to execute 
+
+Loop optimized matrix multiplication took 2927 ms to execute 
+Normalized performance: 8.129142 
+
+
+ Performance counter stats for './a.out 1024':
+
+     2,342,139,758      l2_rqsts.miss                                                           (57.14%)
+     1,234,401,463      L1-dcache-load-misses                                                   (57.15%)
+    85,317,884,768      instructions                     #    1.40  insn per cycle              (71.43%)
+    60,800,325,259      cycles                                                                  (71.44%)
+            20,516      sw_prefetch_access.any                                                  (71.42%)
+   <not supported>      L1-dcache-store-misses                                                
+     1,332,733,168      cache-misses                                                            (71.42%)
+       356,386,500      LLC-load-misses                                                         (71.42%)
+
+      26.779659022 seconds time elapsed
+
+      26.645447000 seconds user
+       0.106909000 seconds sys
+
+
+
+===== RUNNING TEST: Parameter = 1536 =====
+Normal matrix multiplication took 106778 ms to execute 
+
+Loop optimized matrix multiplication took 9235 ms to execute 
+Normalized performance: 11.562317 
+
+
+ Performance counter stats for './a.out 1536':
+
+     8,017,096,044      l2_rqsts.miss                                                           (57.14%)
+     5,284,436,062      L1-dcache-load-misses                                                   (57.14%)
+   287,759,936,003      instructions                     #    1.21  insn per cycle              (71.43%)
+   237,680,634,487      cycles                                                                  (71.43%)
+            60,128      sw_prefetch_access.any                                                  (71.43%)
+   <not supported>      L1-dcache-store-misses                                                
+     7,084,506,921      cache-misses                                                            (71.43%)
+     2,291,455,006      LLC-load-misses                                                         (71.43%)
+
+     116.126330792 seconds time elapsed
+
+     115.975969000 seconds user
+       0.078953000 seconds sys
+
+
+
+===== RUNNING TEST: Parameter = 2048 =====
+Normal matrix multiplication took 281020 ms to execute 
+
+Loop optimized matrix multiplication took 24623 ms to execute 
+Normalized performance: 11.412907 
+
+
+ Performance counter stats for './a.out 2048':
+
+    19,280,274,715      l2_rqsts.miss                                                           (57.14%)
+    15,185,958,970      L1-dcache-load-misses                                                   (57.14%)
+   682,003,525,289      instructions                     #    1.12  insn per cycle              (71.43%)
+   609,273,366,874      cycles                                                                  (71.43%)
+           138,732      sw_prefetch_access.any                                                  (71.43%)
+   <not supported>      L1-dcache-store-misses                                                
+    20,543,212,712      cache-misses                                                            (71.43%)
+     6,595,489,385      LLC-load-misses                                                         (71.43%)
+
+     305.840941054 seconds time elapsed
+
+     305.487637000 seconds user
+       0.127920000 seconds sys
+
+
+
