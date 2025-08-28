@@ -194,7 +194,7 @@ void simd_mat_mul(double *A, double *B, double *C, int size) {
 */
 void combination_mat_mul(double *A, double *B, double *C, int size, int tile_size) {
 
-	// #ifdef OPTIMIZE_COMBINED
+	#ifdef OPTIMIZE_COMBINED
 
 	__m512d C_r8;
 
@@ -296,7 +296,7 @@ void combination_mat_mul(double *A, double *B, double *C, int size, int tile_siz
 	}
 
 
-	// #endif
+	#endif
 }
 
 bool areEqual(double a, double b, double epsilon = 1e-9) {
