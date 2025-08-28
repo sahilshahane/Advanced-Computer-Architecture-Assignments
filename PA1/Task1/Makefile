@@ -1,13 +1,17 @@
 BIN=mat_mul
 CC=g++
 
-CXXFLAGS =-O0 -Wno-write-strings -msse2 -mavx 
+CXXFLAGS = -Wno-write-strings -msse2 -mavx  -mavx512f -O2
+
+ifeq ($(NAIVE),0)
+    CXXFLAGS += -D NOT_NAIVE
+endif
 
 naive: mat_mul
 	g++ mat_mul.c $(CXXFLAGS) -o $(BIN)/$@
 
 tiling: mat_mul
-	g++ mat_mul.c $(CXXFLAGS) -D OPTIMIZE_TILING -o $(BIN)/$@
+	g++ mat_mul.cpp -D OPTIMIZE_TILING -o $(BIN)/$@
 
 loop: mat_mul
 	g++ mat_mul.c $(CXXFLAGS) -D OPTIMIZE_LOOP_OPT -o $(BIN)/$@

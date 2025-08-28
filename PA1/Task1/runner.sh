@@ -10,7 +10,7 @@ set -e  # Exit on any command failure
 
 sizes=(8 16 32 64 96 128 192 256 384 512 768 1024 1536 2048) # 3072 4096
 reports_dir="reports"
-task_variant="simd_512"
+task_variant="tiling"
 register_size=""
 
 # Create reports directory if it doesn't exist
