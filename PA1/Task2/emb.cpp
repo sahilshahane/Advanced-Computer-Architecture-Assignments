@@ -14,8 +14,9 @@ const int embedding_dim = 128;
 const int input_size = 720;
 const int num_bags = 20;
 int prefetch_distance = 8;
-int catch_fill_level = 0;
-
+#ifndef LOCALITY_HINT
+#define LOCALITY_HINT 0
+#endif
 int random_int(int range)
 {
     static random_device rd;
@@ -45,7 +46,7 @@ long long run_with_prefetching(const vector<float> &embedding_table, const vecto
             if( (j + prefetch_distance) < end_idx)
             {
                 int future_input_index = input[j + prefetch_distance];
-                __builtin_prefetch(&embedding_table[future_input_index* embedding_dim],0,catch_fill_level);
+                __builtin_prefetch(&embedding_table[future_input_index* embedding_dim],0,LOCALITY_HINT);
             }
 
             const float *data_ptr = &embedding_table[input[j] * embedding_dim];
@@ -137,7 +138,7 @@ long long naive_emb(vector<float> &embedding_table, const vector<int> &input, co
 int main()
 {
     /*modified part*/
-    cin>>prefetch_distance>>embedding_table_size>>catch_fill_level;
+    cin>>prefetch_distance>>embedding_table_size;
     /*modified part*/
     // Prepare embedding table
     vector<float> embedding_table(embedding_table_size * embedding_dim);
