@@ -7,6 +7,10 @@ ifeq ($(NAIVE),0)
     CXXFLAGS += -D NOT_NAIVE
 endif
 
+ifeq ($(DEBUG),1)
+    CXXFLAGS += -D DEBUG
+endif
+
 naive: mat_mul
 	g++ mat_mul.c $(CXXFLAGS) -o $(BIN)/$@
 

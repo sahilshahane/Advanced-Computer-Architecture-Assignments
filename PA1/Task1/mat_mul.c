@@ -305,6 +305,8 @@ bool areEqual(double a, double b, double epsilon = 1e-9) {
 
 
 bool is_array_same(double *C1, double *C2, int size){
+
+	#ifdef DEBUG
 	for (int i = 0; i < size; i++) {
 		for (int j = 0; j < size; j++) {
 			if(!areEqual(C1[i * size + j], C2[i * size + j])) {
@@ -315,11 +317,15 @@ bool is_array_same(double *C1, double *C2, int size){
 	
 
 	printf("YES, THE ARRAY ARE SAME!\n");
+	#endif
 
 	return true;
 }
 
 void print_array(double *arr, int size, char* msg = ""){
+
+	#ifdef DEBUG
+
 	printf("%s", msg);
 
 	for (int i = 0; i < size; i++) {
@@ -330,6 +336,9 @@ void print_array(double *arr, int size, char* msg = ""){
 	}
 
 	printf("\n");
+
+
+	#endif
 }
 
 // NOTE: DO NOT CHANGE ANYTHING BELOW THIS LINE
