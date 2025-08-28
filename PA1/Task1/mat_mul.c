@@ -22,7 +22,7 @@
 // NOTE: you can change this value as per your requirement
 // #define TILE_SIZE	100		// size of the tile for blocking
 #define UNROLL_FACTOR 4                  
-#define COMB_UNROLL_FACTOR 4    
+#define COMB_UNROLL_FACTOR 5    
 #define TILE_SIZE 64 
 
 /**
@@ -210,7 +210,11 @@ void combination_mat_mul(double *A, double *B, double *C, int size, int tile_siz
 	__m512d A4_r8;
 	__m512d B4_r8;
 
+	__m512d A5_r8;
+	__m512d B5_r8;
 
+	// __m512d A6_r8;
+	// __m512d B6_r8;
 
 	int size_unroll_aligned = size - (size % COMB_UNROLL_FACTOR);
 
@@ -228,13 +232,15 @@ void combination_mat_mul(double *A, double *B, double *C, int size, int tile_siz
 			A2_r8  = _mm512_set1_pd(A[i * size + (k + 1)]);
 			A3_r8  = _mm512_set1_pd(A[i * size + (k + 2)]);
 			A4_r8  = _mm512_set1_pd(A[i * size + (k + 3)]);
+			A5_r8  = _mm512_set1_pd(A[i * size + (k + 4)]);
+			// A6_r8  = _mm512_set1_pd(A[i * size + (k + 5)]);
 
 			j = 0;
 
 			for(; j < size8; j += 8){
-				B1_r8 = _mm512_loadu_pd(&(B[k * size + j]));
 				C_r8 = _mm512_loadu_pd(&(C[i * size + j]));
-
+				
+				B1_r8 = _mm512_loadu_pd(&(B[k * size + j]));
 				C_r8 = _mm512_fmadd_pd(A1_r8, B1_r8, C_r8);
 
 				B2_r8 = _mm512_loadu_pd(&(B[(k + 1) * size + j]));
@@ -246,26 +252,27 @@ void combination_mat_mul(double *A, double *B, double *C, int size, int tile_siz
 				B4_r8 = _mm512_loadu_pd(&(B[(k + 3) * size + j]));
 				C_r8 = _mm512_fmadd_pd(A4_r8, B4_r8, C_r8);
 
+				B5_r8 = _mm512_loadu_pd(&(B[(k + 4) * size + j]));
+				C_r8 = _mm512_fmadd_pd(A5_r8, B5_r8, C_r8);	
+
+				// B6_r8 = _mm512_loadu_pd(&(B[(k + 5) * size + j]));
+				// C_r8 = _mm512_fmadd_pd(A6_r8, B6_r8, C_r8);
+
 				_mm512_storeu_pd(&(C[i * size + j]), C_r8);
 			}
-
-			t = j;
 
 			// leftover elements
 			for(; j < size; j ++){
 				C[i * size + j] += A1_r8[0] * B[k * size + j];
-			}
-
-			j = t;
-
-			// leftover elements
-			for(; j < size; j ++){
 				C[i * size + j] += A2_r8[0] * B[(k + 1) * size + j];
+				C[i * size + j] += A3_r8[0] * B[(k + 2) * size + j];
+				C[i * size + j] += A4_r8[0] * B[(k + 3) * size + j];
+				C[i * size + j] += A5_r8[0] * B[(k + 4) * size + j];
 			}
 		}
 	}
 
-
+	// leftover computation
 	for(; k < size; k++){
 
 		for(int i = 0; i < size; i++){
