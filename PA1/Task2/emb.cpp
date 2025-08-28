@@ -5,16 +5,18 @@
 #include <chrono>
 #include <immintrin.h>
 #include <cstdlib>
+#include <cmath>    // for std::fabs
+
 
 using namespace std;
 using namespace std::chrono;
 
-int embedding_table_size = 10000000;
+int embedding_table_size = 100000;
 const int embedding_dim = 128;
 const int input_size = 720;
 const int num_bags = 20;
 int prefetch_distance = 8;
-int catch_fill_level = 0;
+const int cache_fill_lvl = 0;
 
 int random_int(int range)
 {
@@ -27,28 +29,41 @@ int random_int(int range)
 // emb_tabl 128 * 10 ** 6. random floats. its a array of floats till range 10 ** 8
 // input 720. random ints. its a array of ints till range 10 ** 8
 // offsets 20. Array of multiples of 36.
-long long run_with_prefetching(const vector<float> &embedding_table, const vector<int> &input, const vector<int> &offsets)
+long long run_with_prefetching(const vector<float> &embedding_table, const vector<int> &input, const vector<int> &offsets, vector<vector<float>> &output)
 {
     auto start = high_resolution_clock::now();
     //----------------------------------------------------- Write your code here ----------------------------------------------------------------
-    vector<vector<float>> output;
+    // vector<vector<float>> output;
 
     for (size_t i = 0; i < offsets.size(); ++i)
     {
-        int start_idx = offsets[i];
-        int end_idx = (i + 1 < offsets.size()) ? offsets[i + 1] : input.size();
+        const int start_idx = offsets[i];
+        const int end_idx = (i + 1 < offsets.size()) ? offsets[i + 1] : input.size();
+        int j;
+
+        // WARNING: It is assumed that end_idx > prefetch_distance
+        const int end_idx_prefetch = end_idx - prefetch_distance;
 
         vector<float> bag_embedding(embedding_dim, 0.0f);
 
-        for (int j = start_idx; j < end_idx; ++j)
+        for (j = start_idx; j < end_idx_prefetch; j++)
         {
-            if( (j + prefetch_distance) < end_idx)
-            {
-                int future_input_index = input[j + prefetch_distance];
-                __builtin_prefetch(&embedding_table[future_input_index* embedding_dim],0,catch_fill_level);
-            }
+            const int future_input_index = input[j + prefetch_distance];
+            __builtin_prefetch(&(embedding_table[future_input_index * embedding_dim]), 0, cache_fill_lvl);
+            // _mm_prefetch(&(embedding_table[future_input_index* embedding_dim]), _MM_HINT_T0);
 
             const float *data_ptr = &embedding_table[input[j] * embedding_dim];
+            for (int d = 0; d < embedding_dim; ++d)
+            {
+                bag_embedding[d] += data_ptr[d];
+            }
+        }
+
+        // leftover iterations
+        for (int j = end_idx_prefetch; j < end_idx; j++)
+        {
+            const float *data_ptr = &embedding_table[input[j] * embedding_dim];
+
             for (int d = 0; d < embedding_dim; ++d)
             {
                 bag_embedding[d] += data_ptr[d];
@@ -67,13 +82,46 @@ long long run_with_prefetching(const vector<float> &embedding_table, const vecto
     return duration.count();
 }
 
-long long run_with_simd(const vector<float> &embedding_table, const vector<int> &input, const vector<int> &offsets)
+long long run_with_simd(const vector<float> &embedding_table, const vector<int> &input, const vector<int> &offsets, vector<vector<float>> &output)
 {
-
     auto start = high_resolution_clock::now();
 
     //----------------------------------------------------- Write your code here ----------------------------------------------------------------
 
+    // vector<vector<float>> output;
+    int d;
+    __m512 A_r, B_r;
+
+    for (size_t i = 0; i < offsets.size(); ++i)
+    {
+        int start_idx = offsets[i];
+        int end_idx = (i + 1 < offsets.size()) ? offsets[i + 1] : input.size();
+
+        vector<float> bag_embedding(embedding_dim, 0.0f);
+
+        for (int j = start_idx; j < end_idx; ++j)
+        {
+            const float *data_ptr = &embedding_table[input[j] * embedding_dim];
+
+            for (d = 0; d < embedding_dim; d += 16)
+            {
+                A_r = _mm512_loadu_ps(&bag_embedding[d]);
+                B_r = _mm512_loadu_ps(&data_ptr[d]);
+
+                _mm512_storeu_ps(&bag_embedding[d], _mm512_add_ps(A_r, B_r));
+            }
+
+            // leftover iterations
+            for (; d < embedding_dim; d++)
+            {
+                bag_embedding[d] += data_ptr[d];
+            }
+        }
+
+        output.push_back(bag_embedding);
+    }
+
+    
     //-------------------------------------------------------------------------------------------------------------------------------------------
 
     auto end = high_resolution_clock::now();
@@ -90,6 +138,69 @@ long long run_with_prefetching_simd(const vector<float> &embedding_table, const 
 
     //----------------------------------------------------- Write your code here ----------------------------------------------------------------
 
+    vector<vector<float>> output;
+    int d;
+    __m512 A_r, B_r;
+
+
+    for (size_t i = 0; i < offsets.size(); ++i)
+    {
+        const int start_idx = offsets[i];
+        const int end_idx = (i + 1 < offsets.size()) ? offsets[i + 1] : input.size();
+        int j;
+
+        // WARNING: It is assumed that end_idx > prefetch_distance
+        const int end_idx_prefetch = end_idx - prefetch_distance;
+
+        vector<float> bag_embedding(embedding_dim, 0.0f);
+
+        for (j = start_idx; j < end_idx_prefetch; j++)
+        {
+            const int future_input_index = input[j + prefetch_distance];
+            __builtin_prefetch(&(embedding_table[future_input_index * embedding_dim]), 0, cache_fill_lvl);
+            // _mm_prefetch(&(embedding_table[future_input_index* embedding_dim]), _MM_HINT_T0);
+
+            const float *data_ptr = &embedding_table[input[j] * embedding_dim];
+         
+            for (d = 0; d < embedding_dim; d += 16)
+            {
+                A_r = _mm512_loadu_ps(&bag_embedding[d]);
+                B_r = _mm512_loadu_ps(&data_ptr[d]);
+
+                _mm512_storeu_ps(&bag_embedding[d], _mm512_add_ps(A_r, B_r));
+            }
+
+            // leftover iterations
+            for (; d < embedding_dim; d++)
+            {
+                bag_embedding[d] += data_ptr[d];
+            }
+
+        }
+
+        // leftover iterations
+        for (int j = end_idx_prefetch; j < end_idx; j++)
+        {
+            const float *data_ptr = &embedding_table[input[j] * embedding_dim];
+
+             for (d = 0; d < embedding_dim; d += 16)
+            {
+                A_r = _mm512_loadu_ps(&bag_embedding[d]);
+                B_r = _mm512_loadu_ps(&data_ptr[d]);
+
+                _mm512_storeu_ps(&bag_embedding[d], _mm512_add_ps(A_r, B_r));
+            }
+
+            // leftover iterations
+            for (; d < embedding_dim; d++)
+            {
+                bag_embedding[d] += data_ptr[d];
+            }
+        }
+
+        output.push_back(bag_embedding);
+    }
+
     //-------------------------------------------------------------------------------------------------------------------------------------------
 
     auto end = high_resolution_clock::now();
@@ -102,11 +213,11 @@ long long run_with_prefetching_simd(const vector<float> &embedding_table, const 
 // emb_tabl 128 * 10 ** 6. random floats. its a array of floats till range 10 ** 8
 // input 720. random ints. its a array of ints till range 10 ** 8
 // offsets 20. Array of multiples of 36.
-long long naive_emb(vector<float> &embedding_table, const vector<int> &input, const vector<int> &offsets)
+long long naive_emb(vector<float> &embedding_table, const vector<int> &input, const vector<int> &offsets, vector<vector<float>> &output)
 {
 
     auto start = high_resolution_clock::now();
-    vector<vector<float>> output;
+    // vector<vector<float>> output;
 
     for (size_t i = 0; i < offsets.size(); ++i)
     {
@@ -134,10 +245,48 @@ long long naive_emb(vector<float> &embedding_table, const vector<int> &input, co
     return duration.count();
 }
 
+// ------------ CUSTOM CODE ( REMOVE DURING SUBMISSION ) ------------
+
+void compareMatrices(const std::vector<std::vector<float>>& A,
+                     const std::vector<std::vector<float>>& B,
+                     char* msg = "",  float epsilon = 1e-6f) 
+{
+
+    cout << "\n" << msg;
+
+    if (A.size() != B.size()) {
+        std::cout << "Matrices are NOT equal (different row counts)\n";
+        return;
+    }
+
+    for (size_t i = 0; i < A.size(); ++i) {
+        if (A[i].size() != B[i].size()) {
+            std::cout << "Matrices are NOT equal (different column counts in row " 
+                      << i << ")\n";
+            return;
+        }
+
+        for (size_t j = 0; j < A[i].size(); ++j) {
+            if (std::fabs(A[i][j] - B[i][j]) > epsilon) {
+                std::cout << "Matrices are NOT equal (mismatch at position ["
+                          << i << "][" << j << "]: " 
+                          << A[i][j] << " vs " << B[i][j] << ")\n";
+                return;
+            }
+        }
+    }
+
+    std::cout << "Matrices are equal\n";
+}
+// ~~~~~~~~~~~~ CUSTOM CODE ( REMOVE DURING SUBMISSION ) ~~~~~~~~~~~~~~~~
+
 int main()
 {
     /*modified part*/
-    cin>>prefetch_distance>>embedding_table_size>>catch_fill_level;
+    // cin>>prefetch_distance>>embedding_table_size;
+
+    vector<vector<float>> output_naive;
+
     /*modified part*/
     // Prepare embedding table
     vector<float> embedding_table(embedding_table_size * embedding_dim);
@@ -167,7 +316,7 @@ int main()
     _mm_mfence();
 
     // Run naive code
-    long long time_without_prefetch = naive_emb(embedding_table, input, offsets);
+    long long time_without_prefetch = naive_emb(embedding_table, input, offsets, output_naive);
 
     // ---------- Flush Cache Before Running Prefetching ----------
     for (size_t i = 0; i < embedding_table.size(); i += 16)
@@ -176,10 +325,26 @@ int main()
     }
     _mm_mfence();
 
+    vector<vector<float>> output_prefetch;
+
+
     // Run emb with software prefetching
-    long long time_with_prefetch = run_with_prefetching(embedding_table, input, offsets);
+    long long time_with_prefetch = run_with_prefetching(embedding_table, input, offsets, output_prefetch);
+
+
+    compareMatrices(output_naive, output_prefetch, "Prefetch: ");
+
+
+
+    vector<vector<float>> output_simd;
+
     // Run emb with simd
-    long long time_with_simd = run_with_simd(embedding_table, input, offsets);
+    long long time_with_simd = run_with_simd(embedding_table, input, offsets, output_simd);
+
+
+    compareMatrices(output_naive, output_simd, "SIMD: ");
+
+
     // Run emb with software prefetching and simd
     long long time_with_prefetch_simd = run_with_prefetching_simd(embedding_table, input, offsets);
 
