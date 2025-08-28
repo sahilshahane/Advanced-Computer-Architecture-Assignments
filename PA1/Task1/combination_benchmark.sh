@@ -8,7 +8,7 @@ timestamp=$(date +"%H%M%S_%d%m%Y")
 # ---------- CONFIG ----------
 OUTFILE="combination_benchmark_${timestamp}.csv"
 LOGDIR="perf_logs_combination_${timestamp}"
-TILES=({2..200})                # change as you like
+TILES=({2..2})                # change as you like
 read -r -a SIZES < "array_sizes.txt"            # change as you like
 EVENTS=$(cat perf_events.txt | tr '\n' ',')  # comma-separated list of events
 BIN_PATH="./mat_mul/combination"     # folder containing tiling_<tile> executables
