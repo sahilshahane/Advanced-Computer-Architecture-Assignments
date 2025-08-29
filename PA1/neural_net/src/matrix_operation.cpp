@@ -1,6 +1,30 @@
 #include "matrix_operation.h"
 #include <immintrin.h>
 
+
+bool is_matrix_same(Matrix A,Matrix B, string msg = ""){
+	size_t n = A.getRows();
+	size_t k = A.getCols();
+	size_t m = B.getCols();
+
+	if (A.getRows() != B.getRows() || A.getCols() != B.getCols()) {
+        std::cout << "Error ( Matrix not same ) ( " << msg << " ): Dimention Mismatch" << std::endl;
+		return false;
+	}
+
+
+    for(int i = 0; i < n; i++){
+		for(int j = 0; j < m; j++){
+			if(abs(A(i,j) - B(i,j)) > 1e-6){
+				std::cout << "Error ( Matrix not same ) ( " << msg << " ): Mismatch at (" << i << ", " << j << "): " << A(i,j) << " != " << B(i,j) << std::endl;
+                return false;
+			}
+		}
+	}
+
+    return true;
+}
+
 Matrix MatrixOperation::NaiveMatMul(const Matrix &A, const Matrix &B) {
 	size_t n = A.getRows();
 	size_t k = A.getCols();
@@ -38,16 +62,19 @@ Matrix MatrixOperation::ReorderedMatMul(const Matrix& A, const Matrix& B) {
 	Matrix C(n,m);
 	
 //----------------------------------------------------- Write your code here ----------------------------------------------------------------
-    int a;
+    element_t a;
 
-	for(int l = 0; l < k; l++) {
-		for(int i = 0; i < n ; i++) {
+	for(int i = 0; i < n ; i++) {
+		for(int l = 0; l < k; l++) {
 			a = A(i,l);
-			for (int j = 0 ; j < m ; j++) {
-					C(i,j) +=  a * B(l,j);
+
+			for (int j = 0 ; j< m ; j++) {
+				C(i,j) +=  a * B(l,j);
 			}
 		}
 	}
+
+	// is_matrix_same(C, NaiveMatMul(A, B), "ReorderedMatMul");
 //-------------------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -69,26 +96,7 @@ Matrix MatrixOperation::UnrolledMatMul(const Matrix& A, const Matrix& B) {
     const int UNROLL = 4;
 //----------------------------------------------------- Write your code here ----------------------------------------------------------------
 	int a, l, j, i;
-	const int k_unroll_aligned = k - (k % UNROLL);
 	const int m_unroll_aligned = m - (m % UNROLL);
-
-	for(i = 0; i < n ; i++) {
-		for (j = 0 ; j < m; j++) {
-
-			for(l = 0; l < k_unroll_aligned; l+= UNROLL) {
-				C(i,j) +=  
-				  A(i,l) * B(l,j) 
-				+ A(i,l + 1) * B(l + 1,j) 
-				+ A(i,l + 2) * B(l + 2,j) 
-				+ A(i,l + 3) * B(l + 3,j);
-			}
-
-			// leftover
-			for (; l < k; l++) {
-				C(i,j) +=  A(i,l) * B(l,j);
-			}
-		}
-	}
 
 	for(i = 0; i < n ; i++) {
 		for (j = 0 ; j < m_unroll_aligned; j+= UNROLL) {
@@ -107,7 +115,7 @@ Matrix MatrixOperation::UnrolledMatMul(const Matrix& A, const Matrix& B) {
 		}
 	}
 
-
+	// is_matrix_same(C, NaiveMatMul(A, B), "UnrolledMatMul");
 //-------------------------------------------------------------------------------------------------------------------------------------------
 
     return C;
@@ -129,7 +137,35 @@ Matrix MatrixOperation::TiledMatMul(const Matrix& A, const Matrix& B) {
 	int k_max = 0;
 	int j_max = 0;
 //----------------------------------------------------- Write your code here ----------------------------------------------------------------
-    
+	int n_i = n, k_i = k, m_i = m;
+
+  	for (int i = 0; i < n; i += T) {
+		i_max = min(i + T, n_i);
+
+        for (int j = 0; j < m; j+=T) {
+			j_max = min(j + T, m_i);
+
+            for (int l = 0; l < k; l+=T) {
+				k_max = min(l + T, k_i);
+
+                // now we will peform multiplication of tiles
+                for(int tilei=i;tilei < i_max ;tilei++){
+                    for(int tilej=j;tilej < j_max ;tilej++){
+                        double sum = C(tilei, tilej);
+
+                        for(int tileL=l;tileL< k_max;tileL++){
+                            sum += A(tilei ,tileL) * B(tileL ,tilej);
+                        }       
+						
+                        C(tilei, tilej) = sum;
+                    }
+                }
+				
+            }
+        }
+    }
+
+	// is_matrix_same(C, NaiveMatMul(A, B), "TiledMatMul");
 
 //-------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -148,8 +184,38 @@ Matrix MatrixOperation::VectorizedMatMul(const Matrix& A, const Matrix& B) {
 
     Matrix C(n, m);
 //----------------------------------------------------- Write your code here ----------------------------------------------------------------
-    
+	const int m_r_aligned =  m - (m % 8);
 
+	__m512d A_r;
+	__m512d B_r;
+	__m512d C_r;
+
+	double sum;
+
+	int l, j;
+
+	for(l = 0; l < k; l ++){
+
+		for(int i = 0; i < n; i++){
+			A_r  = _mm512_set1_pd(A(i,l));
+
+			for(j = 0; j < m_r_aligned; j+=8){
+				B_r = _mm512_loadu_pd(&(B(l, j)));
+				C_r = _mm512_loadu_pd(&(C(i,j)));
+
+				C_r = _mm512_fmadd_pd(A_r, B_r, C_r);
+
+				_mm512_storeu_pd(&(C(i,j)), C_r);
+			}	
+
+			// leftover elements
+			for(; j < m; j++){
+				C(i, j) += A_r[0] * B(l,j);
+			} 
+		}
+	}
+
+	// is_matrix_same(C, NaiveMatMul(A, B), "VectorizedMatMul");
 //-------------------------------------------------------------------------------------------------------------------------------------------
 
     return C;
