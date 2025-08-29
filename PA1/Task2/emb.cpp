@@ -16,7 +16,9 @@ const int embedding_dim = 128;
 const int input_size = 720;
 const int num_bags = 20;
 int prefetch_distance = 8;
-const int cache_fill_lvl = 0;
+#ifndef LOCALITY_HINT
+#define LOCALITY_HINT 0
+#endif
 
 int random_int(int range)
 {
@@ -29,11 +31,11 @@ int random_int(int range)
 // emb_tabl 128 * 10 ** 6. random floats. its a array of floats till range 10 ** 8
 // input 720. random ints. its a array of ints till range 10 ** 8
 // offsets 20. Array of multiples of 36.
-long long run_with_prefetching(const vector<float> &embedding_table, const vector<int> &input, const vector<int> &offsets, vector<vector<float>> &output)
+long long run_with_prefetching(const vector<float> &embedding_table, const vector<int> &input, const vector<int> &offsets)
 {
     auto start = high_resolution_clock::now();
     //----------------------------------------------------- Write your code here ----------------------------------------------------------------
-    // vector<vector<float>> output;
+    vector<vector<float>> output;
 
     for (size_t i = 0; i < offsets.size(); ++i)
     {
@@ -49,7 +51,7 @@ long long run_with_prefetching(const vector<float> &embedding_table, const vecto
         for (j = start_idx; j < end_idx_prefetch; j++)
         {
             const int future_input_index = input[j + prefetch_distance];
-            __builtin_prefetch(&(embedding_table[future_input_index * embedding_dim]), 0, cache_fill_lvl);
+            __builtin_prefetch(&(embedding_table[future_input_index * embedding_dim]), 0, LOCALITY_HINT);
             // _mm_prefetch(&(embedding_table[future_input_index* embedding_dim]), _MM_HINT_T0);
 
             const float *data_ptr = &embedding_table[input[j] * embedding_dim];
@@ -82,13 +84,13 @@ long long run_with_prefetching(const vector<float> &embedding_table, const vecto
     return duration.count();
 }
 
-long long run_with_simd(const vector<float> &embedding_table, const vector<int> &input, const vector<int> &offsets, vector<vector<float>> &output)
+long long run_with_simd(const vector<float> &embedding_table, const vector<int> &input, const vector<int> &offsets)
 {
     auto start = high_resolution_clock::now();
 
     //----------------------------------------------------- Write your code here ----------------------------------------------------------------
 
-    // vector<vector<float>> output;
+    vector<vector<float>> output;
     int d;
     __m512 A_r, B_r;
 
@@ -157,7 +159,7 @@ long long run_with_prefetching_simd(const vector<float> &embedding_table, const 
         for (j = start_idx; j < end_idx_prefetch; j++)
         {
             const int future_input_index = input[j + prefetch_distance];
-            __builtin_prefetch(&(embedding_table[future_input_index * embedding_dim]), 0, cache_fill_lvl);
+            __builtin_prefetch(&(embedding_table[future_input_index * embedding_dim]), 0, LOCALITY_HINT);
             // _mm_prefetch(&(embedding_table[future_input_index* embedding_dim]), _MM_HINT_T0);
 
             const float *data_ptr = &embedding_table[input[j] * embedding_dim];
@@ -213,11 +215,11 @@ long long run_with_prefetching_simd(const vector<float> &embedding_table, const 
 // emb_tabl 128 * 10 ** 6. random floats. its a array of floats till range 10 ** 8
 // input 720. random ints. its a array of ints till range 10 ** 8
 // offsets 20. Array of multiples of 36.
-long long naive_emb(vector<float> &embedding_table, const vector<int> &input, const vector<int> &offsets, vector<vector<float>> &output)
+long long naive_emb(vector<float> &embedding_table, const vector<int> &input, const vector<int> &offsets)
 {
 
     auto start = high_resolution_clock::now();
-    // vector<vector<float>> output;
+    vector<vector<float>> output;
 
     for (size_t i = 0; i < offsets.size(); ++i)
     {
@@ -245,47 +247,10 @@ long long naive_emb(vector<float> &embedding_table, const vector<int> &input, co
     return duration.count();
 }
 
-// ------------ CUSTOM CODE ( REMOVE DURING SUBMISSION ) ------------
-
-void compareMatrices(const std::vector<std::vector<float>>& A,
-                     const std::vector<std::vector<float>>& B,
-                     char* msg = "",  float epsilon = 1e-6f) 
-{
-
-    cout << "\n" << msg;
-
-    if (A.size() != B.size()) {
-        std::cout << "Matrices are NOT equal (different row counts)\n";
-        return;
-    }
-
-    for (size_t i = 0; i < A.size(); ++i) {
-        if (A[i].size() != B[i].size()) {
-            std::cout << "Matrices are NOT equal (different column counts in row " 
-                      << i << ")\n";
-            return;
-        }
-
-        for (size_t j = 0; j < A[i].size(); ++j) {
-            if (std::fabs(A[i][j] - B[i][j]) > epsilon) {
-                std::cout << "Matrices are NOT equal (mismatch at position ["
-                          << i << "][" << j << "]: " 
-                          << A[i][j] << " vs " << B[i][j] << ")\n";
-                return;
-            }
-        }
-    }
-
-    std::cout << "Matrices are equal\n";
-}
-// ~~~~~~~~~~~~ CUSTOM CODE ( REMOVE DURING SUBMISSION ) ~~~~~~~~~~~~~~~~
-
 int main()
 {
     /*modified part*/
-    // cin>>prefetch_distance>>embedding_table_size;
-
-    vector<vector<float>> output_naive;
+    cin>>prefetch_distance>>embedding_table_size;
 
     /*modified part*/
     // Prepare embedding table
@@ -316,7 +281,7 @@ int main()
     _mm_mfence();
 
     // Run naive code
-    long long time_without_prefetch = naive_emb(embedding_table, input, offsets, output_naive);
+    long long time_without_prefetch = naive_emb(embedding_table, input, offsets);
 
     // ---------- Flush Cache Before Running Prefetching ----------
     for (size_t i = 0; i < embedding_table.size(); i += 16)
@@ -325,26 +290,10 @@ int main()
     }
     _mm_mfence();
 
-    vector<vector<float>> output_prefetch;
-
-
     // Run emb with software prefetching
-    long long time_with_prefetch = run_with_prefetching(embedding_table, input, offsets, output_prefetch);
-
-
-    compareMatrices(output_naive, output_prefetch, "Prefetch: ");
-
-
-
-    vector<vector<float>> output_simd;
-
+    long long time_with_prefetch = run_with_prefetching(embedding_table, input, offsets);
     // Run emb with simd
-    long long time_with_simd = run_with_simd(embedding_table, input, offsets, output_simd);
-
-
-    compareMatrices(output_naive, output_simd, "SIMD: ");
-
-
+    long long time_with_simd = run_with_simd(embedding_table, input, offsets);
     // Run emb with software prefetching and simd
     long long time_with_prefetch_simd = run_with_prefetching_simd(embedding_table, input, offsets);
 
