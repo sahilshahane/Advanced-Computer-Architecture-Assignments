@@ -20,9 +20,14 @@
 
 // defines
 // NOTE: you can change this value as per your requirement
-// #define TILE_SIZE	100		// size of the tile for blocking
+
+#ifndef TILE_SIZE
+	#define TILE_SIZE 100
+#endif
+
 #define UNROLL_FACTOR 4                  
-#define COMB_UNROLL_FACTOR 5    
+#define COMB_UNROLL_FACTOR 5 
+//#define OPTIMIZE_LOOP_OPT
 
 /**
  * @brief 		Performs matrix multiplication of two matrices.
@@ -273,43 +278,43 @@ void combination_mat_mul(double *A, double *B, double *C, int size, int tile_siz
 
 	#ifdef OPTIMIZE_COMBINED
 
-	// simd+tiling
-	__m512d A_r8;
-	__m512d B_r8;
-	__m512d C_r8;
-	for (int i = 0; i < size; i += tile_size)
-	{
-		for (int j = 0; j < size; j += tile_size)
-		{
-			for (int k = 0; k < size; k += tile_size)
-			{
-				// now we will peform multiplication of tiles using simd
-				for (int tilei = i; tilei < i + tile_size && tilei < size; tilei++)
-				{
-					int tilej = j;
-					for (; tilej + 7 < j + tile_size && tilej + 7 < size; tilej += 8)
-					{
-						C_r8 = _mm512_loadu_pd(&(C[tilei * size + tilej]));
-						for (int tilek = k; tilek < k + tile_size && tilek < size; tilek++)
-						{
-							A_r8 = _mm512_set1_pd(A[tilei * size + tilek]);
-							B_r8 = _mm512_loadu_pd(&(B[tilek * size + tilej]));
-							C_r8 = _mm512_fmadd_pd(A_r8, B_r8, C_r8);
-						}
-						_mm512_storeu_pd(&(C[tilei * size + tilej]), C_r8);
-					}
-					// leftover columns
-					for (; tilej < j + tile_size && tilej < size; tilej++)
-					{
-						double sum = C[tilei * size + tilej];
-						for (int tilek = k; tilek < k + tile_size && tilek < size; tilek++)
-							sum += A[tilei * size + tilek] * B[tilek * size + tilej];
-						C[tilei * size + tilej] = sum;
-					}
-				}
-			}
-		}
-	}
+	// // simd+tiling
+	// __m512d A_r8;
+	// __m512d B_r8;
+	// __m512d C_r8;
+	// for (int i = 0; i < size; i += tile_size)
+	// {
+	// 	for (int j = 0; j < size; j += tile_size)
+	// 	{
+	// 		for (int k = 0; k < size; k += tile_size)
+	// 		{
+	// 			// now we will peform multiplication of tiles using simd
+	// 			for (int tilei = i; tilei < i + tile_size && tilei < size; tilei++)
+	// 			{
+	// 				int tilej = j;
+	// 				for (; tilej + 7 < j + tile_size && tilej + 7 < size; tilej += 8)
+	// 				{
+	// 					C_r8 = _mm512_loadu_pd(&(C[tilei * size + tilej]));
+	// 					for (int tilek = k; tilek < k + tile_size && tilek < size; tilek++)
+	// 					{
+	// 						A_r8 = _mm512_set1_pd(A[tilei * size + tilek]);
+	// 						B_r8 = _mm512_loadu_pd(&(B[tilek * size + tilej]));
+	// 						C_r8 = _mm512_fmadd_pd(A_r8, B_r8, C_r8);
+	// 					}
+	// 					_mm512_storeu_pd(&(C[tilei * size + tilej]), C_r8);
+	// 				}
+	// 				// leftover columns
+	// 				for (; tilej < j + tile_size && tilej < size; tilej++)
+	// 				{
+	// 					double sum = C[tilei * size + tilej];
+	// 					for (int tilek = k; tilek < k + tile_size && tilek < size; tilek++)
+	// 						sum += A[tilei * size + tilek] * B[tilek * size + tilej];
+	// 					C[tilei * size + tilej] = sum;
+	// 				}
+	// 			}
+	// 		}
+	// 	}
+	// }
 
 	// tiling+loop_optmisation
 	// for (int i = 0; i < size; i += tile_size)
@@ -347,36 +352,36 @@ void combination_mat_mul(double *A, double *B, double *C, int size, int tile_siz
 	// }
 
 	// simd+loop_optimisation
-	// int size8 = size - (size % 32);
-	// int j;
+	int size8 = size - (size % 32);
+	int j;
 
-	// for (int k = 0; k < size; k++)
-	// {
-	// 	for (int i = 0; i < size; i++)
-	// 	{
-	// 		__m512d A_r8 = _mm512_set1_pd(A[i * size + k]);
-	// 		j = 0;
-	// 		int size_unroll_aligned = size8 - (size8 % UNROLL_FACTOR);
+	for (int k = 0; k < size; k++)
+	{
+		for (int i = 0; i < size; i++)
+		{
+			__m512d A_r8 = _mm512_set1_pd(A[i * size + k]);
+			j = 0;
+			int size_unroll_aligned = size8 - (size8 % UNROLL_FACTOR);
 
-	// 		// unrolled SIMD loop
-	// 		for (; j < size_unroll_aligned; j += UNROLL_FACTOR)
-	// 		{
-	// 			int simd_count = UNROLL_FACTOR / 8; // 8 doubles per __m512d
-	// 			for (int s = 0; s < simd_count; s++)
-	// 			{
-	// 				int idx = j + s * 8;
-	// 				__m512d B_r8 = _mm512_loadu_pd(&B[k * size + idx]);
-	// 				__m512d C_r8 = _mm512_loadu_pd(&C[i * size + idx]);
-	// 				C_r8 = _mm512_fmadd_pd(A_r8, B_r8, C_r8);
-	// 				_mm512_storeu_pd(&C[i * size + idx], C_r8);
-	// 			}
-	// 		}
+			// unrolled SIMD loop
+			for (; j < size_unroll_aligned; j += UNROLL_FACTOR)
+			{
+				int simd_count = UNROLL_FACTOR / 8; // 8 doubles per __m512d
+				for (int s = 0; s < simd_count; s++)
+				{
+					int idx = j + s * 8;
+					__m512d B_r8 = _mm512_loadu_pd(&B[k * size + idx]);
+					__m512d C_r8 = _mm512_loadu_pd(&C[i * size + idx]);
+					C_r8 = _mm512_fmadd_pd(A_r8, B_r8, C_r8);
+					_mm512_storeu_pd(&C[i * size + idx], C_r8);
+				}
+			}
 
-	// 		// leftover elements
-	// 		for (; j < size; j++)
-	// 			C[i * size + j] += A[i * size + k] * B[k * size + j];
-	// 	}
-	// }
+			// leftover elements
+			for (; j < size; j++)
+				C[i * size + j] += A[i * size + k] * B[k * size + j];
+		}
+	}
 
 	// simd+loop_optimisation+tiling
 	// __m512d A_r8;
