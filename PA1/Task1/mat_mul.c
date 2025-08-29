@@ -23,7 +23,6 @@
 // #define TILE_SIZE	100		// size of the tile for blocking
 #define UNROLL_FACTOR 4                  
 #define COMB_UNROLL_FACTOR 5    
-#define TILE_SIZE 64 
 
 /**
  * @brief 		Performs matrix multiplication of two matrices.
@@ -151,30 +150,37 @@ void simd_mat_mul(double *A, double *B, double *C, int size) {
 	__m512d C_r8;
 
 
+	double sum;
+
 	int size8 = size - (size % 8);
-	int j;
+	int k;
 
+	for(int i = 0; i < size; i++){
 
-	for(int k = 0; k < size; k++){
+		for(int j = 0; j < size; j++){
+			sum = 0;
 
-		for(int i = 0; i < size; i++){
+			for(k = 0; k < size8; k += 8){
+				A_r8  = _mm512_loadu_pd(&(A[i * size + k]));
+				
+				B_r8 = _mm512_set_pd(	B[(k + 7) * size + j], 
+										B[(k + 6) * size + j], 
+										B[(k + 5) * size + j], 
+										B[(k + 4) * size + j], 
+										B[(k + 3) * size + j], 
+										B[(k + 2) * size + j], 
+										B[(k + 1) * size + j], 
+										B[(k) * size + j]);
 
-			A_r8  = _mm512_set1_pd(A[i * size + k]);
-			j = 0;
+				sum += _mm512_reduce_add_pd(_mm512_mul_pd(A_r8, B_r8));
+			}	
 
-			for(; j < size8; j += 8){
-				B_r8 = _mm512_loadu_pd(&(B[k * size + j]));
-				C_r8 = _mm512_loadu_pd(&(C[i * size + j]));
+			for(; k < size; k++){
+				sum += A[i * size + k] + B[k * size + j];
+			}	
 
-				C_r8 = _mm512_fmadd_pd(A_r8, B_r8, C_r8);
-
-				_mm512_storeu_pd(&(C[i * size + j]), C_r8);
-			}
-
-			// leftover elements
-			for(; j < size; j++) C[i * size + j] += A_r8[0] * B[k * size + j];
+			C[i * size + j] = sum;
 		}
-
 	}
 
 	#endif
@@ -429,7 +435,7 @@ int main(int argc, char **argv) {
 		simd_mat_mul(A, B, C2, size);
 		end = std::chrono::high_resolution_clock::now();
 		auto time_simd_mat_mul = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
-		printf("Array same : %d\n", is_array_same(C, C2, size));
+		is_array_same(C, C2, size);
 
 		printf("SIMD matrix multiplication took %ld ms to execute \n", time_simd_mat_mul);
 		printf("Normalized performance: %f \n\n", (double)time_naive_mat_mul / time_simd_mat_mul);
