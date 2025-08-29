@@ -1,0 +1,15 @@
+Normal matrix multiplication took 0 ms to execute 
+
+Tiling matrix multiplication took 78 ms to execute 
+Normalized performance: 0.000000 
+
+1019791435,,instructions,89743871,100.00,2.70,insn per cycle
+377274293,,cycles,89743871,100.00,4.204,GHz
+0,,context-switches,89743871,100.00,0.000,/sec
+284010610,,L1-dcache-loads,89743871,100.00,3.165,G/sec
+135942379,,L1-dcache-load-misses,89743871,100.00,47.87,of all L1-dcache accesses
+149506159,,branch-instructions,89743871,100.00,1.666,G/sec
+183978,,branch-misses,89743871,100.00,0.12,of all branches
+1770605,,cache-references,89743871,100.00,19.730,M/sec
+221852,,cache-misses,89743871,100.00,12.53,of all cache refs
+89.74,msec,task-clock,89743871,100.00,0.993,CPUs utilized
