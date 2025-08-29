@@ -147,6 +147,7 @@ void simd_mat_mul(double *A, double *B, double *C, int size) {
 
 	__m512d A_r;
 	__m512d B_r;
+	__m512d C_r;
 
 	double sum;
 
@@ -156,7 +157,7 @@ void simd_mat_mul(double *A, double *B, double *C, int size) {
 	for(int i = 0; i < size; i++){
 
 		for(int j = 0; j < size; j++){
-			sum = 0;
+			C_r = _mm512_setzero_pd();
 
 			for(k = 0; k < size8; k += 8){
 				A_r  = _mm512_loadu_pd(&(A[i * size + k]));
@@ -170,8 +171,10 @@ void simd_mat_mul(double *A, double *B, double *C, int size) {
 										B[(k + 1) * size + j], 
 										B[(k) * size + j]);
 
-				sum += _mm512_reduce_add_pd(_mm512_mul_pd(A_r, B_r));
+				C_r += _mm512_fmadd_pd(A_r, B_r, C_r);
 			}	
+
+			sum = _mm512_reduce_add_pd(C_r);
 
 			for(; k < size; k++){
 				sum += A[i * size + k] + B[k * size + j];
