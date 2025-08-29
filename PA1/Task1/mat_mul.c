@@ -143,8 +143,7 @@ void tile_mat_mul(double *A, double *B, double *C, int size, int tile_size) {
  * @note 		You can assume that the matrices are square matrices.
 */
 void simd_mat_mul(double *A, double *B, double *C, int size) {
-	#ifdef OPTIMIZE_SIMD
-
+	#ifdef OPTIMIZE_SIMD_512
 	__m512d A_r;
 	__m512d B_r;
 	__m512d C_r;
@@ -155,7 +154,6 @@ void simd_mat_mul(double *A, double *B, double *C, int size) {
 	int k;
 
 	for(int i = 0; i < size; i++){
-
 		for(int j = 0; j < size; j++){
 			C_r = _mm512_setzero_pd();
 
@@ -171,7 +169,7 @@ void simd_mat_mul(double *A, double *B, double *C, int size) {
 										B[(k + 1) * size + j], 
 										B[(k) * size + j]);
 
-				C_r += _mm512_fmadd_pd(A_r, B_r, C_r);
+				C_r = _mm512_fmadd_pd(A_r, B_r, C_r);
 			}	
 
 			sum = _mm512_reduce_add_pd(C_r);
@@ -187,9 +185,9 @@ void simd_mat_mul(double *A, double *B, double *C, int size) {
 	#endif
 
 	#ifdef OPTIMIZE_SIMD_256
-
 	__m256d A_r;
 	__m256d B_r;
+	__m256d C_r;
 
 	double sum;
 
@@ -197,9 +195,8 @@ void simd_mat_mul(double *A, double *B, double *C, int size) {
 	int k;
 
 	for(int i = 0; i < size; i++){
-
 		for(int j = 0; j < size; j++){
-			sum = 0;
+			C_r = _mm256_setzero_pd();
 
 			for(k = 0; k < size_aligned; k += 4){
 				A_r  = _mm256_loadu_pd(&(A[i * size + k]));
@@ -209,8 +206,10 @@ void simd_mat_mul(double *A, double *B, double *C, int size) {
 										B[(k + 1) * size + j], 
 										B[(k) * size + j]);
 
-				sum += _mm256_reduce_add_pd(_mm256_mul_pd(A_r, B_r));
+				C_r = _mm256_fmadd_pd(A_r, B_r, C_r);
 			}	
+
+			sum = C_r[0] + C_r[1] + C_r[2] + C_r[3];
 
 			for(; k < size; k++){
 				sum += A[i * size + k] + B[k * size + j];
@@ -222,7 +221,40 @@ void simd_mat_mul(double *A, double *B, double *C, int size) {
 
 	#endif
 
+	#ifdef OPTIMIZE_SIMD_128
+	__m128d A_r;
+	__m128d B_r;
+	__m128d C_r;
 
+	double sum;
+
+	int size_aligned = size - (size % 2);
+	int k;
+
+	for(int i = 0; i < size; i++){
+		for(int j = 0; j < size; j++){
+			C_r = _mm_setzero_pd();
+
+			for(k = 0; k < size_aligned; k += 2){
+				A_r  = _mm_loadu_pd(&(A[i * size + k]));
+				
+				B_r = _mm_set_pd(	B[(k + 1) * size + j], 
+										B[(k) * size + j]);
+
+				C_r = _mm_fmadd_pd(A_r, B_r, C_r);
+			}	
+
+			sum = C_r[0] + C_r[1];
+
+			for(; k < size; k++){
+				sum += A[i * size + k] + B[k * size + j];
+			}	
+
+			C[i * size + j] = sum;
+		}
+	}
+	
+	#endif
 }
 
 
