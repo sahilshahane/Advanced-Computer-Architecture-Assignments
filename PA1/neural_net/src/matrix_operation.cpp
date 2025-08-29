@@ -38,8 +38,16 @@ Matrix MatrixOperation::ReorderedMatMul(const Matrix& A, const Matrix& B) {
 	Matrix C(n,m);
 	
 //----------------------------------------------------- Write your code here ----------------------------------------------------------------
-    
+    int a;
 
+	for(int l = 0; l < k; l++) {
+		for(int i = 0; i < n ; i++) {
+			a = A(i,l);
+			for (int j = 0 ; j < m ; j++) {
+					C(i,j) +=  a * B(l,j);
+			}
+		}
+	}
 //-------------------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -60,7 +68,45 @@ Matrix MatrixOperation::UnrolledMatMul(const Matrix& A, const Matrix& B) {
 
     const int UNROLL = 4;
 //----------------------------------------------------- Write your code here ----------------------------------------------------------------
-    
+	int a, l, j, i;
+	const int k_unroll_aligned = k - (k % UNROLL);
+	const int m_unroll_aligned = m - (m % UNROLL);
+
+	for(i = 0; i < n ; i++) {
+		for (j = 0 ; j < m; j++) {
+
+			for(l = 0; l < k_unroll_aligned; l+= UNROLL) {
+				C(i,j) +=  
+				  A(i,l) * B(l,j) 
+				+ A(i,l + 1) * B(l + 1,j) 
+				+ A(i,l + 2) * B(l + 2,j) 
+				+ A(i,l + 3) * B(l + 3,j);
+			}
+
+			// leftover
+			for (; l < k; l++) {
+				C(i,j) +=  A(i,l) * B(l,j);
+			}
+		}
+	}
+
+	for(i = 0; i < n ; i++) {
+		for (j = 0 ; j < m_unroll_aligned; j+= UNROLL) {
+			for(l = 0; l < k; l++) {
+				C(i,j) += A(i,l) * B(l,j);
+				C(i,j + 1) += A(i,l) * B(l,j + 1);
+				C(i,j + 2) += A(i,l) * B(l,j + 2);
+				C(i,j + 3) += A(i,l) * B(l,j + 3);
+			}
+		}
+
+		for (; j < m; j++) {
+			for(l = 0; l < k; l++) {
+				C(i,j) += A(i,l) * B(l,j);
+			}
+		}
+	}
+
 
 //-------------------------------------------------------------------------------------------------------------------------------------------
 
