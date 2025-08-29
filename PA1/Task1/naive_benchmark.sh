@@ -6,13 +6,17 @@ timestamp=$(date +"%H%M%S_%d%m%Y")
 
 
 # ---------- CONFIG ----------
-OUTFILE="tiling_result_${timestamp}.csv"
-LOGDIR="perf_logs_tiling_${timestamp}"
-TILES=({2..200})                # change as you like
+OUTFILE="naive_benchmark_${timestamp}.csv"
+LOGDIR="perf_logs_naive_${timestamp}"
+TILES=({2..2})                # change as you like
 read -r -a SIZES < "array_sizes.txt"            # change as you like
 EVENTS=$(cat perf_events.txt | tr '\n' ',')  # comma-separated list of events
-BIN_DIR="./mat_mul_Tiling"     # folder containing tiling_<tile> executables
+BIN_PATH="./mat_mul/naive"     # folder containing tiling_<tile> executables
 # ----------------------------
+
+
+echo "Array Sizes: ${SIZES[@]}"
+echo "Perf Events: ${EVENTS}"
 
 mkdir -p "$LOGDIR"
 
@@ -55,7 +59,7 @@ percent() {
 }
 
 for tile in "${TILES[@]}"; do
-  BIN="$BIN_DIR/tiling_$tile"
+  BIN="$BIN_PATH"
   if [ ! -x "$BIN" ]; then
     echo "ERROR: Binary not found or not executable: $BIN" >&2
     exit 1
@@ -112,5 +116,6 @@ echo "========================================";
 echo "Benchmarking complete.";
 echo "Final data saved to $OUTFILE";
 echo "Raw perf outputs saved in $LOGDIR/";
+
 
 sleep 2;
