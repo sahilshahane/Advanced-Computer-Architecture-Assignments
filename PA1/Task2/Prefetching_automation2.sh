@@ -28,7 +28,7 @@ for locality in "${LOCALITY_HINTS[@]}"; do
 
     # --- COMPILE STEP ---
     # Recompile the program, passing the locality hint as a compile-time definition (-D).
-    g++ "$CPP_SOURCE_FILE" -O2 -g -march=native -DLOCALITY_HINT=$locality -o "$EXECUTABLE"
+    g++ "$CPP_SOURCE_FILE" -Wno-write-strings -msse2 -mavx  -mavx512f -O2 -g -DLOCALITY_HINT=$locality -o "$EXECUTABLE"
     
     # Check if compilation was successful.
     if [ $? -ne 0 ]; then
