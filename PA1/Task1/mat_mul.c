@@ -145,10 +145,8 @@ void tile_mat_mul(double *A, double *B, double *C, int size, int tile_size) {
 void simd_mat_mul(double *A, double *B, double *C, int size) {
 	#ifdef OPTIMIZE_SIMD
 
-	__m512d A_r8;
-	__m512d B_r8;
-	__m512d C_r8;
-
+	__m512d A_r;
+	__m512d B_r;
 
 	double sum;
 
@@ -161,9 +159,9 @@ void simd_mat_mul(double *A, double *B, double *C, int size) {
 			sum = 0;
 
 			for(k = 0; k < size8; k += 8){
-				A_r8  = _mm512_loadu_pd(&(A[i * size + k]));
+				A_r  = _mm512_loadu_pd(&(A[i * size + k]));
 				
-				B_r8 = _mm512_set_pd(	B[(k + 7) * size + j], 
+				B_r = _mm512_set_pd(	B[(k + 7) * size + j], 
 										B[(k + 6) * size + j], 
 										B[(k + 5) * size + j], 
 										B[(k + 4) * size + j], 
@@ -172,7 +170,7 @@ void simd_mat_mul(double *A, double *B, double *C, int size) {
 										B[(k + 1) * size + j], 
 										B[(k) * size + j]);
 
-				sum += _mm512_reduce_add_pd(_mm512_mul_pd(A_r8, B_r8));
+				sum += _mm512_reduce_add_pd(_mm512_mul_pd(A_r, B_r));
 			}	
 
 			for(; k < size; k++){
@@ -184,6 +182,44 @@ void simd_mat_mul(double *A, double *B, double *C, int size) {
 	}
 
 	#endif
+
+	#ifdef OPTIMIZE_SIMD_256
+
+	__m256d A_r;
+	__m256d B_r;
+
+	double sum;
+
+	int size_aligned = size - (size % 4);
+	int k;
+
+	for(int i = 0; i < size; i++){
+
+		for(int j = 0; j < size; j++){
+			sum = 0;
+
+			for(k = 0; k < size_aligned; k += 4){
+				A_r  = _mm256_loadu_pd(&(A[i * size + k]));
+				
+				B_r = _mm256_set_pd(	B[(k + 3) * size + j], 
+										B[(k + 2) * size + j], 
+										B[(k + 1) * size + j], 
+										B[(k) * size + j]);
+
+				sum += _mm256_reduce_add_pd(_mm256_mul_pd(A_r, B_r));
+			}	
+
+			for(; k < size; k++){
+				sum += A[i * size + k] + B[k * size + j];
+			}	
+
+			C[i * size + j] = sum;
+		}
+	}
+
+	#endif
+
+
 }
 
 

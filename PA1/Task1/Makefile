@@ -38,7 +38,7 @@ mat_mul:
 	@mkdir -p $(BIN)
 
 simd_256: mat_mul
-	g++ mat_mul.c -mavx $(CXXFLAGS) -D OPTIMIZE_SIMD_256 -o $(BIN)/$@
+	g++ mat_mul.c -mavx -msse2 $(CXXFLAGS) -D OPTIMIZE_SIMD_256 -o $(BIN)/$@
 
 simd_512: mat_mul
 	g++ mat_mul.c -mavx512f $(CXXFLAGS) -D OPTIMIZE_SIMD_512 -o $(BIN)/$@
