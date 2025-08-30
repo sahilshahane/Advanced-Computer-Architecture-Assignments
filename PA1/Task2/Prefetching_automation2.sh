@@ -4,7 +4,7 @@
 CPP_SOURCE_FILE="emb.cpp"
 EXECUTABLE="./a.out"
 CSV_FILE="perf_results_final.csv"
-PERF_EVENTS="cycles,instructions,cache-misses,LLC-load-misses,l2_rqsts.miss,L1-dcache-load-misses"
+PERF_EVENTS="l2_rqsts.miss,L1-dcache-load-misses,instructions,cycles,sw_prefetch_access.any,cache-misses,mem_load_retired.l3_miss,LLC-load-misses,context-switches,branch-instructions,branch-misses,cache-references,task-clock"
 
 # --- Parameters to Test ---
 PREFETCH_DISTANCES=(4 8 12 16 20 24 28)
