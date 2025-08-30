@@ -1,0 +1,1 @@
+python reports_sahil/Task_1C/graph_speedup.py reports/naive/naive_average.csv reports_sahil/Task_1C/speedup.png reports_sahil/Task_1C/simd_128_average.csv "128 Bit" reports_sahil/Task_1C/simd_256_average.csv "256 Bit" reports_sahil/Task_1C/simd_512_average.csv "512 Bit"

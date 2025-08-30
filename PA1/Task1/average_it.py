@@ -47,6 +47,8 @@ def main():
 
     # Apply rounding rules
     for col in averaged.columns:
+        if col in ['TimeElapsedSeconds']: 
+            continue                 # no rounding
         if col in ["Instructions", "Cycles"]:
             averaged[col] = averaged[col].round(0).astype(int)   # integer rounding
         elif col not in merge_keys:
