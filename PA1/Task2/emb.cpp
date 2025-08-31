@@ -147,6 +147,9 @@ long long run_with_prefetching_simd(const vector<float> &embedding_table, const 
     int d;
     __m512 A_r, B_r;
 
+    vector<vector<float>> output;
+    int d;
+    __m512 A_r, B_r;
 
     for (size_t i = 0; i < offsets.size(); ++i)
     {
@@ -206,6 +209,7 @@ long long run_with_prefetching_simd(const vector<float> &embedding_table, const 
         output.push_back(bag_embedding);
     }
     #endif
+
     //-------------------------------------------------------------------------------------------------------------------------------------------
 
     auto end = high_resolution_clock::now();
@@ -256,7 +260,6 @@ int main()
 {
     /*modified part*/
     cin>>prefetch_distance>>embedding_table_size>>input_size;
-
     /*modified part*/
     // Prepare embedding table
     vector<float> embedding_table(embedding_table_size * embedding_dim);
