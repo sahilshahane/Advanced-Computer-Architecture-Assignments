@@ -26,15 +26,16 @@ def plot_speedup(file1, file2, output_image="speedup.png"):
     for table_size in sorted(merged['TableSize'].unique()):
         subset = merged[merged['TableSize'] == table_size].sort_values('InputSize')
         plt.plot(
-            subset['InputSize'],
+            subset['InputSize'],    
             subset['Speedup'],
             marker='o',
             label=f"{table_size}"
         )
-
+    
     plt.xlabel("Embedding Dimension")
     plt.ylabel("Speedup")
-    plt.title("SIMD 128 Bit Speedup comparison over Naive")
+    plt.ticklabel_format(style='plain', axis='y')
+    plt.title("SIMD 256 Bit Speedup comparison over Naive")
     plt.legend(title="TableSize")
     plt.grid(True)
 
