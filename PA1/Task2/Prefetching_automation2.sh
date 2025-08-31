@@ -1,15 +1,19 @@
 #!/bin/bash
-set -euo pipefail
+# set -euo pipefail
+
+
+timestamp=$(date +"%H%M%S_%d%m%Y")
 
 # --- Configuration ---
 CPP_SOURCE_FILE="emb.cpp"
 EXECUTABLE="./emb_test"
-NAIVE_CSV_FILE="perf_results_naive.csv"
-PREFETCH_CSV_FILE="perf_results_prefetch.csv"
+NAIVE_CSV_FILE="perf_results_naive_${timestamp}.csv"
+PREFETCH_CSV_FILE="perf_results_prefetch_${timestamp}.csv"
 PERF_EVENTS="l2_rqsts.miss,L1-dcache-load-misses,instructions,cycles,sw_prefetch_access.any,cache-misses,mem_load_retired.l3_miss,LLC-load-misses,context-switches,branch-instructions,branch-misses,cache-references,task-clock"
 
 # --- Parameters to Test ---
-CODE_VARIANTS=("NAIVE" "PREFETCH")
+CODE_VARIANTS=("PREFETCH")
+# CODE_VARIANTS=("NAIVE")
 PREFETCH_DISTANCES=(4 8 12 16 20 24 28)
 INPUT_SIZES=(90 180 360 720 1024)
 TABLE_SIZES=(125000 250000 500000 1000000 6000000)

@@ -92,9 +92,11 @@ long long run_with_simd(const vector<float> &embedding_table, const vector<int> 
     auto start = high_resolution_clock::now();
 
     //----------------------------------------------------- Write your code here ----------------------------------------------------------------
-    #ifdef SIMD
     vector<vector<float>> output;
     int d;
+
+    #ifdef SIMD_512
+    
     __m512 A_r, B_r;
 
     for (size_t i = 0; i < offsets.size(); ++i)
@@ -127,6 +129,74 @@ long long run_with_simd(const vector<float> &embedding_table, const vector<int> 
     }
 
     #endif
+
+    #ifdef SIMD_256
+
+    __m256 A_r, B_r;
+
+    for (size_t i = 0; i < offsets.size(); ++i)
+    {
+        int start_idx = offsets[i];
+        int end_idx = (i + 1 < offsets.size()) ? offsets[i + 1] : input.size();
+
+        vector<float> bag_embedding(embedding_dim, 0.0f);
+
+        for (int j = start_idx; j < end_idx; ++j)
+        {
+            const float *data_ptr = &embedding_table[input[j] * embedding_dim];
+
+            for (d = 0; d < embedding_dim; d += 8)
+            {
+                A_r = _mm256_loadu_ps(&bag_embedding[d]);
+                B_r = _mm256_loadu_ps(&data_ptr[d]);
+                _mm256_storeu_ps(&bag_embedding[d], _mm256_add_ps(A_r, B_r));
+            }
+
+            // leftover iterations
+            for (; d < embedding_dim; d++)
+            {
+                bag_embedding[d] += data_ptr[d];
+            }
+        }
+
+        output.push_back(bag_embedding);
+    }
+
+    #endif
+
+    #ifdef SIMD_128
+    __m128 A_r, B_r;
+
+    for (size_t i = 0; i < offsets.size(); ++i)
+    {
+        int start_idx = offsets[i];
+        int end_idx = (i + 1 < offsets.size()) ? offsets[i + 1] : input.size();
+
+        vector<float> bag_embedding(embedding_dim, 0.0f);
+
+        for (int j = start_idx; j < end_idx; ++j)
+        {
+            const float *data_ptr = &embedding_table[input[j] * embedding_dim];
+
+            for (d = 0; d < embedding_dim; d += 4)
+            {
+                A_r = _mm_loadu_ps(&bag_embedding[d]);
+                B_r = _mm_loadu_ps(&data_ptr[d]);
+                _mm_storeu_ps(&bag_embedding[d], _mm_add_ps(A_r, B_r));
+            }
+
+            // leftover iterations
+            for (; d < embedding_dim; d++)
+            {
+                bag_embedding[d] += data_ptr[d];
+            }
+        }
+
+        output.push_back(bag_embedding);
+    }
+
+    #endif
+
     //-------------------------------------------------------------------------------------------------------------------------------------------
 
     auto end = high_resolution_clock::now();
@@ -143,10 +213,6 @@ long long run_with_prefetching_simd(const vector<float> &embedding_table, const 
 
     //----------------------------------------------------- Write your code here ----------------------------------------------------------------
     #ifdef prefetch_simd
-    vector<vector<float>> output;
-    int d;
-    __m512 A_r, B_r;
-
     vector<vector<float>> output;
     int d;
     __m512 A_r, B_r;

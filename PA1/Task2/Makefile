@@ -1,15 +1,28 @@
 BIN=emb
 CC=g++
 
-CXXFLAGS = -Wno-write-strings -msse2 -mavx  -mavx512f -O2
+CXXFLAGS = -Wno-write-strings -O2
 
-ifeq ($(NAIVE),0)
-    CXXFLAGS += -D NOT_NAIVE
-endif
-
-ifeq ($(DEBUG),1)
-    CXXFLAGS += -D DEBUG
+ifeq ($(NAIVE),1)
+    CXXFLAGS += -D NAIVE
 endif
 
 emb:
 	g++ emb.cpp $(CXXFLAGS) -o emb
+	
+emb_naive:
+	g++ emb.cpp $(CXXFLAGS) -o emb_naive -D NAIVE
+
+emb_128:
+	g++ emb.cpp $(CXXFLAGS) -o emb_128 -D SIMD_128 
+
+emb_256:
+	g++ emb.cpp $(CXXFLAGS) -o emb_256 -D SIMD_256 -mavx 
+
+emb_512:
+	g++ emb.cpp $(CXXFLAGS) -o emb_512 -D SIMD_512 -mavx512f
+
+emb_prefetch_simd:
+	g++ emb.cpp $(CXXFLAGS) -o emb_prefetch_simd -D prefetch_simd -mavx512f
+
+	
