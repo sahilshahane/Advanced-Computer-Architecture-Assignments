@@ -20,9 +20,14 @@
 
 // defines
 // NOTE: you can change this value as per your requirement
-// #define TILE_SIZE	100		// size of the tile for blocking
+
+#ifndef TILE_SIZE
+	#define TILE_SIZE 100
+#endif
+
 #define UNROLL_FACTOR 4                  
-#define COMB_UNROLL_FACTOR 5    
+#define COMB_UNROLL_FACTOR 5 
+//#define OPTIMIZE_LOOP_OPT
 
 /**
  * @brief 		Performs matrix multiplication of two matrices.
