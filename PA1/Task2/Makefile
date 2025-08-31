@@ -22,7 +22,7 @@ emb_256:
 emb_512:
 	g++ emb.cpp $(CXXFLAGS) -o emb_512 -D SIMD_512 -mavx512f
 
-emb_prefetch_simd:
-	g++ emb.cpp $(CXXFLAGS) -o emb_prefetch_simd -D prefetch_simd -mavx512f
+emb_prefetch_simd_512:
+	g++ emb.cpp $(CXXFLAGS) -o emb_prefetch_simd_512 -D prefetch_simd_512 -mavx512f
 
 	

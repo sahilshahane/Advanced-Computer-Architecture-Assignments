@@ -212,7 +212,7 @@ long long run_with_prefetching_simd(const vector<float> &embedding_table, const 
     auto start = high_resolution_clock::now();
 
     //----------------------------------------------------- Write your code here ----------------------------------------------------------------
-    #ifdef prefetch_simd
+    #ifdef prefetch_simd_512
     vector<vector<float>> output;
     int d;
     __m512 A_r, B_r;
