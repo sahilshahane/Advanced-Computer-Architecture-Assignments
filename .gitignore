@@ -39,3 +39,11 @@
 
 # debug information files
 *.dwo
+
+
+*.log
+
+
+mat_mul_Tiling/tiling_*
+PA1/Task1/mat_mul/*
+PA1/Task2/emb

@@ -1,0 +1,12 @@
+Parameter,l2_rqsts.miss,L1-dcache-load-misses,instructions,cycles,sw_prefetch_access.any,L1-dcache-store-misses,cache-misses,LLC-load-misses,ExecutableOutput
+256,51299,17116436,146481564,95346378,0,<not,16709,2740,"Normal matrix multiplication took 20 ms to execute  "
+300,93245,3461911,231884382,115727835,0,<not,17984,3392,"Normal matrix multiplication took 24 ms to execute  "
+400,4719172,58832318,538243329,310010187,0,<not,67925,28772,"Normal matrix multiplication took 72 ms to execute  "
+512,123755774,135283250,1115100002,1274888721,0,<not,237519,209219,"Normal matrix multiplication took 289 ms to execute  "
+800,64861732,546484020,4193265857,2520893419,0,<not,3397089,2361930,"Normal matrix multiplication took 562 ms to execute  "
+1024,1011004574,1216450122,8747651692,19813745594,0,<not,205885832,185545417,"Normal matrix multiplication took 4516 ms to execute  "
+1200,217597510,1921507938,14039627963,9292166692,0,<not,56961582,37208762,"Normal matrix multiplication took 2089 ms to execute  "
+1500,424689654,3990476973,27335466532,20905181489,0,<not,209415452,127057891,"Normal matrix multiplication took 4656 ms to execute  "
+1800,731290779,6872644464,47137934115,32407398241,0,<not,466189244,301643606,"Normal matrix multiplication took 7184 ms to execute  "
+2000,1020341857,8925056303,64594373281,47967339220,0,<not,688224808,468398367,"Normal matrix multiplication took 10633 ms to execute  "
+2048,8403151997,9043448504,69342612644,287097248036,0,<not,5955485196,5814122524,"Normal matrix multiplication took 63995 ms to execute  "

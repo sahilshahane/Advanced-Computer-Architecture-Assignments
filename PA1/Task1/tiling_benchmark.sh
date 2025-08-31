@@ -1,17 +1,15 @@
 #!/usr/bin/env bash
 # set -euo pipefail
 
-# Get current date & time in compact YYYYMMDD_HHMMSS format
 timestamp=$(date +"%H%M%S_%d%m%Y")
 
-
 # ---------- CONFIG ----------
-OUTFILE="tiling_result_${timestamp}.csv"
-LOGDIR="perf_logs_combination_${timestamp}"
-TILES=({2..200})                # change as you like
+OUTFILE="tiling_results_${timestamp}.csv"
+LOGDIR="perf_logs_${timestamp}"
+TILES=({2..200})                 # change as you like
 read -r -a SIZES < "array_sizes.txt"            # change as you like
-EVENTS=$(cat perf_events.txt | tr '\n' ',')  # comma-separated list of events
-BIN_DIR="./mat_mul_Tiling"     # folder containing tiling_<tile> executables
+BIN_DIR="./reports_neel/mat_mul_Tiling"     # folder containing tiling_<tile> executables
+EVENTS="instructions,cycles,context-switches,L1-dcache-loads,L1-dcache-load-misses,branch-instructions,branch-misses,cache-references,cache-misses,task-clock"
 # ----------------------------
 
 mkdir -p "$LOGDIR"
