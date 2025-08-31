@@ -1,67 +1,95 @@
 #!/bin/bash
+set -euo pipefail
 
 # --- Configuration ---
 CPP_SOURCE_FILE="emb.cpp"
-EXECUTABLE="./a.out"
-CSV_FILE="perf_results_final.csv"
+EXECUTABLE="./emb_test"
+NAIVE_CSV_FILE="perf_results_naive.csv"
+PREFETCH_CSV_FILE="perf_results_prefetch.csv"
 PERF_EVENTS="l2_rqsts.miss,L1-dcache-load-misses,instructions,cycles,sw_prefetch_access.any,cache-misses,mem_load_retired.l3_miss,LLC-load-misses,context-switches,branch-instructions,branch-misses,cache-references,task-clock"
 
 # --- Parameters to Test ---
+CODE_VARIANTS=("NAIVE" "PREFETCH")
 PREFETCH_DISTANCES=(4 8 12 16 20 24 28)
-TABLE_SIZES=(1000000 6000000 10000000)
-LOCALITY_HINTS=(0 1 2 3) # The different cache fill levels to test
+INPUT_SIZES=(90 180 360 720 1024)
+TABLE_SIZES=(125000 250000 500000 1000000 6000000)
+LOCALITY_HINTS=(0 1 2 3)
 
 # --- Script Logic ---
+if ! command -v perf &> /dev/null; then
+    echo "Error: 'perf' command not found." && exit 1
+fi
 
-# Create the CSV header with all three parameter columns.
-echo "LocalityHint,TableSize,PrefetchDistance,${PERF_EVENTS}" > "$CSV_FILE"
+# --- MODIFICATION: Add the new 'ProgramOutput' column to the headers ---
+echo "LocalityHint,TableSize,InputSize,${PERF_EVENTS},ProgramOutput" > "$NAIVE_CSV_FILE"
+echo "LocalityHint,TableSize,InputSize,PrefetchDistance,${PERF_EVENTS},ProgramOutput" > "$PREFETCH_CSV_FILE"
 
 echo "Starting automated compile-and-test process..."
-echo "Results will be logged to $CSV_FILE"
-echo "----------------------------------------------------"
+echo "Results will be logged to $NAIVE_CSV_FILE and $PREFETCH_CSV_FILE"
+echo "===================================================="
 
-# Outer loop: Iterate through each locality hint.
-for locality in "${LOCALITY_HINTS[@]}"; do
-    
-    echo ""
-    echo "--- Compiling for Locality Hint: $locality ---"
-
-    # --- COMPILE STEP ---
-    # Recompile the program, passing the locality hint as a compile-time definition (-D).
-    g++ "$CPP_SOURCE_FILE" -Wno-write-strings -msse2 -mavx  -mavx512f -O2 -g -DLOCALITY_HINT=$locality -o "$EXECUTABLE"
-    
-    # Check if compilation was successful.
-    if [ $? -ne 0 ]; then
-        echo "Error: Compilation failed for locality hint $locality. Aborting."
-        exit 1
+for variant in "${CODE_VARIANTS[@]}"; do
+    if [ "$variant" == "NAIVE" ]; then
+        OUTPUT_CSV="$NAIVE_CSV_FILE"
+    else
+        OUTPUT_CSV="$PREFETCH_CSV_FILE"
     fi
 
-    # Middle loop: Iterate through each table size.
-    for size in "${TABLE_SIZES[@]}"; do
-        
-        # Inner loop: Iterate through each prefetch distance.
-        for distance in "${PREFETCH_DISTANCES[@]}"; do
-            
-            echo "Running test: Locality=$locality, Size=$size, Distance=$distance"
+    for locality in "${LOCALITY_HINTS[@]}"; do
+        printf "\n--- Compiling for Variant: %s, Locality Hint: %s ---\n" "$variant" "$locality"
+        g++ "-D$variant" -DLOCALITY_HINT=$locality "$CPP_SOURCE_FILE" -Wno-write-strings -Wno-write-strings -msse2 -mavx  -mavx512f -O2 -O2 -g -o "$EXECUTABLE"
+        if [ $? -ne 0 ]; then echo "Compilation failed." && exit 1; fi
 
-            # --- EXECUTION STEP (MODIFIED) ---
-            # Now pipes only the two required values: distance and size.
-            PERF_OUTPUT=$(echo "$distance $size" | perf stat -x, -e "$PERF_EVENTS" "$EXECUTABLE" 2>&1)
+        for table_size in "${TABLE_SIZES[@]}"; do
+            for input_size in "${INPUT_SIZES[@]}"; do
+                
+                # --- MODIFICATION: Create a temporary file to capture program output ---
+                EXEC_OUTPUT_FILE=$(mktemp)
 
-            # Parse the output to get just the numeric values.
-            VALUES=$(echo "$PERF_OUTPUT" | grep -v '^#' | grep . | awk -F, '{print $1}' | paste -sd ',')
+                if [ "$variant" == "PREFETCH" ]; then
+                    for distance in "${PREFETCH_DISTANCES[@]}"; do
+                        printf "Running test: V=%s L=%s TblSize=%-7d InpSize=%-4d Dist=%-2d -> %s\n" \
+                            "$variant" "$locality" "$table_size" "$input_size" "$distance" "$OUTPUT_CSV"
+                        
+                        # --- MODIFICATION: Run executable in a subshell to capture its output ---
+                        PERF_OUTPUT=$(echo "$distance $table_size $input_size" | perf stat -x, -e "$PERF_EVENTS" \
+                            sh -c "$EXECUTABLE > $EXEC_OUTPUT_FILE 2>&1" \
+                            2>&1)
+                        
+                        VALUES=$(echo "$PERF_OUTPUT" | grep ',' | grep -v '^#' | awk -F, '{print $1}' | paste -sd ',')
+                        
+                        # --- MODIFICATION: Read and sanitize the program's output ---
+                        EXEC_OUTPUT=$(cat "$EXEC_OUTPUT_FILE" | tr '\n' ' ' | tr -d ',')
+                        
+                        # --- MODIFICATION: Add the sanitized output as the last column ---
+                        echo "$locality,$table_size,$input_size,$distance,$VALUES,\"$EXEC_OUTPUT\"" >> "$OUTPUT_CSV"
+                    done
+                else # NAIVE case
+                    printf "Running test: V=%s L=%s TblSize=%-7d InpSize=%-4d -> %s\n" \
+                        "$variant" "$locality" "$table_size" "$input_size" "$OUTPUT_CSV"
 
-            if [ -n "$VALUES" ]; then
-                # Append the parameters and perf values to the CSV.
-                echo "$locality,$size,$distance,$VALUES" >> "$CSV_FILE"
-            else
-                echo "Warning: Failed to collect perf data for Locality=$locality, Size=$size, Distance=$distance."
-                echo "$locality,$size,$distance," >> "$CSV_FILE"
-            fi
+                    # --- MODIFICATION: Run executable in a subshell to capture its output ---
+                    PERF_OUTPUT=$(echo "0 $table_size $input_size" | perf stat -x, -e "$PERF_EVENTS" \
+                        sh -c "$EXECUTABLE > $EXEC_OUTPUT_FILE 2>&1" \
+                        2>&1)
+                        
+                    VALUES=$(echo "$PERF_OUTPUT" | grep ',' | grep -v '^#' | awk -F, '{print $1}' | paste -sd ',')
+                    
+                    # --- MODIFICATION: Read and sanitize the program's output ---
+                    EXEC_OUTPUT=$(cat "$EXEC_OUTPUT_FILE" | tr '\n' ' ' | tr -d ',')
+                    
+                    # --- MODIFICATION: Add the sanitized output as the last column ---
+                    echo "$locality,$table_size,$input_size,$VALUES,\"$EXEC_OUTPUT\"" >> "$OUTPUT_CSV"
+                fi
+                
+                # --- MODIFICATION: Clean up the temporary file ---
+                rm -f "$EXEC_OUTPUT_FILE"
+
+            done
         done
     done
 done
 
-echo "----------------------------------------------------"
+rm -f "$EXECUTABLE"
+echo "===================================================="
 echo "All tests completed."
-echo "Results have been saved to '$CSV_FILE'."
