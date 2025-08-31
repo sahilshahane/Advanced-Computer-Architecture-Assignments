@@ -12,7 +12,7 @@ using namespace std;
 using namespace std::chrono;
 
 int embedding_table_size = 100000;
-const int embedding_dim = 128;
+int embedding_dim = 128;
 int input_size = 720;
 const int num_bags = 20;
 int prefetch_distance = 8;
@@ -325,7 +325,7 @@ long long naive_emb(vector<float> &embedding_table, const vector<int> &input, co
 int main()
 {
     /*modified part*/
-    cin>>prefetch_distance>>embedding_table_size>>input_size;
+    cin>>prefetch_distance>>embedding_table_size>>embedding_dim;
     /*modified part*/
     // Prepare embedding table
     vector<float> embedding_table(embedding_table_size * embedding_dim);

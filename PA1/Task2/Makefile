@@ -14,7 +14,7 @@ emb_naive:
 	g++ emb.cpp $(CXXFLAGS) -o emb_naive -D NAIVE
 
 emb_128:
-	g++ emb.cpp $(CXXFLAGS) -o emb_128 -D SIMD_128 
+	g++ emb.cpp $(CXXFLAGS) -o emb_128 -D SIMD_128
 
 emb_256:
 	g++ emb.cpp $(CXXFLAGS) -o emb_256 -D SIMD_256 -mavx 
