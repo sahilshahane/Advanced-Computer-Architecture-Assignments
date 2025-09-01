@@ -1,7 +1,7 @@
 BIN=emb
 CC=g++
 
-CXXFLAGS = -Wno-write-strings -O2
+CXXFLAGS = -Wno-write-strings
 
 ifeq ($(NAIVE),1)
     CXXFLAGS += -D NAIVE

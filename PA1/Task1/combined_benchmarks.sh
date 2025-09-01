@@ -1,23 +1,56 @@
 #!/bin/bash
 
-# output CSV file
-outfile="benchmark_results.csv"
+sizes=(400 512 800 801 1200 1500 1800 2000 2048 2400)
+output="combined_1d_results.csv"
 
-# write header
-echo "Size,simd+loop_optimisation+tiling,tiling+loop_optimisation,simd+loop_optimisation,simd+tiling" > $outfile
+# Write CSV header
+echo "SIZE,simd+tiling,simd+loop_optimisation,tiling+loop_optimisation,simd+loop_optimisation+tiling" > $output
 
-# choose matrix sizes to test
-for SIZE in 256 300 400 512 759 801 1500 1501 1800 2048 2400 3000; do
-    echo "Running benchmarks for size=$SIZE"
+for SIZE in "${sizes[@]}"; do
+    echo "Running for SIZE=$SIZE..."
 
-    # run each binary with /usr/bin/time (measure real time in seconds)
-    t1=$( { /usr/bin/time -f "%e" ./mat_mul_combined/simd+loop_optimisation+tiling/T8_U8 $SIZE 2>&1 1>/dev/null; } )
-    t2=$( { /usr/bin/time -f "%e" ./mat_mul_combined/tiling+loop_optmisation/T8_U8 $SIZE 2>&1 1>/dev/null; } )
-    t3=$( { /usr/bin/time -f "%e" ./mat_mul_combined/simd+loop_optimisation/8 $SIZE 2>&1 1>/dev/null; } )
-    t4=$( { /usr/bin/time -f "%e" ./mat_mul_combined/simd+tiling/8 $SIZE 2>&1 1>/dev/null; } )
+    # --- 1. simd+tiling ---
+    best_st=""
+    for T in {4,8,12,16,20,24,28,32,36,40,44,48,52,56,60}; do
+        val=$(./mat_mul_combined/simd+tiling/T${T} $SIZE | grep "Combined optimization matrix multiplication took" | awk '{print $6}' | tr -d 'ms')
+        if [[ -n "$val" && ( -z "$best_st" || "$val" -lt "$best_st" ) ]]; then
+            best_st=$val
+        fi
+    done
 
-    # append row to CSV
-    echo "$SIZE,$t1,$t2,$t3,$t4" >> $outfile
+    # --- 2. simd+loop_optimisation ---
+    best_sl=""
+    for U in {8,16,20,28,32,36,40,44,48,64,80,128,156,192}; do
+        val=$(./mat_mul_combined/simd+loop_optimisation/U${U} $SIZE | grep "Combined optimization matrix multiplication took" | awk '{print $6}' | tr -d 'ms')
+        if [[ -n "$val" && ( -z "$best_sl" || "$val" -lt "$best_sl" ) ]]; then
+            best_sl=$val
+        fi
+    done
+
+    # --- 3. tiling+loop_optimisation ---
+    best_tl=""
+    for T in {8,12,20,24,32}; do
+        for U in {8,16,20,28,32,36,40,44,48,64,80,128,156,192}; do
+            val=$(./mat_mul_combined/tiling+loop_optmisation/T${T}_U${U} $SIZE | grep "Combined optimization matrix multiplication took" | awk '{print $6}' | tr -d 'ms')
+            if [[ -n "$val" && ( -z "$best_tl" || "$val" -lt "$best_tl" ) ]]; then
+                best_tl=$val
+            fi
+        done
+    done
+
+    # --- 4. simd+loop_optimisation+tiling ---
+    best_slt=""
+    for T in {8,12,20,24,32}; do
+        for U in {8,16,20,28,32,36,40,44,48,64,80,128,156,192}; do
+            val=$(./mat_mul_combined/simd+loop_optimisation+tiling/T${T}_U${U} $SIZE | grep "Combined optimization matrix multiplication took" | awk '{print $6}' | tr -d 'ms')
+            if [[ -n "$val" && ( -z "$best_slt" || "$val" -lt "$best_slt" ) ]]; then
+                best_slt=$val
+            fi
+        done
+    done
+
+    # Append best results for this size to CSV
+    echo "$SIZE,$best_st,$best_sl,$best_tl,$best_slt" >> $output
 done
 
-echo "✅ Benchmark finished. Results saved in $outfile"
+echo "Benchmarking done! Results saved in $output"

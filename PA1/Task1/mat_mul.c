@@ -38,26 +38,26 @@
  */
 
 void print_matrix(double *C,int size){
-	for (int i = 0; i < size; i++) {
-		for (int j = 0; j < size; j++) {
-			printf("%f ",C[i*size + j]);	
-		}
-		printf("\n");	
-	}
+	// for (int i = 0; i < size; i++) {
+	// 	for (int j = 0; j < size; j++) {
+	// 		printf("%f ",C[i*size + j]);	
+	// 	}
+	// 	printf("\n");	
+	// }
 }
 
 void naive_mat_mul(double *A, double *B, double *C, int size) {
-	#ifndef NOT_NAIVE
+	// #ifndef NOT_NAIVE
 
-	for (int i = 0; i < size; i++) {
-		for (int j = 0; j < size; j++) {
-			for (int k = 0; k < size; k++) {
-				C[i * size + j] += A[i * size + k] * B[k * size + j];
-			}
-		}
-	}
+	// for (int i = 0; i < size; i++) {
+	// 	for (int j = 0; j < size; j++) {
+	// 		for (int k = 0; k < size; k++) {
+	// 			C[i * size + j] += A[i * size + k] * B[k * size + j];
+	// 		}
+	// 	}
+	// }
 
-	#endif
+	// #endif
 }
 
 /**
@@ -452,7 +452,7 @@ bool is_array_same(double *C1, double *C2, int size){
 	return true;
 }
 
-void print_array(double *arr, int size, char* msg = ""){
+void print_array(double *arr, int size, char* msg = " "){
 
 	#ifdef DEBUG
 
