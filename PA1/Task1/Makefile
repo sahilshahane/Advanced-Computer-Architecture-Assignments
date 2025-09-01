@@ -10,7 +10,7 @@ loop: mat_mul
 	g++ mat_mul.c $(CXXFLAGS) -D OPTIMIZE_LOOP_OPT -o $(BIN)/$@
 
 simd: mat_mul
-	g++ mat_mul.c -mavx512f $(CXXFLAGS) -D OPTIMIZE_SIMD -D OPTIMIZE_SIMD_512 -o $(BIN)/$@
+	g++ mat_mul.c $(CXXFLAGS) -D OPTIMIZE_SIMD -o $(BIN)/$@
 
 combination: mat_mul
 	g++ mat_mul.c $(CXXFLAGS) -D OPTIMIZE_COMBINED -o $(BIN)/$@
