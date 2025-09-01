@@ -27,9 +27,8 @@ int random_int(int range)
 }
 
 
-long long run_with_prefetching(const vector<float> &embedding_table, const vector<int> &input, const vector<int> &offsets)
-{
-    //
+long long run_with_prefetching(const vector<float> &embedding_table, const vector<int> &input, const vector<int> &offsets) {
+
     auto start = high_resolution_clock::now();
     //----------------------------------------------------- Write your code here ----------------------------------------------------------------
     vector<vector<float>> output;
@@ -244,44 +243,40 @@ int main()
 {
     // Prepare embedding table
     vector<float> embedding_table(embedding_table_size * embedding_dim);
-    for (auto &val : embedding_table)
-    {
+    for (auto& val : embedding_table) {
         val = static_cast<float>(random_int(embedding_table_size));
     }
 
     // Input indices
     vector<int> input(input_size);
-    for (auto &idx : input)
-    {
+    for (auto& idx : input) {
         idx = random_int(embedding_table_size);
     }
 
     // Offsets
     vector<int> offsets;
-    for (int i = 0; i < num_bags; ++i)
-    {
+    for (int i = 0; i < num_bags; ++i) {
         offsets.push_back((input_size * i) / num_bags);
     }
 
-    // Run naive code
+    // Run naive code 
     long long time_without_prefetch = naive_emb(embedding_table, input, offsets);
     
-
     // ---------- Flush Cache Before Running Prefetching ----------
-    for (size_t i = 0; i < embedding_table.size(); i += 16)
-    {
+    for (size_t i = 0; i < embedding_table.size(); i += 16) {
         _mm_clflush(&embedding_table[i]);
     }
     _mm_mfence();
-    // Run emb with software prefetching
-    long long time_with_prefetch = run_with_prefetching(embedding_table, input, offsets);
     
-     //Run emb with simd
+    // Run emb with software prefetching 
+    long long time_with_prefetch = run_with_prefetching(embedding_table, input, offsets);
+    // Run emb with simd 
     long long time_with_simd = run_with_simd(embedding_table, input, offsets);
     // Run emb with software prefetching and simd
     long long time_with_prefetch_simd = run_with_prefetching_simd(embedding_table, input, offsets);
+    
 
-    // Compute speedup/
+    // Compute speedup
     double speedup1 = static_cast<double>(time_without_prefetch) / time_with_prefetch;
     double speedup2 = static_cast<double>(time_without_prefetch) / time_with_simd;
     double speedup3 = static_cast<double>(time_without_prefetch) / time_with_prefetch_simd;
