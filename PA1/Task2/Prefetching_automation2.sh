@@ -1,19 +1,23 @@
 #!/bin/bash
-set -euo pipefail
+# set -euo pipefail
+
+
+timestamp=$(date +"%H%M%S_%d%m%Y")
 
 # --- Configuration ---
 CPP_SOURCE_FILE="emb.cpp"
 EXECUTABLE="./emb_test"
-NAIVE_CSV_FILE="perf_results_naive.csv"
-PREFETCH_CSV_FILE="perf_results_prefetch.csv"
+NAIVE_CSV_FILE="perf_results_naive_${timestamp}.csv"
+PREFETCH_CSV_FILE="perf_results_prefetch_${timestamp}.csv"
 PERF_EVENTS="l2_rqsts.miss,L1-dcache-load-misses,instructions,cycles,sw_prefetch_access.any,cache-misses,mem_load_retired.l3_miss,LLC-load-misses,context-switches,branch-instructions,branch-misses,cache-references,task-clock"
 
 # --- Parameters to Test ---
-CODE_VARIANTS=("NAIVE" "PREFETCH")
-PREFETCH_DISTANCES=(4 8 12 16 20 24 28)
-INPUT_SIZES=(90 180 360 720 1024)
+#CODE_VARIANTS=("PREFETCH")
+ CODE_VARIANTS=("NAIVE")
+PREFETCH_DISTANCES=(16)
+INPUT_SIZES=(720)
 TABLE_SIZES=(125000 250000 500000 1000000 6000000)
-LOCALITY_HINTS=(0 1 2 3)
+LOCALITY_HINTS=(1)
 
 # --- Script Logic ---
 if ! command -v perf &> /dev/null; then
@@ -37,7 +41,7 @@ for variant in "${CODE_VARIANTS[@]}"; do
 
     for locality in "${LOCALITY_HINTS[@]}"; do
         printf "\n--- Compiling for Variant: %s, Locality Hint: %s ---\n" "$variant" "$locality"
-        g++ "-D$variant" -DLOCALITY_HINT=$locality "$CPP_SOURCE_FILE" -Wno-write-strings -Wno-write-strings -msse2 -mavx  -mavx512f -O2 -O2 -g -o "$EXECUTABLE"
+        g++ "-D$variant" -DLOCALITY_HINT=$locality "$CPP_SOURCE_FILE" -Wno-write-strings -Wno-write-strings -msse2 -O2 -g -o "$EXECUTABLE"
         if [ $? -ne 0 ]; then echo "Compilation failed." && exit 1; fi
 
         for table_size in "${TABLE_SIZES[@]}"; do
