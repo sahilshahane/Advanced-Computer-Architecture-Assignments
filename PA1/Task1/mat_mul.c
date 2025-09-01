@@ -25,7 +25,7 @@
 	#define TILE_SIZE 100
 #endif
 
-#define UNROLL_FACTOR 4                  
+#define UNROLL_FACTOR 6                  
 #define COMB_UNROLL_FACTOR 5 
 //#define OPTIMIZE_LOOP_OPT
 
@@ -73,8 +73,6 @@ void loop_opt_mat_mul(double *A, double *B, double *C, int size){
 
 	int size_unroll_aligned = size - (size % UNROLL_FACTOR);
 		
-	double sum;
-
 	for (int i = 0; i < size; i++) {
 	for (int k = 0; k < size; k++) {
 
@@ -85,8 +83,8 @@ void loop_opt_mat_mul(double *A, double *B, double *C, int size){
 				C[i * size + (j + 1)] += a_temp * B[ k * size + (j + 1)];
 				C[i * size + (j + 2)] += a_temp * B[ k* size + (j + 2)];
 				C[i * size + (j + 3)] += a_temp * B[ k* size + (j + 3)];
-				// C[i * size + (j + 4)] += a_temp * B[ k* size + (j + 4)];
-				// C[i * size + (j + 5)] += a_temp * B[ k* size + (j + 5)];
+				 C[i * size + (j + 4)] += a_temp * B[ k* size + (j + 4)];
+				 C[i * size + (j + 5)] += a_temp * B[ k* size + (j + 5)];
 				// C[i * size + (j + 6)] += a_temp * B[ k* size + (j + 6)];
 				// C[i * size + (j + 7)] += a_temp * B[ k* size + (j + 7)];
 			}
@@ -513,9 +511,6 @@ int main(int argc, char **argv) {
 		auto time_naive_mat_mul = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
 		printf("Normal matrix multiplication took %ld ms to execute \n\n", time_naive_mat_mul);
 
-		// print_array(A, size, "A :\n");
-		// print_array(B, size, "B :\n");
-		// print_array(C, size, "C :\n");
 
 	#ifdef OPTIMIZE_LOOP_OPT
 		// Task 1a: perform matrix multiplication with loop optimization
@@ -528,8 +523,6 @@ int main(int argc, char **argv) {
 		loop_opt_mat_mul(A, B, C2, size);
 		end = std::chrono::high_resolution_clock::now();
 		auto time_loop_mat_mul = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
-
-		printf("Array same : %d\n", is_array_same(C, C2, size));
 
 		printf("Loop optimized matrix multiplication took %ld ms to execute \n", time_loop_mat_mul);
 		printf("Normalized performance: %f \n\n", (double)time_naive_mat_mul / time_loop_mat_mul);
