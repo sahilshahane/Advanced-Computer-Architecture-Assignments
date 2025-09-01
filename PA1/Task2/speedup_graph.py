@@ -35,7 +35,7 @@ def plot_speedup(file1, file2, output_image="speedup.png"):
     plt.xlabel("Embedding Dimension")
     plt.ylabel("Speedup")
     plt.ticklabel_format(style='plain', axis='y')
-    plt.title("SIMD 512 Bit Speedup comparison over Naive")
+    plt.title("SIMD 128 Bit Speedup comparison over Naive")
     plt.legend(title="TableSize")
     plt.grid(True)
 
