@@ -14,7 +14,7 @@ extern int counter; // Global counter for matrix operations
 class PerformanceBenchmark {
 	public:
 
-		static void benchmarkMatrixMultiplication(size_t size = 512) {
+		static void benchmarkMatrixMultiplication(size_t size) {
 			cout << "\n=== Matrix Multiplication Performance Benchmark ===\n";
 			cout << "Matrix size: " << size << "x" << size << "\n\n";
 

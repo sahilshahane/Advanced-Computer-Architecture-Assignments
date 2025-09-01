@@ -1,0 +1,10 @@
+instructions
+cycles
+context-switches
+L1-dcache-loads
+L1-dcache-load-misses
+branch-instructions
+branch-misses
+cache-references
+cache-misses
+task-clock
