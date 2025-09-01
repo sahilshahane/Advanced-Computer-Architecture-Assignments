@@ -16,8 +16,9 @@ CODE_VARIANTS=("PREFETCH")
 # CODE_VARIANTS=("NAIVE")
 PREFETCH_DISTANCES=(4 8 12 16 20 24 28)
 INPUT_SIZES=(90 180 360 720 1024)
+
 TABLE_SIZES=(125000 250000 500000 1000000 6000000)
-LOCALITY_HINTS=(0 1 2 3)
+LOCALITY_HINTS=(1)
 
 # --- Script Logic ---
 if ! command -v perf &> /dev/null; then
@@ -41,7 +42,7 @@ for variant in "${CODE_VARIANTS[@]}"; do
 
     for locality in "${LOCALITY_HINTS[@]}"; do
         printf "\n--- Compiling for Variant: %s, Locality Hint: %s ---\n" "$variant" "$locality"
-        g++ "-D$variant" -DLOCALITY_HINT=$locality "$CPP_SOURCE_FILE" -Wno-write-strings -Wno-write-strings -msse2 -mavx  -mavx512f -O2 -O2 -g -o "$EXECUTABLE"
+        g++ "-D$variant" -DLOCALITY_HINT=$locality "$CPP_SOURCE_FILE" -Wno-write-strings -Wno-write-strings -msse2 -O2 -g -o "$EXECUTABLE"
         if [ $? -ne 0 ]; then echo "Compilation failed." && exit 1; fi
 
         for table_size in "${TABLE_SIZES[@]}"; do
