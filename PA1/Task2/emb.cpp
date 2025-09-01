@@ -88,6 +88,7 @@ long long run_with_simd(const vector<float> &embedding_table, const vector<int> 
     //----------------------------------------------------- Write your code here ----------------------------------------------------------------
     vector<vector<float>> output;
     int d;
+    
     __m512 A_r, B_r;
 
     for (size_t i = 0; i < offsets.size(); ++i)
@@ -134,10 +135,10 @@ long long run_with_prefetching_simd(const vector<float> &embedding_table, const 
     auto start = high_resolution_clock::now();
 
     //----------------------------------------------------- Write your code here ----------------------------------------------------------------
+  
     vector<vector<float>> output;
     int d;
     __m512 A_r, B_r;
-
 
     for (size_t i = 0; i < offsets.size(); ++i)
     {
@@ -196,6 +197,7 @@ long long run_with_prefetching_simd(const vector<float> &embedding_table, const 
 
         output.push_back(bag_embedding);
     }
+
     //-------------------------------------------------------------------------------------------------------------------------------------------
 
     auto end = high_resolution_clock::now();

@@ -227,17 +227,28 @@ Matrix MatrixOperation::Transpose(const Matrix& A) {
 	size_t cols = A.getCols();
 	Matrix result(cols, rows);
 
-	for (size_t i = 0; i < rows; ++i) {
-		for (size_t j = 0; j < cols; ++j) {
-			result(j, i) = A(i, j);
-		}
-	}
+	// for (size_t i = 0; i < rows; ++i) {
+	// 	for (size_t j = 0; j < cols; ++j) {
+	// 		result(j, i) = A(i, j);
+	// 	}
+	// }
 
 	// Optimized transpose using blocking for better cache performance
 	// This is a simple implementation, more advanced techniques can be applied
 	// Write your code here and commnent the above code
 //----------------------------------------------------- Write your code here ----------------------------------------------------------------
-    
+
+	const int BLOCK_SIZE = 56; // You can adjust the block size for better performance
+
+	for (size_t i = 0; i < rows; i += BLOCK_SIZE) {
+		for (size_t j = 0; j < cols; j += BLOCK_SIZE) {
+			for (size_t bi = i; bi < std::min(i + BLOCK_SIZE, rows); ++bi) {
+				for (size_t bj = j; bj < std::min(j + BLOCK_SIZE, cols); ++bj) {
+					result(bj, bi) = A(bi, bj);
+				}
+			}
+		}
+	}
 
 //-------------------------------------------------------------------------------------------------------------------------------------------
 
