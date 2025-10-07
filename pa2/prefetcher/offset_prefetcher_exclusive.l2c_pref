@@ -1,22 +1,190 @@
 #include "cache.h"
+#include <fstream> // File Stream
+#define NO_OF_OFFSETS 5
+#define PAGE_TRACKER_COUNT 32
+#define MAX_DEGREE 20
+#define MIN_DEGREE 1
+#define MIN(a,b) ((a) < (b) ? (a) : (b))
+#define MAX(a,b) ((a) > (b) ? (a) : (b))
+
+class OFFSET{
+  public:
+  uint32_t frequency;
+  
+  //offset to fetch
+  uint32_t val;
+
+  OFFSET(){
+    val = 0;
+    frequency = 0;
+  };
+};
+
+class PAGE_TRACKER {
+  public:
+    // the page we're tracking
+    uint64_t page_addr;
+
+    // the  cache line we are tracking
+    uint64_t cl_addr;
+
+    // the last cache line we are tracking
+    uint64_t last_cl_addr;
+
+    // use LRU to evict old IP trackers
+    uint32_t lru;
+
+    uint32_t prefetch_issued;
+    uint32_t prefetch_usefull;
+    uint32_t degree;
+
+    OFFSET offsets[NO_OF_OFFSETS];
+
+    PAGE_TRACKER () {
+        page_addr = 0;
+        cl_addr = 0;
+        last_cl_addr = 0;
+        lru = 0;
+        prefetch_issued = 0;
+        degree = 1;
+        prefetch_usefull = 0;
+    };
+};
+
+PAGE_TRACKER trackers[PAGE_TRACKER_COUNT];
 
 
 void CACHE::l2c_prefetcher_initialize() 
 {
-    cout << "CPU " << cpu << " Region based L2 offset prefetcher" << endl;
+    for (int i=0; i<PAGE_TRACKER_COUNT; i++)
+        trackers[i].lru = i;
 }
 
 uint32_t CACHE::l2c_prefetcher_operate(uint64_t addr, uint64_t ip, uint8_t cache_hit, uint8_t type, uint32_t metadata_in, uint8_t critical_ip_flag)
 {
-   
+    // check for a tracker hit
+    uint32_t prefetch_degree = 1;
+    uint64_t cl_addr = addr >> LOG2_BLOCK_SIZE;
+    uint64_t page_addr = addr >> LOG2_PAGE_SIZE;
+
+    uint32_t index = -1;
+    for (index=0; index<PAGE_TRACKER_COUNT; index++) {
+        if (trackers[index].page_addr == page_addr)
+            break;
+    }
+
+
+    // this is a new page that doesn't have a tracker yet, so allocate one
+    if (index == PAGE_TRACKER_COUNT) {
+
+        for (index=0; index<PAGE_TRACKER_COUNT; index++) {
+            if (trackers[index].lru == (PAGE_TRACKER_COUNT-1))
+                break;
+        }
+
+        trackers[index].page_addr = page_addr;
+        trackers[index].last_cl_addr = cl_addr;
+        trackers[index].cl_addr = cl_addr;
+
+        for (int i=0; i<PAGE_TRACKER_COUNT; i++) {
+            if (trackers[i].lru < trackers[index].lru)
+                trackers[i].lru++;
+        }
+
+        trackers[index].lru = 0;
+
+        return metadata_in;
+    }
+
+    // sanity check
+    // at this point we should know a matching tracker index
+    if (index < 0 || index >= PAGE_TRACKER_COUNT)
+        assert(0);
+
+    int64_t offset = (int64_t)cl_addr - (int64_t)trackers[index].last_cl_addr;
+
+    int offset_index;
+    for(offset_index = 0; offset_index < NO_OF_OFFSETS ; offset_index++){
+       if(trackers[index].offsets[offset_index].val == offset){
+        trackers[index].offsets[offset_index].frequency++;
+        break;
+       } 
+    }
+
+    uint32_t least_frequency = INT_MAX,offset_to_replace = -1,highest_frequent_offset = -1,offset_prefetch_idx;
+    if(offset_index == NO_OF_OFFSETS){
+        for (offset_index=0; offset_index<NO_OF_OFFSETS; offset_index++) {
+            if (trackers[index].offsets[offset_index].frequency < least_frequency)
+            {
+                least_frequency = trackers[index].offsets[offset_index].frequency;
+                offset_to_replace = offset_index;
+            }
+        }
+        trackers[index].offsets[offset_to_replace].val = offset;
+        trackers[index].offsets[offset_to_replace].frequency = 1;
+    }
+
+    for (offset_index=0; offset_index<NO_OF_OFFSETS; offset_index++) {
+        if(trackers[index].offsets[offset_index].frequency > highest_frequent_offset){
+            highest_frequent_offset = trackers[index].offsets[offset_index].frequency;
+            offset_prefetch_idx = offset_index;
+        }
+    }
+
+    int64_t delta_lines = trackers[index].offsets[offset_prefetch_idx].val;
+    double accuracy = 0;
+    if(trackers[index].prefetch_issued > 0) {
+        accuracy =  (1.0 * trackers[index].prefetch_usefull)/(trackers[index].prefetch_issued);
+        if(accuracy >= 0.6){
+            trackers[index].degree = MIN(trackers[index].degree + 1, MAX_DEGREE);
+        }
+        if(accuracy <= 0.4){
+            trackers[index].degree = MAX(trackers[index].degree - 1, MIN_DEGREE);
+        }
+    }
+
+    for(int pf = 1; pf <= trackers[index].degree; pf++){
+        uint64_t target_line = (cl_addr) + (pf) * delta_lines;
+
+        if(delta_lines < 0 || (target_line == cl_addr) ){  
+            continue;
+        }
+        uint64_t prefetch_address = ((uint64_t)target_line)<<LOG2_BLOCK_SIZE;
+        if( (page_addr) == (prefetch_address >> LOG2_PAGE_SIZE) ){
+            bool check = prefetch_line(ip, addr, prefetch_address, FILL_L2, 0);
+            if(check){
+                trackers[index].prefetch_issued++;
+            }
+        }
+    }
+
+    trackers[index].last_cl_addr = cl_addr;
+
+    for (int i=0; i<PAGE_TRACKER_COUNT; i++) {
+        if (trackers[i].lru < trackers[index].lru)
+            trackers[i].lru++;
+    }
+    trackers[index].lru = 0;    
+
+    return metadata_in;
 }
 
 uint32_t CACHE::l2c_prefetcher_cache_fill(uint64_t addr, uint32_t set, uint32_t match, uint8_t prefetch, uint64_t evicted_addr, uint32_t metadata_in)
 {
-  return metadata_in;
+    return metadata_in;
 }
 
 void CACHE::l2c_prefetcher_final_stats()
 {
+    cout << "CPU " << cpu << " L2C PC-based stride prefetcher final stats" << endl;
+}
 
+void CACHE::l2c_prefetcher_useful(uint64_t addr) {
+    uint32_t page_addr = addr >> LOG2_PAGE_SIZE;
+    for (int idx = 0; idx < PAGE_TRACKER_COUNT; idx++) {
+        if (trackers[idx].page_addr == page_addr) {
+            trackers[idx].prefetch_usefull++;
+            break;
+        }
+    }
 }
