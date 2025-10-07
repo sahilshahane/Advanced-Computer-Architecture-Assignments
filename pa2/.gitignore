@@ -1,0 +1,5 @@
+bin/
+obj/*
+traces/*.xz
+*.log
+*.xz
